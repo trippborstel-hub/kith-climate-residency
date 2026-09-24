@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larkspur Climate Decision Proposal</title>
+<style>
+  :root{--bg:#f7f5f0;--ink:#1d2a2e;--muted:#5c6b70;--accent:#1f6f5f;--accent2:#c8742a;--card:#fff;--line:#d9d4c8;--code:#eef0ea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--card:#1d2528;--line:#2e3a3e;--code:#232d31}}
+  :root[data-theme="dark"]{--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--card:#1d2528;--line:#2e3a3e;--code:#232d31}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(13px,1.25vw,18px);line-height:1.45}
+  .deck{position:relative;height:100%;overflow:hidden}
+  .slide{position:absolute;inset:0;display:none;padding:5vh 7vw 8vh;flex-direction:column;overflow:auto}
+  .slide.active{display:flex}
+  .slide.title,.slide.divider{justify-content:center}
+  .slide h1{font-size:2.6em;margin:0 0 .3em;line-height:1.1;letter-spacing:-.01em}
+  .slide h2{font-size:1.7em;margin:0 0 .5em;line-height:1.15;letter-spacing:-.01em;flex:none}
+  .slide h2 small{display:block;font-size:.5em;color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5em}
+  .divider .num{display:block;font-size:5em;font-weight:700;color:var(--accent);line-height:1;opacity:.35}
+  .body p{margin:.35em 0;max-width:72ch}
+  p.lead{font-size:1.15em}
+  .muted{color:var(--muted)} .accent{color:var(--accent)}
+  ul,ol{margin:.4em 0;padding-left:1.2em;max-width:72ch} li{margin:.22em 0}
+  b{color:var(--accent)} th b,td b{color:inherit}
+  table{border-collapse:collapse;width:100%;font-size:.85em;margin:.6em 0}
+  th,td{text-align:left;vertical-align:top;padding:.4em .55em;border-bottom:1px solid var(--line)}
+  th{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+  td:first-child{font-weight:600}
+  pre{background:var(--code);border-left:4px solid var(--accent);padding:.7em 1em;border-radius:6px;font-size:.78em;overflow:auto;margin:.6em 0;line-height:1.35}
+  code{background:var(--code);padding:.05em .3em;border-radius:3px;font-size:.9em}
+  .foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:.5em 7vw;font-size:.7em;color:var(--muted);background:var(--bg)}
+  .bar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;transition:width .25s;z-index:2}
+  .tag{display:inline-block;font-size:.7em;padding:.15em .6em;border:1px solid var(--accent2);color:var(--accent2);border-radius:999px;letter-spacing:.05em;text-transform:uppercase}
+  .sim{font-size:.75em;color:var(--muted);font-style:italic}
+  @media (max-width:800px){.slide{padding:12vh 16px 10vh} table{font-size:.75em}}
+  .summary .body p,.summary .body ul{max-width:85ch}
+  .summary h2{font-size:1.9em}
+  .summary .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1em;margin:.6em 0}
+  .summary .grid div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.7em .9em}
+  .summary .grid b{display:block;margin-bottom:.3em}
+  .summary .kicker{font-style:italic;color:var(--muted);margin-top:auto;padding-top:.8em}
+  @page{size:11in 8.5in;margin:0}
+  @media print{html,body{font-size:17px} .body p,ul,ol{max-width:90ch} .deck{height:auto;overflow:visible} .slide{display:flex;position:relative;page-break-after:always;min-height:100vh;overflow:visible} .foot,.bar{display:none}}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="deck" id="deck">
+<section class="slide title">
+  <span class="tag">Proposal</span>
+  <h1>Climate decision analysis<br>for Larkspur Foods</h1>
+  <p class="lead">Summary and statement of work</p>
+  <p class="muted">To Marcus Webb, COO &amp; Chief Supply Chain Officer · From Windward Risk Advisors · 18 September 2026</p>
+  <p class="sim">Windward Risk Advisors is a simulated firm created for the Climate Risk Residency. Larkspur records are simulated; climate data referenced is real.</p>
+</section>
+<section class="slide summary">
+  <h2><small>Summary · 1 of 3</small>You don't need a climate study. You need a way to test whether your sourcing and production plans still hold.</h2>
+  <div class="body">
+  <ul>
+    <li>Your studies describe conditions in growing regions and at sites. None of them tells procurement whether to renew a grower, a plant whether to shift allocation, or commercial what to promise.</li>
+    <li>The hard part isn't the weather. It's telling a bad season from a broken assumption, and knowing whether your options on paper survive when every buyer switches at once.</li>
+    <li>We propose a <b>climate decision capability</b>: the physical assumptions under your sourcing, production and inventory plans, written down, tested against your own history, and re-testable by your team when plans change.</li>
+  </ul>
+  </div>
+  <p class="kicker">Disclosure draws from the same evidence. It's a by-product, not the purpose.</p>
+</section>
+<section class="slide summary">
+  <h2><small>Summary · 2 of 3</small>Start from three decisions, cut to what carries the business, and check history before projecting.</h2>
+  <div class="body">
+  <div class="grid">
+    <div><b>Sourcing</b>Renew, resize, or second-source a grower<br><span class="muted">About three crops</span></div>
+    <div><b>Facilities</b>Harden, reallocate, or renegotiate a site<br><span class="muted">Three to five sites</span></div>
+    <div><b>Demand</b>Where and when to place beverage stock<br><span class="muted">One category</span></div>
+  </div>
+  <p>Five steps for each: <b>prioritise</b>, build the <b>physical premise</b>, <b>calibrate</b> against your history, <b>translate</b> into cost and timing, <b>compare</b> actions. After every step, one test: <i>would this answer change what you do?</i> If not, we stop.</p>
+  </div>
+  <p class="kicker">The output for each item is a sorted answer: act now, watch, or absorb.</p>
+</section>
+<section class="slide summary">
+  <h2><small>Summary · 3 of 3</small>Eight weeks. Three things you keep. USD 200,000 fixed.</h2>
+  <div class="body">
+  <ul>
+    <li><b>Week 2:</b> the priority list and the assumptions nobody has written down. <b>Week 4:</b> whether past shifts actually moved your numbers. <b>Week 8:</b> handover.</li>
+    <li><b>You keep:</b> a decision tool your teams re-run in a browser, a playbook per decision, and a methodology guide that also serves disclosure.</li>
+    <li><b>Your time:</b> concentrated in the first four weeks. Fee unchanged if a workstream is dropped; the effort goes deeper on the rest.</li>
+    <li><b>Why us:</b> built in Claude Code so it lives in your environment. Tools, not reports. We report a null result, and "your buffers hold" is an acceptable answer.</li>
+  </ul>
+  </div>
+  <p class="kicker">What follows is the full statement of work behind these three slides.</p>
+</section>
+<section class="slide">
+  <h2>What we heard</h2>
+  <div class="body"><p>Larkspur runs three businesses with different tolerances for disruption: crops from growers in several regions, ingredients and fresh products made in your own plants and by contract manufacturers, and beverages. Retail commitments hold regardless of harvest. You already have studies describing conditions in growing regions and at facilities, and a disclosure process that runs separately from operating decisions.</p>
+<p>Those studies do not tell procurement whether to renew a grower, a plant whether to shift allocation, or commercial what to promise. When a question comes up it crosses three teams, often needs new specialist work, and the decision has moved on before the answer arrives. You cannot yet tell which bad seasons are signal and which are ordinary variance, and the redundancy you have on paper may be shared with every other buyer who would switch at the same moment. Over-reacting costs money too.</p>
+<p>We do not propose a company-wide climate study. We propose a <b>climate decision capability</b>: a way of analysing climate data that ends in a decision, built on the few crops, sites and products that carry the business, tested against your own history, and left in your hands to re-run. Disclosure draws from the same evidence as a side benefit.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">1</div>
+  <h1>Scope of work</h1>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>Who, what decision, what problem</h2>
+  <div class="body"><p><b>Sponsor:</b> Marcus Webb, COO &amp; Chief Supply Chain Officer.</p>
+<p><b>The decisions this work serves</b> (all yours, all recurring):</p>
+<table>
+<tr><th>Decision</th><th>Cadence</th><th>Who owns it day to day</th></tr>
+<tr><td>Renew, resize or replace a grower commitment</td><td>Each sourcing round</td><td>Head of procurement (to confirm at kick-off)</td></tr>
+<tr><td>Keep, harden or reallocate production at a site or co-manufacturer</td><td>Annual plan; capital as needed</td><td>Head of operations and plant leads (to confirm)</td></tr>
+<tr><td>What beverage stock to place where, and when</td><td>Weekly to seasonal</td><td>Demand planning and commercial (to confirm)</td></tr>
+</table>
+<p><b>The problem:</b> Larkspur already has studies of conditions in growing regions and at facilities. None of them connects to a purchase commitment, a production plan or a customer promise. Questions that cross procurement, plant and commercial stall, and the decision moves on. You cannot tell which concerns warrant a change now and which normal practice absorbs.</p>
+<p><b>Our framing:</b> treat Larkspur as a value chain and ask, at each link, <i>where does a change in physical conditions change the money, and what would we do differently if we knew?</i></p></div>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>Boundary: three workstreams along the value chain</h2>
+  <div class="body"><pre>  UPSTREAM                 OPERATIONS                 DOWNSTREAM
+  Crops from growers  --&gt;  Plants and co-mfrs    --&gt;  Beverage demand at retail
+  WS1 Sourcing             WS2 Facilities             WS3 Demand</pre>
+<table>
+<tr><th></th><th>WS1 Sourcing</th><th>WS2 Facilities</th><th>WS3 Demand</th></tr>
+<tr><td><b>Question</b></td><td>For the crops that carry the business, how have volume, availability and price moved with growing conditions, what did that cost us, and what do the models say happens next?</td><td>Which perils actually stop or degrade a site, at what threshold, and what is the value at stake and the cost of how we already cope?</td><td>Does heat or cold move beverage sales enough to change what we stock, where and when?</td></tr>
+<tr><td><b>Decision it serves</b></td><td>Grower renewals; second-source and inventory policy</td><td>Site hardening, contingency sizing, co-manufacturer terms</td><td>Merchandising, demand planning, inventory placement</td></tr>
+<tr><td><b>Selection rule</b></td><td>Pareto: crops that drive most revenue and margin</td><td>Pareto: sites whose loss moves output</td><td>One beverage category, one retail channel</td></tr>
+<tr><td><b>Climate data</b></td><td>CMIP6 downscaled projections + observed history for the priority growing regions</td><td>Observed history + projections at site coordinates</td><td>Observed station weather only (no projections)</td></tr>
+<tr><td><b>Client data</b></td><td>Volumes, regions, quality, price paid, monthly, as far back as makes sense; substitution history and cost</td><td>Site list with coordinates; what stops each site; facility-manager interviews</td><td>Daily POS sales by store; store locations</td></tr>
+</table></div>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>What each workstream will actually answer</h2>
+  <div class="body"><p><b>WS1 Sourcing (upstream)</b></p>
+<ol><li>For each priority crop and region: what conditions produce the volume and price we plan on?</li><li>When those conditions shifted in the past, what happened to COGS, margin and customer delivery? What did the substitute cost?</li><li>Under the central climate scenario, how do those conditions change over the next sourcing horizon, and what is the likely financial effect?</li></ol>
+<p><b>WS2 Facilities (operations)</b></p>
+<ol><li>Which perils genuinely affect how each priority site operates? (Thresholds, not damage curves.)</li><li>What are we already paying to adapt (for example extra cooling, shift changes, lost throughput on extreme-heat days), and is there a cheaper or more resilient way?</li></ol>
+<p><b>WS3 Demand (downstream)</b></p>
+<ol><li>Is beverage demand moved by extreme heat or cold in a way that is large enough to act on?</li><li>Which merchandising or demand-planning decisions get better with that signal, and what is it worth (less excess stock, less product loss)?</li></ol>
+<p>Each answer is tied to a named decision and a named owner. If an answer would not change what anyone does, we stop pursuing it.</p></div>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>Priorities and sequencing</h2>
+  <div class="body"><p><b>Weeks 1–2: prioritise before we analyse.</b> All three workstreams start with the same gate: use Larkspur's own numbers to find the few crops, sites and products that carry the business. We do not model forty growing regions. We expect to end up with about three crops, three to five sites and one beverage category.</p>
+<p><b>Order of effort:</b> WS1 first (it is the question you asked, and it is where climate projections earn their keep). WS2 runs alongside on the priority sites. WS3 is a bounded test on historical data and is the first workstream we would drop or defer.</p>
+<p><b>Earliest useful answer:</b> end of week 2, the priority list itself, with a first view of which sourcing assumptions look fragile.</p></div>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>Client inputs and dependencies</h2>
+  <div class="body"><table>
+<tr><th>Workstream</th><th>We need from Larkspur</th><th>By</th></tr>
+<tr><td>All</td><td>Organisation chart; a named counterpart in procurement, plant operations and commercial; the existing growing-region and facility studies</td><td>Kick-off</td></tr>
+<tr><td>WS1</td><td>Purchase volumes, price paid and quality metrics by crop and region, monthly, five to ten years; grower contract terms; substitution events and their cost</td><td>Week 1</td></tr>
+<tr><td>WS2</td><td>List of owned and contract sites with coordinates and what each produces; 30–60 min with each priority facility manager</td><td>Week 1–2</td></tr>
+<tr><td>WS3</td><td>Daily POS sales by store for one beverage category, two to three years; store list with locations</td><td>Week 2</td></tr>
+</table>
+<p>We tell you within the first week what we can use as-is, what is missing, and whether any gap blocks a conclusion. Client information stays inside the engagement; simulated data only in this coursework, and in practice nothing of Larkspur's enters a public AI service without written authorisation.</p></div>
+</section>
+<section class="slide">
+  <h2><small>1 · Scope of work</small>Exclusions and how scope changes</h2>
+  <div class="body"><p><b>Not in scope</b></p>
+<ul><li>Building-damage or insurance-style loss curves for sites (we assess operating thresholds, not structural damage)</li><li>Company-wide expected-loss or enterprise-risk model</li><li>Additional climate scenarios beyond the central case (<code>ssp245</code>); available as a re-run, see Methodology and Price</li><li>Disclosure preparation itself; we supply the evidence and state what reporting would still need</li><li>Jurisdiction-specific compliance advice</li><li>Any crop, site or product that does not survive the week-2 prioritisation</li></ul>
+<p><b>How scope moves</b></p>
+<ul><li><b>Narrow:</b> if a priority crop spans too many regions to model usefully, we go from three crops across many regions to 1 crop across 3 regions, and say so at the week-2 gate.</li><li><b>Drop:</b> any workstream whose data does not exist or whose answer would not change a decision is stopped and the effort redeployed. WS3 is the most likely candidate.</li><li><b>Add:</b> a second crop, site cluster or product category is a priced add-on once the pipeline exists.</li><li>Changes are agreed with you at the week-2 gate and the week-4 checkpoint, not discovered at the end.</li></ul></div>
+</section>
+<section class="slide divider">
+  <div class="num">2</div>
+  <h1>Methodology</h1>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>One method, five steps, run per workstream</h2>
+  <div class="body"><pre> 1 PRIORITISE        2 PHYSICAL PREMISE     3 CALIBRATE          4 TRANSLATE           5 COMPARE
+ Which crops, sites  What the conditions    Did conditions move  What it costs, and    Which action holds
+ and products carry  have done and are      Larkspur&#x27;s numbers   when the buffer runs  up across the
+ the business; what  likely to do           in the past?         out                   evidence
+ assumption sits     (observed + models)
+ under each plan</pre>
+<p>Every step ends with a question we put to the decision owner: <i>would this answer change what you do?</i> If not, the thread stops there. The decision sets the geography, the horizon and how deep we go. The models get a narrow job: how the odds of a physical condition are shifting. Everything downstream is Larkspur's own operating knowledge, written down so it can be inspected and re-run.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Step 1: Prioritise, then find the assumption</h2>
+  <div class="body"><p><b>What we do.</b> Use Larkspur's own numbers to rank crops by revenue and margin, sites by output at risk, and beverage products by volume. Keep the few that carry the business. For each one, extract from contracts, plans and interviews the physical assumption the plan rests on and write it into an <b>assumptions register</b>.</p>
+<p><b>What an assumption looks like</b> (illustrated for a tree crop). Not "Fresno is getting hotter" but "the plan assumes fewer than <i>N</i> days above 35 °C during bloom", "at least <i>X</i> weeks of inventory", "an alternate region that isn't in the same drought", "the line can run when the ambient temperature is under <i>T</i>". Growers, agronomists and facility managers supply the thresholds. The models do not.</p>
+<p><b>Why it comes first.</b> This is where your "signal versus noise" question is decided. A plan with no stated physical assumption cannot be tested; it can only be argued about after a bad season.</p>
+<p><b>Output.</b> Priority list and assumptions register, agreed with procurement, plant and commercial at the week-2 gate.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Step 2: Build the physical premise from three layers</h2>
+  <div class="body"><table>
+<tr><th>Layer</th><th>What it answers</th><th>Sources (illustrated for a Central Valley tree crop)</th></tr>
+<tr><td><b>Projection</b></td><td>How the odds of the condition shift over the decision horizon</td><td>NASA NEX-GDDP-CMIP6, daily, ~25 km, bias-corrected and downscaled. Three models from different families: ACCESS-CM2, MPI-ESM1-2-HR, MRI-ESM2-0</td></tr>
+<tr><td><b>Observation</b></td><td>What the condition has actually done, season by season</td><td>Station and gridded records (NOAA, PRISM), US Drought Monitor county series</td></tr>
+<tr><td><b>Measurement</b></td><td>The managed system that sits between weather and the crop or site</td><td>Water allocations (Friant Class 1/2), April 1 snowpack, groundwater levels, reservoir storage where it discriminates</td></tr>
+</table>
+<p><b>Model selection</b> follows six filters, applied before we look for an answer: variable and mechanism · geography and resolution · scenario and horizon · baseline and comparability · known performance and limits · access and provenance. Model families and shared downscaling limit how independent three models really are; we say so.</p>
+<p><b>Settings, held constant across models.</b> Same variable, same grid cell, same experiment. Baseline <code>historical</code> 1985–2014; near term <code>ssp245</code> 2015–2034; decision horizon <code>ssp245</code> 2036–2065. We count <b>seasons per 30-year window that cross the threshold</b> from Step 1, per model. The result reads "a once-a-decade season becomes once every 2 to 4 years, depending on model", never "2043 will be bad".</p>
+<p><b>One scenario.</b> <code>ssp245</code>, the current-policies pathway, because to 2050 the models and natural variability matter more than the scenario. <code>ssp370</code> stress and <code>ssp126</code> Paris-aligned are configuration lines, re-run on request; so is CMIP7 when downscaled data arrives.</p>
+<p>WS2 uses the same layers at site coordinates. <b>WS3 uses observation only</b>; no projections are needed to test whether heat moves sales.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Step 3: Calibrate against Larkspur&#x27;s own history</h2>
+  <div class="body"><p><b>The question.</b> When the condition moved in the past, did Larkspur's numbers move with it? This is the step most climate studies skip, and the reason they never connect to a decision.</p>
+<table>
+<tr><th>Workstream</th><th>Condition series (observed)</th><th>Outcome series</th><th>What a result looks like</th></tr>
+<tr><td>WS1 Sourcing</td><td>Growing-season heat, chill, drought category, water allocation, by region</td><td>Price paid, volume received, quality grade, substitution events (Larkspur); county yield per acre (USDA NASS) as a public cross-check</td><td>"Years with allocation below <i>A</i> saw price up <i>P</i> % and two substitution events"</td></tr>
+<tr><td>WS2 Facilities</td><td>Site-level daily heat, flood, wind, smoke; utility interruptions</td><td>Throughput, downtime, overtime, energy cost, spoilage by site</td><td>"Days above <i>T</i> cut line output <i>Q</i> % and added <i>C</i> in cooling"</td></tr>
+<tr><td>WS3 Demand</td><td>Daily heat index and cold at store locations</td><td>Daily POS units by product and store</td><td>"Units rise <i>U</i> % per degree above <i>H</i>; effect concentrated in <i>channel</i>"</td></tr>
+</table>
+<p><b>How.</b> Match series on date and place; look for relationships that survive simple checks (seasonality, price trend, promotions, one-off events). Written in Python that Larkspur's team can read and re-run.</p>
+<p><b>Two honest outcomes.</b> A relationship large enough to plan on, or a null result. We report the null. A null in WS3 ends that workstream; a null in WS1 usually means the threshold, not the crop, was wrong, and we go back to Step 1.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Step 4: Translate into money and time</h2>
+  <div class="body"><p><b>Scenarios, not forecasts.</b> For each priority item we build three or four scenarios from the physical premise: the condition holds, the condition is breached once, the condition is breached in consecutive seasons, and the condition is breached in the primary <i>and</i> the alternate region at once. At least one scenario is a case where current buffers hold.</p>
+<p><b>Each scenario traces the cascade</b>, in inspectable code, using the calibrated relationships from Step 3:</p>
+<pre>condition breached → volume / quality / throughput → inventory drawn down → substitute sought
+→ approval and cost of substitute → customer commitment met, late or missed → margin, COGS, lost sales</pre>
+<p><b>Two questions the cascade must answer.</b></p>
+<ul><li><b>Which channel?</b> Higher input cost, lost or spoiled product, replacement-supply premium, missed retail commitment, extra operating cost at a site, or capital to harden.</li><li><b>Which clock?</b> Contracts and retail commitments run for years; inventory and qualified substitutes are finite buffers. The consequence lands when the buffer runs out, not when the weather changes.</li></ul>
+<p><b>Correlated substitution.</b> We test each alternate region and co-manufacturer against the same models. If the alternate shifts the same way in the same seasons, it is not redundancy, and we say how much of Larkspur's paper optionality survives.</p>
+<p><b>What the output is.</b> Conditional consequences under each scenario, with the assumptions listed beside each number. Not an annual expected loss, not a probability-weighted average of three models.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Step 5: Compare actions</h2>
+  <div class="body"><table>
+<tr><th>Workstream</th><th>Actions compared</th></tr>
+<tr><td>WS1 Sourcing</td><td>Renew as-is · adjust volumes or term · qualify an alternate region now · change inventory weeks · lock price</td></tr>
+<tr><td>WS2 Facilities</td><td>Operate as-is · change the operating envelope (shifts, scheduling) · invest to harden · shift allocation to another site or co-manufacturer · renegotiate co-manufacturer terms</td></tr>
+<tr><td>WS3 Demand</td><td>Current plan · weather-informed allocation and timing · weather-informed promotion or pricing</td></tr>
+</table>
+<p><b>Decision rule.</b> Prefer the action that holds up across the model spread and the scenario set, not the one optimised for a single projection. For each recommendation we state the evidence that would change it and the date by which it matters.</p>
+<p><b>What you get.</b> A recommendation per priority item, the assumptions it rests on, the scenarios in which it fails, and the option value of waiting where that is the honest answer.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Uncertainty: what we rank, what we show, what we don&#x27;t claim</h2>
+  <div class="body"><p><b>Ranked, largest first, for decisions to 2050:</b></p>
+<ol><li>The threshold itself (from growers and facility managers)</li><li>Spread across the three models</li><li>Natural year-to-year variability, hence 30-year windows</li><li>Scenario choice</li></ol>
+<p><b>Shown.</b> Sensitivity within the model (thresholds, buffer sizes, substitute cost) as a range. Model spread as three separate lines, never averaged into one.</p>
+<p><b>Named, not banded.</b> Mechanisms we did not model have no place in a range. We list them.</p>
+<p><b>Not claimed.</b> Attribution of any past season to climate change. A forecast for a specific year. A probability distribution from three models. A dollar loss read directly from a temperature. A structural damage estimate for any building.</p></div>
+</section>
+<section class="slide">
+  <h2><small>2 · Methodology</small>Where AI works and where judgment stays</h2>
+  <div class="body"><table>
+<tr><th>Step</th><th>Claude Code does</th><th>People decide</th></tr>
+<tr><td>1 Prioritise</td><td>Reads contracts, plans and interview notes; drafts the register</td><td>Which assumptions are real; the thresholds</td></tr>
+<tr><td>2 Premise</td><td>Finds catalogues, pulls and inspects data, records provenance, repeats for each model</td><td>Model selection and its rationale; whether a pull is fit for use</td></tr>
+<tr><td>3 Calibrate</td><td>Matches series, runs checks, flags weak relationships</td><td>Whether a relationship is causal enough to plan on</td></tr>
+<tr><td>4 Translate</td><td>Expresses the cascade as code; runs scenarios; keeps every number traceable</td><td>Buffer, contract and approval logic; the scenario set</td></tr>
+<tr><td>5 Compare</td><td>Re-runs when a plan or input changes; agentic QA on its own outputs</td><td>The recommendation, and specialist calls (agronomy, legal)</td></tr>
+</table>
+<p>The result is a process Larkspur can re-run when a grower, plant or customer changes, without a new engagement.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">3</div>
+  <h1>Assurability and accuracy</h1>
+</section>
+<section class="slide">
+  <h2><small>3 · Assurability and accuracy</small>Every number traces to its source</h2>
+  <div class="body"><p><b>Climate data.</b> Each extract keeps: source URL, model, experiment, ensemble member, variable, dataset version, script, retrieval time, requested versus returned grid cell, native calendar, units, and any transformation. Failed requests are logged, not hidden.</p>
+<p><b>Larkspur data.</b> Each series keeps: who supplied it, when, what it covers, and what we changed (units, gaps, outliers).</p>
+<p><b>Derived numbers.</b> Every figure in the tool and the playbooks links back to the inputs and the code that produced it. Your team, or an auditor, can follow any number to its origin.</p></div>
+</section>
+<section class="slide">
+  <h2><small>3 · Assurability and accuracy</small>How we check the work</h2>
+  <div class="body"><table>
+<tr><th>What</th><th>Check</th><th>Who</th></tr>
+<tr><td>Assumptions register</td><td>Each assumption confirmed by the Larkspur person who owns it</td><td>Procurement, plant, commercial leads</td></tr>
+<tr><td>Model selection</td><td>Rationale written against the six filters before results are viewed</td><td>Windward lead</td></tr>
+<tr><td>Data pulls</td><td>Coordinates, dates, units, missing values and value ranges inspected on every file; comparable settings across models</td><td>Windward analyst, agentic QA</td></tr>
+<tr><td>Calibration</td><td>Relationships tested against seasonality, price trend, promotions and one-off events; null results reported</td><td>Windward analyst</td></tr>
+<tr><td>Scenario logic</td><td>Cascade code reviewed line by line; boundary and null cases run; sample of results recomputed by hand</td><td>Windward lead</td></tr>
+<tr><td>Reconciliation</td><td>Totals tie to Larkspur's own volumes and financials</td><td>Larkspur finance contact</td></tr>
+<tr><td>Specialist review</td><td>Yield and quality thresholds: agronomist. Contract and approval terms: legal. Flagged in the playbooks, not buried</td><td>External, at cost</td></tr>
+</table>
+<p>Unresolved issues go in an issues log that ships with the deliverables.</p></div>
+</section>
+<section class="slide">
+  <h2><small>3 · Assurability and accuracy</small>Uncertainty and limits, stated plainly</h2>
+  <div class="body"><p><b>What we show.</b> Sensitivity as a range. Model spread as three lines. Mechanisms we did not model as a list. A range is not a confidence interval and the tool will say so.</p>
+<p><b>What we do not claim.</b> That any past season was caused by climate change. A forecast for a given year. A probability from three models. Structural damage to any building.</p>
+<p><b>Audit trail is not assurance.</b> Our workpapers let your team and your auditors review the work. They are not independent assurance. Windward advises; it does not assure. Assurance is a separate engagement by a separate firm. We structure workpapers so that engagement is straightforward.</p>
+<p><b>Client information.</b> Larkspur data stays within the engagement. Nothing enters a public AI service without your written authorisation. This coursework uses simulated records only.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">4</div>
+  <h1>Time frame</h1>
+</section>
+<section class="slide">
+  <h2><small>4 · Time frame</small>Eight weeks, one gate, two checkpoints</h2>
+  <div class="body"><pre> Wk 1    Wk 2    Wk 3    Wk 4    Wk 5    Wk 6    Wk 7    Wk 8
+ Kick    GATE    ────── WS1 Sourcing ──────────────────▶  Tool,
+ off     Prior-  ────── WS2 Facilities ────────────────▶  play-
+ Data    itise   ─── WS3 Demand ──▶ (or stop)              books,
+ in            CHECK               CHECK                   handover
+               wk 4                wk 6</pre>
+<table>
+<tr><th>Week</th><th>Milestone</th><th>What Larkspur gets</th><th>Needs from Larkspur</th></tr>
+<tr><td>1</td><td>Kick-off. Counterparts named. Data inventory</td><td>Data request list; what we can use as-is and what is missing</td><td>Org chart; existing studies; access to contracts and plans</td></tr>
+<tr><td>2</td><td><b>Gate: prioritisation</b></td><td>Priority crops, sites and products. First view of fragile assumptions. Go/no-go per workstream with Marcus</td><td>Volumes, price, margin by crop; site list; POS sample. Three 1-hour interviews</td></tr>
+<tr><td>3</td><td>Assumptions register. Physical premise pulled for priority items</td><td>Register for sign-off. Model-selection note</td><td>Grower and facility-manager thresholds</td></tr>
+<tr><td>4</td><td><b>Checkpoint.</b> Calibration results</td><td>Which conditions moved Larkspur's numbers, and by how much. Null results stated. WS3 continue or stop</td><td>Review of relationships with procurement and plant</td></tr>
+<tr><td>5</td><td>Scenarios built; cascades traced in code</td><td>Draft scenario narratives</td><td>Buffer, contract and approval logic confirmed</td></tr>
+<tr><td>6</td><td><b>Checkpoint.</b> Financial translation and action comparison</td><td>Consequences per scenario; draft recommendations</td><td>Finance reconciliation; commercial review of customer terms</td></tr>
+<tr><td>7</td><td>Tool assembled; playbooks drafted</td><td>Tool and playbooks for sponsor review</td><td>Sponsor review</td></tr>
+<tr><td>8</td><td>Handover</td><td>Final tool, playbooks, methodology and disclosure guide; half-day training</td><td>Half-day with procurement, plant, commercial</td></tr>
+</table></div>
+</section>
+<section class="slide">
+  <h2><small>4 · Time frame</small>What depends on you, and the earliest useful answer</h2>
+  <div class="body"><p><b>Earliest useful answer: end of week 2.</b> The priority list, and a first view of which sourcing and production assumptions look fragile. That alone is usable in the next sourcing conversation.</p>
+<p><b>Second useful answer: end of week 4.</b> Whether past shifts in conditions actually moved Larkspur's costs, volumes or sales. This is the point at which we know if a workstream has a result or a null.</p>
+<p><b>Dependencies on Larkspur.</b> The schedule holds if data requested in week 1 arrives by the end of week 2 and interviews happen in weeks 2 and 3. A week's slip in data is a week's slip in handover. We tell you at the gate if a gap blocks a conclusion, and what we would do instead.</p>
+<p><b>Specialist inputs.</b> Agronomist review of thresholds in week 3, legal review of contract terms in week 5. Booked at kick-off so they don't sit on the critical path.</p>
+<p><b>Decision timing.</b> If your next sourcing round falls before week 8, we front-load WS1 and deliver sourcing-only recommendations at week 6, with WS2 and WS3 following.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">5</div>
+  <h1>Deliverables</h1>
+</section>
+<section class="slide">
+  <h2><small>5 · Deliverables</small>Three deliverables</h2>
+  <div class="body"><table>
+<tr><th>#</th><th>Deliverable</th><th>Who uses it</th><th>Format</th><th>When</th></tr>
+<tr><td>1</td><td><b>Larkspur Climate Decision Tool</b></td><td>Procurement, plant operations, demand planning; Marcus</td><td>Interactive HTML, opens in a browser, re-runnable</td><td>Week 7 draft, week 8 final</td></tr>
+<tr><td>2</td><td><b>Decision playbooks</b></td><td>The owner of each priority decision</td><td>Short guide per decision, 3–5 pages</td><td>Week 8</td></tr>
+<tr><td>3</td><td><b>Methodology and disclosure guide</b></td><td>Sustainability, finance, your assurance provider</td><td>Written document with the evidence store attached</td><td>Week 8</td></tr>
+</table>
+<p>Everything is Larkspur's on handover. Nothing needs Windward's software to open or re-run.</p></div>
+</section>
+<section class="slide">
+  <h2><small>5 · Deliverables</small>What each one is</h2>
+  <div class="body"><p><b>1. The tool.</b> One place that holds all the work and lets your teams ask it questions. Four views:</p>
+<ul><li><b>Priorities.</b> The crops, sites and products that carry the business, and the assumption each plan rests on.</li><li><b>Conditions.</b> For each priority item: what the conditions have done (observed), what is managed in between (water, allocations), and how the odds shift under the central scenario (three models, shown separately).</li><li><b>Consequences.</b> Pick a scenario, change a buffer, a contract term or a substitute, and see where the cost lands and when the buffer runs out.</li><li><b>Actions.</b> Compare the options for each decision side by side, with the assumptions and the evidence that would change the answer.</li></ul>
+<p>Every number links to its source. When a plan changes, your team updates the assumption and re-runs.</p>
+<p><b>2. The playbooks.</b> One per priority decision: grower renewal, site allocation or hardening, beverage placement. Each says which view to open, which assumptions to check, what a result means, when to escalate to Marcus, and when to call a specialist. Written so a new procurement manager could use the tool without us.</p>
+<p><b>3. The methodology and disclosure guide.</b> How the work was done, the checks applied, the limits, and the full evidence store with provenance. A final section maps the outputs to the four IFRS S2 pillars and TCFD's eleven disclosures, states the gaps, and says what a second scenario or assurance-grade workpapers would add if your standard requires them.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">6</div>
+  <h1>Benefits</h1>
+</section>
+<section class="slide">
+  <h2><small>6 · Benefits</small>What Larkspur gets: a climate decision capability</h2>
+  <div class="body"><p><b>The primary benefit is better decisions.</b> Your business leaders get climate insight inside the decisions they already make: which grower to renew, where to run production, what to stock and where. Decisions that protect value (fewer surprises, fewer expensive substitutions) and create it (better placement, cheaper resilience).</p>
+<p><b>A frame, not a report.</b> The lasting value is a way of analysing climate data that ends in a decision. The specific findings will change; the frame stays.</p>
+<p><b>It evolves.</b> Some threads will prove useful and others will not. Because the capability is built in Claude Code and lives in your environment, your team updates it, drops what does not help, and adds the next crop, site or question without a new engagement.</p>
+<p><b>Disclosure is a side benefit.</b> The same evidence feeds your reporting, and the guide says what more a standard would need. But the work exists to improve decisions, not to fill a disclosure.</p>
+<table>
+<tr><th>Deliverable</th><th>What it lets you do</th></tr>
+<tr><td>The tool</td><td>See what a decision rests on, and re-test it when plans change</td></tr>
+<tr><td>Playbooks</td><td>Let the decision owner use the tool without us</td></tr>
+<tr><td>Methodology and disclosure guide</td><td>Show how the answer was reached, and reuse it for reporting</td></tr>
+</table></div>
+</section>
+<section class="slide divider">
+  <div class="num">7</div>
+  <h1>Price</h1>
+</section>
+<section class="slide">
+  <h2><small>7 · Price</small>Fee and terms</h2>
+  <div class="body"><p><b>Fee.</b> USD 200,000, fixed, for the eight-week engagement as scoped. Invoiced 40% at kick-off, 30% at the week-4 checkpoint, 30% at handover.</p>
+<p><b>Basis.</b> Roughly 100 consultant days across a lead, a climate-data analyst and an AI-enabled build lead, plus the tooling to run the pipeline. The fixed fee is possible because Claude Code carries the data pulls, provenance, calibration runs and re-runs that would otherwise be analyst time.</p>
+<p><b>Included.</b> All three deliverables. Public climate data (no licence cost). The week-8 handover session. One supported re-run within three months of handover. Follow-up questions inside the engagement boundary while it runs.</p>
+<p><b>Not included, at cost with prior approval.</b> Agronomist review of thresholds (estimated USD 5,000 to 10,000). Legal review of contract and approval terms (estimated USD 5,000 to 10,000). Travel.</p>
+<p><b>Add-ons, quoted when needed.</b> An additional crop, site cluster or product category. A second climate scenario (<code>ssp370</code> stress or <code>ssp126</code> Paris-aligned) or CMIP7 data when available. A pre-assurance readiness review of the workpapers.</p>
+<p><b>Your workload.</b> About 25 to 30 hours across procurement, plant operations, commercial and finance over eight weeks, mostly in weeks 1 to 4 supplying data and confirming assumptions.</p>
+<p><b>Change terms.</b> A workstream dropped at the week-2 gate does not change the fee or the handover date; the effort moves to the remaining workstreams. Scope additions are quoted separately. The fee assumes data requested in week 1 arrives by the end of week 2.</p></div>
+</section>
+<section class="slide divider">
+  <div class="num">8</div>
+  <h1>Why Windward</h1>
+</section>
+<section class="slide">
+  <h2><small>8 · Why Windward</small>Why Windward</h2>
+  <div class="body"><p><b>Claude Code native.</b> The engagement is built in Claude Code from day one: data pulls with provenance, calibration in readable Python, scenarios as inspectable code, agentic QA on every output. That is why one team can cover three workstreams in eight weeks, and why the work can be re-run without us.</p>
+<p><b>We build tools, not reports.</b> The deliverable is something your teams use in the next sourcing round, not a document that describes conditions. Your memo says existing studies never connected to a purchase commitment or a production plan. Ours starts from those decisions, so it cannot end anywhere else.</p>
+<p><b>Decision first.</b> We start from what procurement, plant and commercial have to decide, and let that set the geography, the horizon and the depth. The models get a narrow, honest job.</p>
+<p><b>Your knowledge, made visible.</b> The value in this work is in your contracts, planning files and people. We turn it into stated assumptions and thresholds your teams own after handover.</p>
+<p><b>Honest about limits.</b> We report a null result. We show three models as three lines. We say what we did not model. If your buffers hold, that is the answer you get.</p>
+<p><b>It lives with you.</b> Everything is in your environment, in formats that open in a browser or spreadsheet. When something proves useful you extend it; when it doesn't you drop it.</p>
+<p><b>Judgment stays with people.</b> Model selection, thresholds, causal calls and specialist input (agronomy, legal) are made by named people and recorded. AI does the volume; practitioners own the answer.</p>
+<p><i>Team: [three roles, simulated bios: engagement lead, climate-data analyst, AI build lead]. Windward Risk Advisors is a fictional firm created for the Climate Risk Residency.</i></p></div>
+</section>
+<section class="slide">
+  <h2><small>End</small>Windward Risk Advisors</h2>
+  <p>Simulated engagement for the Climate Risk Residency. Climate data referenced is real; Larkspur records and Windward credentials are simulated.</p>
+</section>
+</div>
+<div class="foot"><span><a href="../" style="color:var(--accent);text-decoration:none;font-weight:600">← Residency home</a> &nbsp;·&nbsp; Windward Risk Advisors · Larkspur Foods · statement of work · simulated engagement</span><span id="count"></span></div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0,n=slides.length;
+  function show(k){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('active',j===i)});
+    document.getElementById('bar').style.width=((i+1)/n*100)+'%';
+    document.getElementById('count').textContent=(i+1)+' / '+n; slides[i].scrollTop=0;
+    try{location.hash=i+1}catch(e){}}
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')show(i+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(n-1);
+    else if(e.key==='p'||e.key==='P')window.print();
+  });
+  document.getElementById('deck').addEventListener('click',function(e){ if(e.target.closest('a'))return; show(i+1); });
+  var h=parseInt((location.hash||'').replace('#',''),10); show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>

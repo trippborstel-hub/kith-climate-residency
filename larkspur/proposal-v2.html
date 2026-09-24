@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larkspur Proposal Version 2</title>
+<meta name="description" content="Version 2 of the Windward Risk Advisors proposal to Larkspur Foods, 24 September 2026: what changed after reading the client records, with the scope on one page.">
+<style>
+  :root{--bg:#f7f5f0;--ink:#1d2a2e;--muted:#5c6b70;--accent:#1f6f5f;--accent2:#c8742a;--card:#fff;--line:#d9d4c8;--code:#eef0ea;--soft:#e9f1ee}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--card:#1d2528;--line:#2e3a3e;--code:#232d31;--soft:#1a2a27}}
+  :root[data-theme="dark"]{--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--card:#1d2528;--line:#2e3a3e;--code:#232d31;--soft:#1a2a27}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(13px,1.25vw,18px);line-height:1.45}
+  .deck{position:relative;height:100%;overflow:hidden}
+  .slide{position:absolute;inset:0;display:none;padding:5vh 7vw 8vh;flex-direction:column;overflow:auto}
+  .slide.active{display:flex}
+  .slide.title,.slide.divider{justify-content:center}
+  .slide h1{font-size:2.6em;margin:0 0 .3em;line-height:1.1;letter-spacing:-.01em}
+  .slide h2{font-size:1.7em;margin:0 0 .5em;line-height:1.15;letter-spacing:-.01em;flex:none}
+  .slide h2 small{display:block;font-size:.5em;color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5em}
+  .body p{margin:.35em 0;max-width:78ch}
+  p.lead{font-size:1.15em}
+  .muted{color:var(--muted)} .accent{color:var(--accent)}
+  ul,ol{margin:.4em 0;padding-left:1.2em;max-width:78ch} li{margin:.22em 0}
+  b{color:var(--accent)} th b,td b{color:inherit}
+  table{border-collapse:collapse;width:100%;font-size:.85em;margin:.6em 0}
+  th,td{text-align:left;vertical-align:top;padding:.4em .55em;border-bottom:1px solid var(--line)}
+  th{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+  td:first-child{font-weight:600}
+  .was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent2)}
+  .now{color:var(--accent2);font-weight:600}
+  .foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:.5em 7vw;font-size:.7em;color:var(--muted);background:var(--bg)}
+  .bar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;transition:width .25s;z-index:2}
+  .tag{display:inline-block;font-size:.7em;padding:.15em .6em;border:1px solid var(--accent2);color:var(--accent2);border-radius:999px;letter-spacing:.05em;text-transform:uppercase;align-self:flex-start}
+  .sim{font-size:.75em;color:var(--muted);font-style:italic}
+  .kicker{font-style:italic;color:var(--muted);margin-top:auto;padding-top:.8em}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1em;margin:.6em 0}
+  .grid3 div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.7em .9em}
+  .grid3 b{display:block;margin-bottom:.3em}
+  /* master scope slide */
+  .master{padding:3vh 4vw 6vh}
+  .master h2{font-size:1.25em;margin-bottom:.3em}
+  .master .q{font-size:.82em;color:var(--muted);margin:0 0 .5em}
+  .mgrid{display:grid;grid-template-columns:1.1fr 1.1fr 1.1fr .8fr;gap:.5em;font-size:.66em;line-height:1.3}
+  .mcol{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.5em .65em;display:flex;flex-direction:column;gap:.3em}
+  .mcol.bounded{border-style:dashed}
+  .mcol h3{margin:0;font-size:1.15em;color:var(--accent);line-height:1.2}
+  .mcol h3 span{display:block;font-size:.75em;color:var(--muted);font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+  .mcol h4{margin:.25em 0 0;font-size:.8em;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  .mcol ul{margin:0;padding-left:1em;max-width:none}
+  .mcol li{margin:.08em 0}
+  .rk{display:inline-block;min-width:1.4em;text-align:center;font-weight:700;color:#fff;background:var(--accent);border-radius:4px;font-size:.85em;margin-right:.25em;padding:0 .2em}
+  .rk.s{background:var(--accent2)} .rk.w{background:var(--muted)}
+  .mband{display:grid;grid-template-columns:repeat(5,1fr);gap:.5em;margin-top:.5em;font-size:.64em;line-height:1.28}
+  .mband div{background:var(--soft);border-radius:8px;padding:.45em .65em}
+  .mband b{display:block;margin-bottom:.1em}
+  .mfoot{font-size:.64em;color:var(--muted);margin:.45em 0 0}
+  @media (max-width:800px){.slide{padding:12vh 16px 10vh} table{font-size:.75em} .grid3{grid-template-columns:1fr} .mgrid{grid-template-columns:1fr 1fr} .mband{grid-template-columns:1fr 1fr}}
+  @page{size:11in 8.5in;margin:0}
+  @media print{html,body{font-size:15px} .body p,ul,ol{max-width:95ch} .deck{height:auto;overflow:visible} .slide{display:flex;position:relative;page-break-after:always;break-inside:avoid;height:100vh;min-height:0;overflow:hidden;padding:4vh 6vw 4vh} .slide:last-child{page-break-after:auto} .foot,.bar{display:none} .master{font-size:12px;padding:3vh 3vw} .mgrid{grid-template-columns:1.1fr 1.1fr 1.1fr .8fr} .mband{grid-template-columns:repeat(5,1fr)} .grid3{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="deck" id="deck">
+
+<section class="slide title">
+  <span class="tag">Proposal · Version 2</span>
+  <h1>Climate decision analysis<br>for Larkspur Foods</h1>
+  <p class="lead">What changed after we read your records, and the scope on one page</p>
+  <p class="muted">To Marcus Webb, COO &amp; Chief Supply Chain Officer, and Priya Natarajan, Chief Financial Officer · From Windward Risk Advisors · 24 September 2026</p>
+  <p>Version 2 replaces the 18 September proposal in the points set out here. Everything not mentioned stands as written: the five-step method, the three deliverables, how we check the work, and the fee.</p>
+  <p class="sim">Windward Risk Advisors is a simulated firm created for the Climate Risk Residency. Larkspur records are simulated; climate data referenced is real.</p>
+</section>
+
+<section class="slide master">
+  <h2><small>The scope on one page</small>What breaks, what it costs, and what is cheap to fix before the date it matters</h2>
+  <p class="q">Ten dependencies ranked by revenue and contribution at stake against buffer, contract and insurance position. Three workstreams carry them; a fourth is bounded. Rank chips: <span class="rk">1</span> critical, <span class="rk s">4</span> serious, <span class="rk w">8</span> watch.</p>
+  <div class="mgrid">
+    <div class="mcol">
+      <h3><span>Workstream 1</span>Supply</h3>
+      <h4>Dependencies</h4>
+      <ul>
+        <li><span class="rk">2</span>Central Valley growers in overdrafted basins feed Fresno and Merced; two contract forms allocate drought cost differently</li>
+        <li><span class="rk">3</span>Arizona winter program on Colorado River priority and Pinal groundwater, three days of buffer</li>
+        <li><span class="rk s">7</span>2027 launch leans on Yakima berries with junior rights and a correlated Oregon alternate</li>
+        <li><span class="rk w">10</span>Natural colors, highest-margin line, thin sourcing</li>
+      </ul>
+      <h4>Decisions and dates</h4>
+      <ul><li>Arizona acreage notice, 1 September</li><li>FY2027 berry contracts for the March 2027 launch</li><li>2027 crop-year renewals: harmonise the grower forms</li></ul>
+      <h4>Counterparts</h4>
+      <ul><li>Elena Ruiz; Tom Lindqvist; Carol Anders</li></ul>
+      <h4>Evidence</h4>
+      <ul><li>Dry and wet West bracketed from model spread; 2021–22 and 2023 analogs; allocation history; Colorado River guidelines</li></ul>
+    </div>
+    <div class="mcol">
+      <h3><span>Workstream 2</span>Operations and outside services</h3>
+      <h4>Dependencies</h4>
+      <ul>
+        <li><span class="rk">1</span>One aseptic co-packer in Gonzales fills 60% of Beverage</li>
+        <li><span class="rk s">5</span>San Antonio bottling on an interruptible power rider and a capped aquifer permit</li>
+        <li><span class="rk s">6</span>Fargo pea protein on one rail spur across the Red River floodplain</li>
+        <li><span class="rk w">8</span>Salinas crews already lose days to heat</li>
+        <li><span class="rk w">9</span>One national distribution centre serves all three divisions</li>
+      </ul>
+      <h4>Decisions and dates</h4>
+      <ul><li>Qualify a second aseptic site: decide Q4 2026 (6 to 9 month clock)</li><li>Where staged inventory sits in hurricane season</li><li>San Antonio Line 3 under the capex cap</li><li>Rail and truck pre-booking before spring; crew heat plan for 2027</li></ul>
+      <h4>Counterparts</h4>
+      <ul><li>Marcus Webb; Dana Okafor; plant managers</li></ul>
+      <h4>Evidence</h4>
+      <ul><li>Gulf landfall and outage history (Ida, Laura); ERCOT and Uri; Red River 1997 and 2009; heat-day counts at six sites, three models</li></ul>
+    </div>
+    <div class="mcol">
+      <h3><span>Workstream 3</span>Finance and insurance</h3>
+      <h4>Dependencies</h4>
+      <ul>
+        <li><span class="rk s">4</span>Springing covenant tested at the October revolver peak; insurance program re-underwritten now</li>
+        <li>The financial line of every dependency in the other columns</li>
+      </ul>
+      <h4>Decisions and dates</h4>
+      <ul><li>Renewal submission, September; renewal 1 October</li><li>Lender ESG questionnaire, physical-risk section, Q3</li><li>Covenant test, October</li><li>Revolver refinancing December 2027; term loan June 2028</li></ul>
+      <h4>Counterparts</h4>
+      <ul><li>Priya Natarajan; David Chen; Sarah Whitfield-Gray; placing broker</li></ul>
+      <h4>Evidence</h4>
+      <ul><li>Every scenario expressed as EBITDA against headroom, leverage after, insurance recovery net of deductibles, sublimits and waiting periods</li></ul>
+    </div>
+    <div class="mcol bounded">
+      <h3><span>Workstream 4 · bounded</span>Beverage demand</h3>
+      <h4>Question</h4>
+      <ul><li>Does heat move beverage sales enough to change what is stocked where, and when?</li></ul>
+      <h4>Decision</h4>
+      <ul><li>Placement and timing for the launch and summer plans</li></ul>
+      <h4>Counterpart</h4>
+      <ul><li>Dana Okafor; demand planning</li></ul>
+      <h4>Evidence</h4>
+      <ul><li>Real NOAA station weather. Sales are synthetic until retailer point-of-sale data arrives; used only to prove the method, never as a finding. Disclosed wherever shown.</li></ul>
+      <h4>Limit</h4>
+      <ul><li>Fixed share of effort; stops at the week-4 checkpoint if no POS data</li></ul>
+    </div>
+  </div>
+  <div class="mband">
+    <div><b>Method</b>Dependencies → scenario conditions (high and low, analogs scaled) → calibrate where history exists → financial statements and covenant → actions by cost and date</div>
+    <div><b>Deliverables</b>Vulnerability and scenario tool · decision briefs per dated decision · methodology and ERM pack (disclosure mapping last)</div>
+    <div><b>Time</b>Eight weeks. Renewal memo week 1 · gate week 2 · CFO checkpoint week 4 · recommendations week 6 · handover week 8</div>
+    <div><b>Fee</b>USD 200,000 fixed. 40 / 30 / 30 at kick-off, week 4, handover. Specialists supplied by Larkspur</div>
+    <div><b>Governance</b>Working group chaired by the COO; Treasurer owns the financial yardstick; lands in the audit committee's ERM review</div>
+  </div>
+  <p class="mfoot">Not in scope: structural damage estimates · a probability for any scenario · Ingredients customers' own demand · disclosure preparation itself (we supply the evidence and say what reporting would still need).</p>
+</section>
+
+<section class="slide">
+  <h2><small>Why a version 2</small>Your records changed the picture in three ways</h2>
+  <div class="body">
+  <div class="grid3">
+    <div><b>The largest exposures are not fields</b>The 18 September proposal organised the work around crops. Ranked by money at stake against buffer and cover, the first dependency is a single contract manufacturer and the fourth is a loan covenant. Only two of the top five are growing regions.</div>
+    <div><b>The calibration data is not in the records</b>We asked for five to ten years of monthly purchase data and daily point-of-sale sales. The pack holds two years of division results, contract excerpts, an insurance summary and a credit agreement. Calibration now runs on 2021 to 2023 incident actuals we will request, not on long series.</div>
+    <div><b>The nearest decisions belong to finance</b>The board minutes date them: the September insurance submission, the lender's Q3 questionnaire, the October covenant test, the launch in March 2027. The Treasurer and General Counsel own those, so the proposal is now addressed jointly to the COO and the CFO.</div>
+  </div>
+  <p><b>Confirmed from your memo:</b> three businesses on three clocks (Produce ships within three days of pack, Beverage carries 27 days of finished goods, Ingredients 38); redundancy on paper that is not independent (Oregon growers sat under the same 2021 heat dome as Yakima; two co-packers but only one aseptic); substitution that is not free (retailer service credits, delisting exposure, customer approval); knowledge that lives in contracts (one grower form carries a 70% clause the other does not).</p>
+  </div>
+  <p class="kicker">Nothing here predicts an event. It says what breaks, how the break travels to the statements, and which facts would change the answer.</p>
+</section>
+
+<section class="slide">
+  <h2><small>Change 1</small>Who the work is for, and who owns it</h2>
+  <div class="body">
+  <p><span class="was">Sponsor: Marcus Webb. Owners to be confirmed at kick-off.</span> <span class="now">Now:</span> jointly sponsored by the COO and the CFO. The Treasurer and General Counsel are the principal users of the finance and insurance outputs; the three division presidents and the VP Procurement own the operating decisions.</p>
+  <p><b>A working group, proposed.</b> COO (chair), CFO or Treasurer, General Counsel, the three division presidents, VP Procurement, Director of Sustainability. It meets at the week-2 gate and the week-4 and week-6 checkpoints. The Treasurer owns the yardstick every scenario is measured against: EBITDA headroom under the covenant. The audit committee's annual enterprise-risk review is where the work lands.</p>
+  <table>
+  <tr><th>Decision</th><th>Date</th><th>Owner</th></tr>
+  <tr><td>Insurance renewal submission: BI worksheets by location, flood-zone redeterminations</td><td>September 2026; renewal 1 October</td><td>Sarah Whitfield-Gray with David Chen</td></tr>
+  <tr><td>Lender ESG questionnaire, physical-climate-risk section</td><td>Q3 2026</td><td>David Chen with Jonah Park</td></tr>
+  <tr><td>Second aseptic co-packer: start qualification or not</td><td>Q4 2026</td><td>Dana Okafor</td></tr>
+  <tr><td>Arizona acreage notice under PA-2021</td><td>1 September, each year</td><td>Carol Anders</td></tr>
+  <tr><td>Prairie Clover launch; FY2027 berry contracts</td><td>March 2027</td><td>Dana Okafor; Elena Ruiz</td></tr>
+  <tr><td>Central Valley grower renewals: harmonise MYA-2016 and MYA-2022</td><td>2027 crop year</td><td>Elena Ruiz</td></tr>
+  <tr><td>San Antonio Line 3 ($42M) under the capex cap</td><td>When the capital plan reconsiders it</td><td>Marcus Webb</td></tr>
+  <tr><td>Revolver, then term-loan refinancing</td><td>December 2027; June 2028</td><td>David Chen</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 2</small>Scope: from links in the value chain to dependencies ranked by exposure</h2>
+  <div class="body">
+  <p><span class="was">WS1 Sourcing (about three crops) · WS2 Facilities (three to five sites) · WS3 Demand (one category), with a Pareto gate at week 2.</span> <span class="now">Now:</span> the gate has run. Ten dependencies, three tiers, three workstreams that carry them, and finance as a workstream in its own right.</p>
+  <table>
+  <tr><th>Rank</th><th>Dependency</th><th>Division</th><th>Tier</th><th>Workstream</th></tr>
+  <tr><td>1</td><td>One aseptic co-packer fills 60% of Beverage; $10M contingent BI with a 30-day wait</td><td>Beverage</td><td>Critical</td><td>Operations</td></tr>
+  <tr><td>2</td><td>Central Valley growers in overdrafted basins feed Fresno and Merced; $204M of contracts on two forms</td><td>Ingredients</td><td>Critical</td><td>Supply</td></tr>
+  <tr><td>3</td><td>Arizona winter program on Colorado River priority and Pinal groundwater; $48M of $72M on junior priority</td><td>Produce</td><td>Critical</td><td>Supply</td></tr>
+  <tr><td>4</td><td>Covenant tested at the October revolver peak; $59M of headroom; insurance re-underwritten now</td><td>Corporate</td><td>Serious</td><td>Finance</td></tr>
+  <tr><td>5</td><td>San Antonio bottling on an interruptible rider and a capped aquifer permit</td><td>Beverage</td><td>Serious</td><td>Operations</td></tr>
+  <tr><td>6</td><td>Fargo pea protein on one rail spur across the Red River floodplain</td><td>Ingredients</td><td>Serious</td><td>Operations</td></tr>
+  <tr><td>7</td><td>2027 launch leans on Yakima berries with junior rights and a correlated Oregon alternate</td><td>Beverage</td><td>Serious</td><td>Supply</td></tr>
+  <tr><td>8</td><td>Salinas crews already lose days to heat; plant near the 2023 flood</td><td>Produce</td><td>Watch</td><td>Operations</td></tr>
+  <tr><td>9</td><td>One national distribution centre serves all three divisions</td><td>Corporate</td><td>Watch</td><td>Operations</td></tr>
+  <tr><td>10</td><td>Natural colors, the highest-margin line, traces to a handful of Central Valley crops</td><td>Ingredients</td><td>Watch</td><td>Supply</td></tr>
+  </table>
+  <p>Critical tier: full scenario sets. Serious: bounded scenarios. Watch: missing-fact checks only, promoted if a fact changes the picture.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 3</small>Beverage demand stays, bounded, with the synthetic test disclosed</h2>
+  <div class="body">
+  <p><span class="was">First workstream to drop or defer; needs daily point-of-sale sales by store.</span> <span class="now">Now:</span> a small, fixed-effort workstream that answers one question: does heat move beverage sales enough to change what is stocked where, and when?</p>
+  <p><b>What the records contain.</b> No point-of-sale data, no store lists, no customer geography. Beverage revenue by line for one year, and the named retail accounts.</p>
+  <p><b>How it runs until retailer data arrives.</b> On a synthetic daily sales set built on real NOAA station weather for ten metros, reconciled to your FY2025 beverage totals, with the heat response written down in advance as an answer key. Its only purpose is to prove that the calibration step can recover a known signal after controlling for weekday, season, promotions and the school calendar. <b>No conclusion about Larkspur's demand is drawn from synthetic sales, and every page that shows it says so.</b></p>
+  <p><b>Limit.</b> A fixed share of effort. If point-of-sale data from Lakemont or Fairmount has not arrived by the week-4 checkpoint, the workstream stops with the method note as its output and the effort moves to the supply and operations tiers. Fee unchanged either way.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 4</small>Method: the same five steps, pointed at what breaks and what it costs</h2>
+  <div class="body">
+  <table>
+  <tr><th>Step</th><th>18 September</th><th>Now</th></tr>
+  <tr><td>1 Dependencies</td><td>Prioritise crops, sites and products; write an assumptions register</td><td>Locations, activities and outside services including lenders and insurers; acute, chronic and combined conditions; how long each decision matters. Delivered 25 September as the vulnerability assessment.</td></tr>
+  <tr><td>2 Scenario conditions</td><td>One central pathway (ssp245), three models, 30-year windows</td><td>Bracket the high and the low the models disagree on (a dry West and a wet West). Scale historical analogs: Ida 2021, the February 2021 grid failure, the 2021 heat dome, the 2021–22 drought at 2030 allocations, the 2023 Tulare reflood, the 1997 and 2009 Red River floods. One named stress case: warming arrives sooner. Three models still shown as three lines.</td></tr>
+  <tr><td>3 Calibrate</td><td>Against five to ten years of monthly series</td><td>Against the 2021, 2022 and 2023 incident actuals you supply: grower protection paid, replacement premium, crew-days lost, curtailed hours, service credits. A null result is still reported.</td></tr>
+  <tr><td>4 Financial statements</td><td>Cascade to margin, COGS and lost sales</td><td>Revenue, expenses, balance sheet (inventory, revolver draw), insurance recovery net of deductibles, sublimits and waiting periods, EBITDA against covenant headroom, leverage after. Not a probability: a range, and whether the range uses the headroom.</td></tr>
+  <tr><td>5 Actions</td><td>Which action holds across the model spread</td><td>Cost of the action against exposure removed, by decision date. Cheap and certain first: move staged inventory off the Gulf in hurricane season, bring the Arizona notice forward, name the co-packer as a dependent property. Capital decisions (second aseptic site, Line 3) shown with the scenario set that justifies or defers them.</td></tr>
+  </table>
+  <p class="muted">We keep pulling and graphing climate data every week: precipitation and allocation history for the Central Valley and Yuma cells, Gulf landfall and outage records, station heat-index data for Salinas.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 5</small>Time frame: eight weeks, re-sequenced to your calendar</h2>
+  <div class="body">
+  <table>
+  <tr><th>Week</th><th>Milestone</th><th>Ties to</th></tr>
+  <tr><td>1</td><td>Kick-off. Missing-facts request. <b>Renewal memo</b> to the General Counsel and Treasurer: BI worksheet inputs from the dependency map; flood-check list for Fargo, Gonzales and Salinas</td><td>September submission, 1 October renewal</td></tr>
+  <tr><td>2</td><td><b>Gate.</b> Working group confirms the ranking and the missing facts. Lender questionnaire inputs</td><td>Q3 questionnaire</td></tr>
+  <tr><td>3–4</td><td>Critical-tier scenarios: co-packer, Central Valley, Arizona. High and low, analogs scaled, priced against headroom</td><td>Q4 second-co-packer decision</td></tr>
+  <tr><td>4</td><td><b>Checkpoint with the CFO and Treasurer:</b> covenant and insurance view. Beverage demand continues or stops</td><td>October covenant test</td></tr>
+  <tr><td>5–6</td><td>Serious tier. Actions compared by cost and date</td><td>2027 renewals; Arizona notice; launch sourcing</td></tr>
+  <tr><td>6</td><td><b>Checkpoint.</b> Recommendations by decision date</td><td></td></tr>
+  <tr><td>7</td><td>Tool and decision briefs for sponsor review</td><td></td></tr>
+  <tr><td>8</td><td>Handover. ERM pack for the audit committee. Half-day with the working group</td><td>Annual enterprise-risk review</td></tr>
+  </table>
+  <p><span class="was">Earliest useful answer: the priority list at week 2.</span> <span class="now">Now:</span> the renewal memo at week 1 and the covenant view at week 4. The priority list is already delivered.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 6</small>Deliverables: same three, renamed to the decisions they serve</h2>
+  <div class="body">
+  <table>
+  <tr><th>#</th><th>18 September</th><th>Now</th><th>Who uses it</th></tr>
+  <tr><td>1</td><td>Climate Decision Tool: priorities, conditions, consequences, actions</td><td><b>Vulnerability and scenario tool.</b> Dependencies → scenario conditions → financial statements and covenant → actions by decision date. The 25 September assessment is its first version. Includes the living missing-facts register.</td><td>Working group; Treasurer's team re-runs it</td></tr>
+  <tr><td>2</td><td>Playbooks, one per recurring process</td><td><b>Decision briefs</b>, one per dated decision on the calendar: renewal submission, second co-packer, Arizona notice, grower forms, Line 3, refinancing</td><td>The named owner of each decision</td></tr>
+  <tr><td>3</td><td>Methodology and disclosure guide, mapped to IFRS S2 and TCFD</td><td><b>Methodology and ERM pack.</b> Audit committee pack first, lender questionnaire response second, IFRS S2 and TCFD mapping last</td><td>CFO, audit committee, Director of Sustainability</td></tr>
+  </table>
+  <p>Everything remains Larkspur's on handover, opens in a browser, and re-runs without Windward's software.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>Change 7</small>What we need from you: facts, actuals and your own specialists</h2>
+  <div class="body">
+  <p><span class="was">Monthly purchase series, daily point-of-sale sales, site coordinates, facility-manager interviews; agronomist and legal review at cost.</span> <span class="now">Now:</span></p>
+  <table>
+  <tr><th>Input</th><th>Examples</th><th>From</th><th>By</th></tr>
+  <tr><td>The missing-facts register (14 items)</td><td>Backup generation at Gonzales and what happened there in Ida; any partly qualified second aseptic filler; whether the contingent BI responds to an unnamed contract manufacturer; whether a groundwater cut is a declared drought under MYA-2016 §7.3; whether the flood redeterminations move Fargo, Gonzales or Salinas into a hazard area; revolver usage by month</td><td>The named owner of each fact</td><td>Week 2</td></tr>
+  <tr><td>Incident actuals, 2021 to 2023</td><td>Grower protection paid, replacement premium, crew-days lost, curtailed hours, service credits, by year</td><td>Priya Natarajan; division presidents</td><td>Week 3</td></tr>
+  <tr><td>Grower and site locations</td><td>Schedule F water-source records and parcel maps; elevation certificates where they exist</td><td>Elena Ruiz; plant managers</td><td>Week 3</td></tr>
+  <tr><td>Specialists</td><td>Coverage counsel or the placing broker; water-rights counsel; agronomist review of thresholds</td><td>Larkspur, from advisers already retained</td><td>As the questions arise</td></tr>
+  </table>
+  <p><b>No specialist fees are in the price.</b> We write the questions and tell you which answer would change the recommendation; your advisers answer them.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>What does not change</small>Fee, duration, deliverables and how we check the work</h2>
+  <div class="body">
+  <ul>
+    <li><b>Fee.</b> USD 200,000 fixed, eight weeks. 40% at kick-off, 30% at the week-4 checkpoint with the CFO, 30% at handover. The workstream changes are effort-neutral. The basis shifts from data pulls and long-series calibration, which the tooling now does quickly, toward confirming facts with named owners and working-group time.</li>
+    <li><b>Three deliverables</b>, everything Larkspur's on handover.</li>
+    <li><b>Assurability.</b> Every figure traces to a document in your pack or a public dataset with provenance. Scenario arithmetic sits in a model file your Treasurer's team can read and re-run. Audit trail is not assurance; we advise, we do not assure.</li>
+    <li><b>Honesty about limits.</b> No probability from three models. No forecast for a given year. No attribution of a past season to climate change. A null result is reported. "Your buffers hold" is an acceptable answer.</li>
+    <li><b>Why Windward.</b> Built in Claude Code so it lives in your environment. We read all twenty documents in your pack and found the co-packer and the covenant before the first meeting. We work with your Treasurer and your broker as readily as with procurement.</li>
+  </ul>
+  <p><b>Effect on timeline and fee, in one paragraph.</b> Scope moves from three value-chain workstreams to the ten dependencies your records revealed, ranked by financial exposure, with finance and insurance as a workstream of its own and beverage demand kept small and bounded. Duration stays eight weeks, re-sequenced so the first outputs reach the September insurance submission and the October covenant test. The fee is unchanged. Specialist review is supplied by Larkspur rather than priced in.</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2><small>End</small>Windward Risk Advisors</h2>
+  <p>Version 2, 24 September 2026. The 18 September proposal remains available for the unchanged elements. The vulnerability assessment of 25 September is the first delivered component of this scope.</p>
+  <p class="sim">Simulated engagement for the Climate Risk Residency. Climate data referenced is real; Larkspur records and Windward credentials are simulated.</p>
+</section>
+
+</div>
+<div class="foot"><span><a href="../" style="color:var(--accent);text-decoration:none;font-weight:600">← Residency home</a> &nbsp;·&nbsp; Windward Risk Advisors · Larkspur Foods · proposal version 2 · simulated engagement</span><span id="count"></span></div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0,n=slides.length;
+  function show(k){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('active',j===i)});
+    document.getElementById('bar').style.width=((i+1)/n*100)+'%';
+    document.getElementById('count').textContent=(i+1)+' / '+n; slides[i].scrollTop=0;
+    try{location.hash=i+1}catch(e){}}
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')show(i+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(n-1);
+    else if(e.key==='p'||e.key==='P')window.print();
+  });
+  document.getElementById('deck').addEventListener('click',function(e){ if(e.target.closest('a'))return; show(i+1); });
+  var h=parseInt((location.hash||'').replace('#',''),10); show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>

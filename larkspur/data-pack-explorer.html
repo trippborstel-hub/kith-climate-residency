@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larkspur Data Pack</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f6f5f2; --surface:#fcfcfb; --surface-2:#f0efec; --line:#e2e0da;
+  --text:#0b0b0b; --text-2:#52514e; --muted:#7a7873;
+  --accent:#2a78d6; --accent-soft:#e6f0fb;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --mark:#fff2b3;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121211; --surface:#1a1a19; --surface-2:#232321; --line:#34342f;
+    --text:#ffffff; --text-2:#c3c2b7; --muted:#8f8e86;
+    --accent:#3987e5; --accent-soft:#1c2a3b;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --mark:#5a4b00;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121211; --surface:#1a1a19; --surface-2:#232321; --line:#34342f;
+  --text:#ffffff; --text-2:#c3c2b7; --muted:#8f8e86;
+  --accent:#3987e5; --accent-soft:#1c2a3b;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --mark:#5a4b00;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none;cursor:pointer}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:1000;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:650;font-size:16px;white-space:nowrap}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav button{background:none;border:0;color:var(--text-2);font:inherit;font-size:14px;padding:7px 11px;border-radius:7px;cursor:pointer}
+nav button:hover{background:var(--surface-2)}
+nav button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.search{margin-left:auto;position:relative}
+.search input{width:230px;max-width:60vw;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.theme-btn{background:none;border:1px solid var(--line);border-radius:8px;color:var(--text-2);padding:6px 9px;cursor:pointer;font:inherit;font-size:13px}
+main{max-width:1180px;margin:0 auto;padding:22px 16px 60px}
+section.view{display:none}
+section.view.on{display:block}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-size:19px;margin:28px 0 10px}
+h3{font-size:15px;margin:18px 0 6px}
+.lede{color:var(--text-2);max-width:760px;margin:0 0 18px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.grid{display:grid;gap:12px}
+.g6{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}}
+.tile .v{font-size:24px;font-weight:650;letter-spacing:-.01em}
+.tile .k{font-size:12.5px;color:var(--text-2)}
+.tile .s{font-size:12px;color:var(--muted);margin-top:2px}
+.theme-card{cursor:pointer;transition:border-color .15s}
+.theme-card:hover{border-color:var(--accent)}
+.theme-card h3{margin:0 0 4px;font-size:16px}
+.theme-card p{margin:0 0 8px;color:var(--text-2);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--text-2);white-space:nowrap}
+a.chip:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.chip.csv::before{content:"▦ ";opacity:.7}
+.chip.md::before{content:"¶ ";opacity:.7}
+ol.steps{padding-left:20px;margin:0}
+ol.steps li{margin:4px 0}
+/* charts */
+.chart-title{font-weight:600;font-size:14px;margin:0 0 2px}
+.chart-sub{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.hbar{display:grid;grid-template-columns:minmax(110px,190px) 1fr;gap:6px 10px;align-items:center;font-size:13px}
+.hbar .lab{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar .track{position:relative;height:18px}
+.hbar .fill{position:absolute;left:0;top:2px;height:14px;border-radius:0 4px 4px 0;background:var(--s1)}
+.hbar .val{position:absolute;top:0;font-size:12px;color:var(--text);white-space:nowrap;padding-left:6px;line-height:18px}
+.hbar .hit{position:absolute;inset:0;cursor:default}
+.legend{display:flex;gap:14px;font-size:12.5px;color:var(--text-2);margin:8px 0 0;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--surface);font-size:12.5px;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .1s;z-index:2000;max-width:280px}
+/* theme detail */
+.facts{margin:0;padding-left:18px}
+.facts li{margin:5px 0}
+.qs{background:var(--accent-soft);border-radius:10px;padding:12px 16px}
+.qs h3{margin-top:0;color:var(--accent)}
+.qs ul{margin:0;padding-left:18px}
+.qs li{margin:5px 0}
+.src-note{font-size:12px;color:var(--muted)}
+/* tables */
+.tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);max-height:70vh}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--surface-2);font-weight:600;white-space:nowrap;z-index:1}
+th.sort{cursor:pointer}
+th.sort:hover{color:var(--accent)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+#tbl td:first-child{white-space:nowrap}
+tr:hover td{background:var(--surface-2)}
+tfoot td{font-weight:600;background:var(--surface-2);position:sticky;bottom:0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+.controls select,.controls input{padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font:inherit;font-size:13.5px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex-wrap:wrap}
+.seg button{background:var(--surface);border:0;border-right:1px solid var(--line);padding:7px 12px;font:inherit;font-size:13.5px;color:var(--text-2);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.count{font-size:13px;color:var(--muted)}
+/* docs */
+.docs{display:grid;grid-template-columns:260px 1fr;gap:18px}
+@media (max-width:800px){.docs{grid-template-columns:1fr}}
+.doclist{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto}
+.doclist h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 4px}
+.doclist a{display:block;padding:5px 9px;border-radius:7px;color:var(--text-2);font-size:13.5px}
+.doclist a:hover{background:var(--surface-2);text-decoration:none}
+.doclist a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.docmeta{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}
+.docmeta .path{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted)}
+.md h1{font-size:21px}.md h2{font-size:17px}.md h3{font-size:15px}
+.md table{margin:10px 0;border:1px solid var(--line)}
+.md em{color:var(--text-2)}
+.md hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.md p,.md li{max-width:820px}
+mark{background:var(--mark);color:inherit;border-radius:2px}
+/* map */
+#map{height:560px;border-radius:12px;border:1px solid var(--line)}
+.map-note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.leaflet-popup-content{font-size:13px;line-height:1.45}
+/* glossary */
+.gloss dt{font-weight:650;margin-top:12px}
+.gloss dd{margin:2px 0 0;color:var(--text-2)}
+.gloss .where{font-size:12px;color:var(--muted)}
+/* search results */
+#results{position:absolute;right:0;top:40px;width:420px;max-width:92vw;max-height:70vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:none}
+#results a{display:block;padding:9px 12px;border-bottom:1px solid var(--line);color:var(--text);font-size:13px}
+#results a:hover{background:var(--surface-2);text-decoration:none}
+#results .rt{font-weight:600}
+#results .rs{color:var(--text-2);font-size:12.5px}
+.contract-cmp td:first-child{font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand"><a href="../" style="font-size:12px;font-weight:500;display:block">← Residency home</a>Larkspur Foods data pack<small>Windward Risk Advisors · received 20 Sep 2026</small></div>
+    <nav id="nav">
+      <button data-v="overview" class="on">1 · Overview</button>
+      <button data-v="themes">2 · Themes</button>
+      <button data-v="map">3 · Map</button>
+      <button data-v="data">4 · Data tables</button>
+      <button data-v="docs">5 · Documents</button>
+      <button data-v="gloss">Glossary</button>
+    </nav>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search every file…" autocomplete="off">
+      <div id="results"></div>
+    </div>
+    <button class="theme-btn" id="themeBtn" title="Toggle light/dark">◐</button>
+  </div>
+</header>
+
+<main>
+<!-- ================= OVERVIEW ================= -->
+<section class="view on" id="v-overview">
+  <h1>Larkspur Foods at a glance</h1>
+  <p class="lede">A family-controlled US food company with three divisions, twelve sites and about 60 contracted growers. The pack holds <b>16 documents and 4 data tables</b> the client gave Windward. Everything in it is simulated course data. Read from top to bottom: this page, then the themes, then the raw files.</p>
+
+  <div class="grid g6" id="tiles"></div>
+
+  <h2>How the money splits</h2>
+  <div class="grid g2">
+    <div class="card"><p class="chart-title">Revenue by division, FY2025</p><p class="chart-sub">$ millions · source: division-pnl.csv</p><div id="ch-rev"></div></div>
+    <div class="card"><p class="chart-title">Adjusted EBITDA by division, FY2025</p><p class="chart-sub">$ millions · corporate costs of −$25.5M not shown · source: division-pnl.csv</p><div id="ch-ebitda"></div></div>
+  </div>
+
+  <h2>What's in the pack, grouped into six themes</h2>
+  <p class="lede">Every file sits in one home theme. Click a card to open the summary, key numbers and questions for that theme.</p>
+  <div class="grid g3" id="themeCards"></div>
+
+  <h2>Suggested reading order</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><a data-doc="company-overview.md">Company overview</a> and <a data-doc="org-chart.md">org chart</a>: who they are and who signs what.</li>
+      <li><a data-doc="board-minutes-excerpt.md">Board minutes</a>: what leadership is worried about right now (insurance renewal, lender ESG questionnaire, a deferred expansion).</li>
+      <li><a data-doc="reference.md">Reference</a>: the detailed numbers by product line, customer and inventory.</li>
+      <li><a data-view="map">The map</a>, then the <a data-dataset="facilities">facilities</a> and <a data-dataset="growers">grower</a> tables: where everything physically is.</li>
+      <li><a data-doc="water-permits-summary.md">Water & permits</a>: the thread running through plants and growers.</li>
+      <li>The contracts (growers, co-packer, retailer, credit, energy, insurance): who carries the loss when something goes wrong. The <a data-th="supply">supply theme</a> compares the four grower contract forms side by side.</li>
+    </ol>
+  </div>
+
+  <h2>About the pack itself</h2>
+  <div class="grid g2">
+    <div class="card"><p style="margin:0 0 6px"><b>Folder layout</b></p>
+      <p style="margin:0;font-size:13.5px;color:var(--text-2)"><code>windward-risk-advisors/</code> → <code>clients/larkspur-foods/</code> (16 docs + <code>data/</code> with 4 CSVs), <code>pull-library/</code> (empty for now, README only) and <code>outputs/</code> (empty, for your work).</p></div>
+    <div class="card"><p style="margin:0 0 6px"><b>Pull library status</b></p>
+      <p style="margin:0;font-size:13.5px;color:var(--text-2)">Empty today. Tested pull scripts will be added during the program for FEMA NRI, Drought Monitor, NOAA Storm Events and normals, NASS, FEMA flood zones, CA SGMA, Colorado River, Edwards Aquifer stages, ERCOT and wildfire rasters. <a data-doc="pull-library/README.md">Read the README</a>.</p></div>
+  </div>
+</section>
+
+<!-- ================= THEMES ================= -->
+<section class="view" id="v-themes">
+  <div class="crumbs"><a data-view="overview">Overview</a> › Themes</div>
+  <div class="controls"><div class="seg" id="themeSeg"></div></div>
+  <div id="themeBody"></div>
+</section>
+
+<!-- ================= MAP ================= -->
+<section class="view" id="v-map">
+  <div class="crumbs"><a data-view="overview">Overview</a> › Map</div>
+  <h1>Where everything is</h1>
+  <p class="lede">Company sites come from <code>facilities-register.csv</code>, which gives their coordinates. Growers are plotted at the <b>town</b> named in <code>grower-network.csv</code>. The pack has no grower coordinates, so those dots are approximate town centres, spread slightly where several growers share a town. Click any dot for details.</p>
+  <div class="controls">
+    <div class="seg" id="mapSeg">
+      <button data-f="all" class="on">Everything</button>
+      <button data-f="central_valley">Central Valley</button>
+      <button data-f="arizona">Arizona</button>
+      <button data-f="midwest">Upper Midwest</button>
+      <button data-f="pnw">Pacific NW</button>
+      <button data-f="gulf">Gulf / Texas</button>
+    </div>
+  </div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i style="background:var(--s1)"></i>Company site (owned or leased)</span>
+    <span><i style="background:var(--s3)"></i>Third-party co-packer</span>
+    <span><i style="background:var(--s2);border-radius:50%"></i>Contracted grower (size ∝ contract value)</span>
+  </div>
+  <p class="map-note">Basemap needs an internet connection. The dot data works offline in the tables tab.</p>
+</section>
+
+<!-- ================= DATA ================= -->
+<section class="view" id="v-data">
+  <div class="crumbs"><a data-view="overview">Overview</a> › Data tables</div>
+  <h1>The four data tables</h1>
+  <p class="lede">These are the raw CSVs. Click a column header to sort. Use the filters to narrow the rows, and the totals row updates to match.</p>
+  <div class="controls"><div class="seg" id="dataSeg">
+    <button data-d="growers" class="on">Grower network (60)</button>
+    <button data-d="facilities">Facilities (12)</button>
+    <button data-d="bev">Beverage lines (7)</button>
+    <button data-d="pnl">Division P&amp;L</button>
+  </div></div>
+  <div id="groupBox" class="card" style="margin-bottom:14px"></div>
+  <div class="controls" id="filters"></div>
+  <div class="tbl-wrap"><table id="tbl"></table></div>
+  <p class="src-note" id="tblSrc"></p>
+</section>
+
+<!-- ================= DOCS ================= -->
+<section class="view" id="v-docs">
+  <div class="crumbs"><a data-view="overview">Overview</a> › Documents</div>
+  <div class="docs">
+    <div class="doclist card" id="doclist"></div>
+    <div class="card"><div class="docmeta" id="docmeta"></div><div class="md" id="docbody"></div></div>
+  </div>
+</section>
+
+<!-- ================= GLOSSARY ================= -->
+<section class="view" id="v-gloss">
+  <div class="crumbs"><a data-view="overview">Overview</a> › Glossary</div>
+  <h1>Glossary</h1>
+  <p class="lede">Plain-English meanings of the terms the pack uses without explaining. These are general definitions written for this page, not taken from the pack. Where a term depends on a specific contract, the contract's wording controls.</p>
+  <div class="controls"><input id="gq" type="search" placeholder="Filter terms…"></div>
+  <div class="grid g2" id="glossBody"></div>
+</section>
+</main>
+<div id="tip"></div>
+
+<script>
+const FILES = {"README.md": "# Windward Risk Advisors\n\nClient advisory workspace. Your engagement is the client folder under `clients/`. The work is\ngoverned by your weekly briefs.\n\n*All client entities, people, and data in this workspace are simulated; any resemblance to real\ncompanies or persons is coincidental. Individual data files carry their own provenance headers.*\n", "clients/larkspur-foods/board-minutes-excerpt.md": "# Board Minutes Excerpt \u2014 Larkspur Foods, Inc.\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Regular meeting of the Board of Directors \u2014 April 21, 2026, Minneapolis.** Directors present: nine of nine. Officers attending by invitation:\nCFO, COO, General Counsel, Treasurer, division presidents. Condensed minutes; resolutions\nrecorded in the minute book.\n\n---\n\n1. FY2025 results review (CFO): revenue $2.50B (+4.6%), adjusted EBITDA $297.7M; leverage 2.8x at year-end.\n2. Insurance renewal report (General Counsel / Treasurer): October 2026 property renewal expected up mid-single digits; the placing broker conveyed underwriter requests for updated flood-zone determinations across scheduled locations and refreshed business-interruption worksheets by location, for the September renewal submission.\n3. Financing (Treasurer): administrative agent for the term loan circulated an ESG questionnaire including a physical-climate-risk section; responses due Q3; Treasurer coordinating with the Director of Sustainability.\n4. Capital plan (COO): San Antonio Line 3 expansion ($42.0M, adds chilled capacity) deferred pending utility rate discussions and the water-permit outlook; memo held as Appendix C (not attached).\n5. March 2027 Prairie Clover functional-line national introduction approved (President, Beverage); slotting and launch marketing $18.5M within the FY2027 plan.\n6. ERP phase 2 budget approved ($9.8M); external audit fee approved; quarterly dividend declared at the established rate.\n7. Mock-recall tabletop exercise results reviewed (no material findings); D&O program renewed.\n8. Appointment of Renata Solis as Director of Quality Assurance, Produce.\n\nThere being no further business, the meeting adjourned.\n\n*Certified: Sarah Whitfield-Gray, Corporate Secretary.*\n", "clients/larkspur-foods/company-overview.md": "# Company Overview \u2014 Larkspur Foods, Inc.\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nLarkspur Foods, Inc. is a diversified, privately held ingredient and food company headquartered\nin Minneapolis, Minnesota. FY2025 revenue was $2,500.0M ($2,390.0M in FY2024);\nconsolidated adjusted EBITDA was $297.7M. The company employs approximately\n2,450 people plus seasonal and contract harvest labor.\n\n## Divisions (FY2025)\n\n| Division | Revenue | EBITDA margin | Description |\n|---|---|---|---|\n| **Ingredients** | $1,300.0M | 16% | Fruit & vegetable concentrates and purees, dehydrated vegetables, natural colors, pea protein \u2014 B2B to food and beverage manufacturers |\n| **Produce** | $680.0M | 7% | Value-added fresh (salads, cut vegetables) for retail and foodservice; winter program in Arizona |\n| **Beverage** | $520.0M | 13% | Prairie Clover branded juices and functional drinks plus retailer private-label production; one owned bottling plant and two contract manufacturers |\n\nCorporate and unallocated costs were $25.5M at the EBITDA line.\n\n## History\n\n- **1968** \u2014 Founded in Baraboo, Wisconsin as a vegetable dehydration business; the Baraboo\n  plant remains in operation as the company's original site.\n- **1989** \u2014 Headquarters moved to Minneapolis.\n- **1994** \u2014 Fresno, California concentrate plant acquired; entry into fruit and vegetable\n  concentrates and purees.\n- **1999** \u2014 Merced, California dehydration plant opened; natural colors line added 2008.\n- **2004** \u2014 Salinas, California value-added produce operation acquired; Arizona winter\n  program added 2011.\n- **2007** \u2014 San Antonio bottling plant and a regional juice business acquired; relaunched\n  under the Prairie Clover brand in 2012.\n- **2019** \u2014 Fargo, North Dakota pea-protein fractionation plant commissioned.\n- **2021** \u2014 Snack ingredients line divested.\n\n## Operations\n\nThe company operates seven owned or leased production and cooling facilities in California,\nArizona, Wisconsin, North Dakota, and Texas, leased cold storage in Washington, a national\ndistribution center in Illinois, and contracts with two beverage co-manufacturers (Louisiana\nand Michigan). Raw supply comes from roughly 60 contracted grower relationships across the\nSan Joaquin Valley, Arizona, the upper Midwest, and the Pacific Northwest. See the facilities\nregister and grower network files for detail.\n\n## Customers\n\nRetail and foodservice customers include two national retailers and a national foodservice\ndistributor; the largest, Lakemont Markets, Inc., represented 14% of consolidated FY2025\nrevenue. Ingredients customers are food and beverage manufacturers; the largest represented\n7% of consolidated revenue. Branded beverage products sell under the Prairie Clover brand\n(launched 2012); the Beverage division also produces retailer private-label shelf-stable juice.\n\n## Ownership and governance\n\nApproximately 40% of shares are held by the founding family, with the balance held by two\ninstitutional minority shareholders and current and former management. The nine-member board\nis chaired by Margaret Voss (outside chair); the audit committee chairs the annual\nenterprise-risk review. Alan Larkspur-Reed, third-generation family, serves as CEO.\n", "clients/larkspur-foods/copacker-agreement-excerpt.md": "# Co-Manufacturing Agreement Excerpt \u2014 Aseptic Beverage Production\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Co-Manufacturing and Supply Agreement** between Larkspur Foods, Inc. (\"Larkspur\") and\n**River Parish Aseptic Packaging, LLC (Gonzales, Louisiana)** (\"RPAP\") \u00b7 Executed January 2020, amended March 2024 \u00b7\nTerm through December 31, 2029 \u00b7 Excerpt: Articles 3, 11, 14, and Amendment No. 2 note.\n\n---\n\n## Article 3 \u2014 Capacity and volume\n\n3.1 RPAP dedicates aseptic Lines 2 and 3 to Larkspur products; Larkspur commits minimum annual volume of 15.0 million cases across contracted formats.\n\n3.2 Dedicated-line rated capacity is 19.0 million cases per year across contracted\nformats. Larkspur's minimum annual purchase commitment is 15.0 million cases; shortfall\nagainst the minimum is invoiced at the standby-line rate in Schedule 4.\n\n3.3 RPAP shall not produce beverage products for third parties on Lines 2 and 3 without\nLarkspur's written consent.\n\n## Article 11 \u2014 Force majeure\n\n11.1 Named tropical storms and hurricanes, flood, storm surge, utility failure among enumerated events; obligations suspended for the event plus a commercially reasonable recovery period; RPAP has no obligation to supply from alternate facilities or procure substitute capacity.\n\n11.2 Either party may terminate affected purchase orders after 150 consecutive days of force majeure suspension; minimum-volume commitment reduced pro rata.\n\n## Article 14 \u2014 Quality systems and process changes\n\n14.1 Production of Larkspur low-acid aseptic products at any facility other than the Gonzales\nfacility constitutes a process change requiring Larkspur approval, process-authority\nvalidation, applicable regulatory process filings, and line trials before saleable production.\n\n14.2 (Amendment No. 2, March 2024) \u2014 The parties record that the most recent line addition\n(aseptic Line 3) required 6\u20139 months from engineering start to first saleable production,\nincluding process-authority validation and regulatory process filings for low-acid aseptic\nproducts plus line trials.\n\n## Selected commercial terms (Schedules 2\u20134, noted)\n\n- Tolling fee schedule with annual labor escalator (CPI-W capped at 4%)\n- Carton and resin passthrough at documented cost plus 2% handling\n- Larkspur-owned filler tooling on Lines 2\u20133 (bailment schedule)\n- Quality: SQF certification maintained; Larkspur audit rights twice annually\n", "clients/larkspur-foods/credit-agreement-excerpt.md": "# Credit Agreement Excerpt & Compliance Certificate \u2014 Larkspur Foods, Inc.\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nExcerpt of the Amended and Restated Credit Agreement (administrative agent and lender group\nunnamed here) and the Q4 FY2025 compliance certificate delivered by the Treasurer.\n\n---\n\n## Facilities\n\n- **Term Loan B:** $900.0M outstanding; Term SOFR + 2.75%, 1.0% annual amortization, bullet June 2028.\n- **Revolving credit facility:** $250.0M committed, maturing December 2027;\n  $45.0M drawn and $12.0M letters of credit outstanding at fiscal year-end.\n\n## Selected covenants\n\n- **Financial covenant.** Springing first-lien net leverage covenant of 3.50x, tested when revolver utilization (including LCs above $25.0M) exceeds 35%.\n- **Capital expenditures.** Negative covenant: capital expenditures limited to $85.0M per fiscal year plus 50% carryforward of the prior year's unused amount.\n- **Hedging.** At least 50% of funded term debt fixed or hedged for a minimum of two years (interest-rate swaps in place through 2027).\n- Customary negative covenants: liens, restricted payments (builder basket), asset sales\n  with reinvestment rights, permitted acquisitions up to $150.0M per year.\n\n## Compliance certificate \u2014 fiscal year ended December 27, 2025 (excerpt)\n\n| Item | Amount |\n|---|---|\n| Term Loan B outstanding | $900.0M |\n| Revolver drawn | $45.0M |\n| Finance leases | $18.0M |\n| Less: unrestricted cash | ($129.0M) |\n| **Consolidated net debt** | **$834.0M** |\n| Consolidated adjusted EBITDA | $297.7M |\n| **First-lien net leverage** | **2.8x** (covenant, when tested: 3.50x) |\n\nRevolver usage peaks mid-October with the Ingredients harvest inventory build; peak revolver usage during FY2025 was $138.0M.\n", "clients/larkspur-foods/data/beverage-volume-by-line.csv": "# Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. Fictional entities; any resemblance to real companies or persons is coincidental. Real agencies/districts named are real-world references; all Larkspur figures are simulated.\nline_id,product_line,brand,format,production_site,site_type,annual_cases_k,fy2025_revenue_usd_m\nBV-01,Chilled juices,Prairie Clover,\"PET, chilled\",\"San Antonio, TX\",owned plant,7800,138.0\nBV-02,Sparkling juices,Prairie Clover,PET/glass,\"San Antonio, TX\",owned plant,3000,55.0\nBV-03,Shelf-stable multi-serve juices,Prairie Clover,aseptic carton,\"Gonzales, LA\",co-packer (River Parish Aseptic Packaging),8300,142.0\nBV-04,Kids' portion packs,Prairie Clover,aseptic pouch/box,\"Gonzales, LA\",co-packer (River Parish Aseptic Packaging),5200,92.0\nBV-05,\"Functional drinks (protein-fortified, botanicals)\",Prairie Clover,aseptic carton,\"Gonzales, LA\",co-packer (River Parish Aseptic Packaging),2100,51.0\nBV-06,\"Retailer private label, shelf-stable\",private label,aseptic carton,\"Gonzales, LA\",co-packer (River Parish Aseptic Packaging),2400,27.0\nBV-07,Functional shots,Prairie Clover,\"PET, chilled\",\"Holland, MI\",co-packer (Vandermolen Beverage Filling),1200,15.0\n", "clients/larkspur-foods/data/division-pnl.csv": "# Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. Fictional entities; any resemblance to real companies or persons is coincidental. Real agencies/districts named are real-world references; all Larkspur figures are simulated.\ndivision,fy2024_revenue_usd_m,fy2025_revenue_usd_m,fy2024_ebitda_usd_m,fy2025_ebitda_usd_m,fy2025_ebitda_margin_pct,fy2025_capex_usd_m\nIngredients,1245.0,1300.0,196.0,208.0,16.0,38.0\nProduce,655.0,680.0,45.2,47.6,7.0,14.0\nBeverage,490.0,520.0,61.7,67.6,13.0,21.0\nCorporate / unallocated,,,-24.0,-25.5,,\nTotal,2390.0,2500.0,278.9,297.7,,\n", "clients/larkspur-foods/data/facilities-register.csv": "# Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. Fictional entities; any resemblance to real companies or persons is coincidental. Real agencies/districts named are real-world references; all Larkspur figures are simulated.\nfacility_id,facility,city,state,lat,lon,ownership,division,function,since,sqft,employees_fte,tiv_usd_m,fema_flood_zone,notes\nLF-HQ-01,Corporate headquarters,Minneapolis,MN,44.9762,-93.2708,leased,Corporate,Head office,2016,48000,210,12.0,X,\nLF-ING-01,Fresno concentrate plant,Fresno,CA,36.7107,-119.7402,owned,Ingredients,Fruit & vegetable concentrates and purees; two onsite production wells,1994,310000,340,145.0,X,\nLF-ING-02,Merced dehydration plant,Merced,CA,37.32,-120.44,owned,Ingredients,Vegetable dehydration; natural colors extraction,1999,240000,260,118.0,X,\nLF-ING-03,Baraboo dehydration & blends plant,Baraboo,WI,43.467,-89.7414,owned,Ingredients,Vegetable dehydration; custom blends; original 1968 site,1968,165000,190,74.0,X,\nLF-ING-04,Fargo pea-protein plant,Fargo,ND,46.834,-96.9,owned,Ingredients,\"Pea protein fractionation (isolates, concentrates, starch co-product)\",2019,205000,150,168.0,X,single rail spur; see logistics note\nLF-PRO-01,Salinas produce plant & coolhouse,Salinas,CA,36.6924,-121.6273,owned,Produce,\"Wash/cut/pack; adjacent coolhouse (65,000 sqft included)\",2004,260000,480,96.0,X,seasonal headcount peaks ~700 incl. contract crews\nLF-PRO-02,Yuma winter facility,Yuma,AZ,32.6784,-114.6108,leased,Produce,\"Seasonal cooling, consolidation and field office (November\u2013March)\",2011,88000,60,22.0,X,seasonal peak ~180\nLF-BEV-01,San Antonio bottling plant,San Antonio,TX,29.3561,-98.5252,owned,Beverage,Chilled PET and sparkling bottling; onsite Edwards well,2007,275000,310,132.0,X,see water & permits summary; energy rider\nLF-PRO-03,Yakima cold storage (leased),Yakima,WA,46.582,-120.5324,leased,Produce/Ingredients,Seasonal berry intake and IQF storage,2015,92000,25,18.0,X,contents coverage; building insured by lessor\nLF-DC-01,Romeoville distribution center (leased),Romeoville,IL,41.644,-88.103,leased,All divisions,National distribution center,2018,400000,120,38.0,X,\"Reno, NV DC closed 2024\"\nLF-CP-01,\"River Parish Aseptic Packaging, LLC (third-party)\",Gonzales,LA,30.2241,-90.919,third-party,Beverage,\"Contract manufacturer \u2014 aseptic filling (multi-serve, portion packs, functional)\",2014,0,0,0.0,X,co-packer's own property program; see agreement excerpt\nLF-CP-02,Vandermolen Beverage Filling Co. (third-party),Holland,MI,42.7663,-86.0893,third-party,Beverage,Contract manufacturer \u2014 functional shots,2021,0,0,0.0,X,co-packer's own property program\n", "clients/larkspur-foods/data/grower-network.csv": "# Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. Fictional entities; any resemblance to real companies or persons is coincidental. Real agencies/districts named are real-world references; all Larkspur figures are simulated.\ngrower_id,grower_name,city,county,state,region,crops,contracted_acres,est_annual_contract_value_usd_m,water_source,sgma_subbasin,basin_status,district_or_priority,contract_form,supplier_since,harvest_window,notes\nLF-GR-101,Arroyo Verde Farms,Sanger,Fresno,CA,central_valley,processing tomatoes; peaches,3200,14.8,district surface + onsite wells,Kings,critically overdrafted,,MYA-2016,2011,May\u2013Oct,\nLF-GR-102,Bear Creek Growers LLC,Merced,Merced,CA,central_valley,processing tomatoes,2100,9.6,onsite wells,Merced,critically overdrafted,,MYA-2022,2022,Jul\u2013Oct,\nLF-GR-103,Dos Palmas Orchards,Madera,Madera,CA,central_valley,peaches; grapes,1450,8.2,district surface + onsite wells,Madera,critically overdrafted,,MYA-2016,2013,May\u2013Sep,\nLF-GR-104,Kettleman Ridge Farming Co,Hanford,Kings,CA,central_valley,processing tomatoes; garlic,4100,16.9,onsite wells,Kings,critically overdrafted,,MYA-2022,2021,Jun\u2013Oct,\nLF-GR-105,Sierra Vista Produce Co,Selma,Fresno,CA,central_valley,grapes (juice),980,4.1,district surface + onsite wells,Kings,critically overdrafted,,MYA-2016,2015,Aug\u2013Oct,\nLF-GR-106,Chowchilla River Ranch,Chowchilla,Madera,CA,central_valley,processing tomatoes,2600,10.4,onsite wells,Chowchilla,critically overdrafted,,MYA-2016,2012,Jul\u2013Oct,\nLF-GR-107,Merquin Farming Co,Stevinson,Merced,CA,central_valley,carrots; onions,1900,8.9,district surface + onsite wells,Merced,critically overdrafted,,MYA-2022,2023,Jun\u2013Nov,\nLF-GR-108,Cottonwood Bend Farms,Firebaugh,Fresno,CA,central_valley,processing tomatoes,3600,13.2,district surface (CVP) + onsite wells,Delta-Mendota,critically overdrafted,,MYA-2022,2020,Jun\u2013Oct,\nLF-GR-109,Villa del Sol Growers,Reedley,Fresno,CA,central_valley,peaches; plums,760,3.9,district surface,Kings,critically overdrafted,,MYA-2016,2010,May\u2013Sep,organic certified (portion)\nLF-GR-110,Harlan & Sons Farming,Turlock,Stanislaus,CA,central_valley,bell peppers,1200,5.3,district surface + onsite wells,Turlock,high priority,,MYA-2016,2014,Jul\u2013Oct,\nLF-GR-111,Tuolumne Flats Farming,Modesto,Stanislaus,CA,central_valley,processing tomatoes,2200,8.8,district surface + onsite wells,Modesto,high priority,,MYA-2022,2022,Jul\u2013Oct,\nLF-GR-112,Rio Seco Ag Company,Los Banos,Merced,CA,central_valley,onions; garlic,2800,11.6,district surface (CVP) + onsite wells,Delta-Mendota,critically overdrafted,,MYA-2016,2016,Jun\u2013Sep,\nLF-GR-113,Kingsburg Fruit Co,Kingsburg,Fresno,CA,central_valley,peaches,640,3.3,district surface,Kings,critically overdrafted,,MYA-2016,2012,May\u2013Sep,\nLF-GR-114,Panoche Creek Farms,Mendota,Fresno,CA,central_valley,processing tomatoes,3100,11.9,district surface (CVP) + onsite wells,Delta-Mendota,critically overdrafted,,MYA-2022,2021,Jun\u2013Oct,\nLF-GR-115,Golden Bluff Orchards,Madera,Madera,CA,central_valley,grapes (juice),890,3.7,onsite wells,Madera,critically overdrafted,,MYA-2022,2023,Aug\u2013Oct,\nLF-GR-116,Cantua Growers LLC,Five Points,Fresno,CA,central_valley,garlic; onions,2400,10.1,district surface (CVP) + onsite wells,Westside,critically overdrafted,,MYA-2016,2013,Jun\u2013Sep,\nLF-GR-117,Eastside Bench Farms,Clovis,Fresno,CA,central_valley,bell peppers,1050,4.6,district surface + onsite wells,Kings,critically overdrafted,,MYA-2022,2024,Jul\u2013Oct,\nLF-GR-118,Bluff View Ag Partners,Hanford,Kings,CA,central_valley,processing tomatoes,3900,15.1,onsite wells,Tulare Lake,critically overdrafted,,MYA-2022,2020,Jun\u2013Oct,\nLF-GR-119,Lindsay Grove Company,Lindsay,Tulare,CA,central_valley,oranges (juice),1150,6.8,district surface + onsite wells,Kaweah,critically overdrafted,,MYA-2016,2015,Dec\u2013Apr,\nLF-GR-120,Yettem Valley Farms,Yettem,Tulare,CA,central_valley,purple carrots; beets (colors),720,4.3,district surface + onsite wells,Kaweah,critically overdrafted,,MYA-2022,2022,Jun\u2013Nov,\nLF-GR-121,Orange Cove Growers Association,Orange Cove,Fresno,CA,central_valley,oranges (juice),980,5.7,district surface,Kings,critically overdrafted,,MYA-2016,2011,Dec\u2013Apr,\nLF-GR-122,Delta Sky Farms,Patterson,Stanislaus,CA,central_valley,processing tomatoes; green beans,1700,6.9,district surface (CVP) + onsite wells,Delta-Mendota,critically overdrafted,,MYA-2022,2021,Jun\u2013Oct,\nLF-GR-123,Ripperdan Ranch Co,Madera,Madera,CA,central_valley,grapes (juice),1300,5.4,onsite wells,Madera,critically overdrafted,,MYA-2016,2014,Aug\u2013Oct,\nLF-GR-124,White Rock Farming,Dinuba,Tulare,CA,central_valley,peaches; grapes,850,4.0,district surface + onsite wells,Kings,critically overdrafted,,MYA-2022,2023,May\u2013Oct,\nLF-GR-125,Fancher Creek Ag,Fresno,Fresno,CA,central_valley,bell peppers,1400,6.2,district surface + onsite wells,Kings,critically overdrafted,,MYA-2016,2017,Jul\u2013Oct,exiting ~300 ac after 2027 season\nLF-GR-201,Riverbend Winter Produce,Somerton,Yuma,AZ,arizona,iceberg; romaine,2600,15.2,Colorado River via district,,,Yuma County Water Users' Association \u2014 present-perfected/first-priority rights,MYA-2016,2012,Nov\u2013Mar,\nLF-GR-202,Mesa Vista Vegetable Co,Yuma,Yuma,AZ,arizona,leaf lettuce; broccoli,1900,11.8,Colorado River via district,,,Yuma Mesa Irrigation & Drainage District \u2014 third-priority rights,MYA-2022,2021,Nov\u2013Mar,\nLF-GR-203,North Gila Farming Co,Yuma,Yuma,AZ,arizona,romaine; cauliflower,1500,9.4,Colorado River via district,,,North Gila Valley Irrigation District \u2014 third-priority rights,MYA-2022,2020,Nov\u2013Mar,\nLF-GR-204,Sonoran Winter Growers,San Luis,Yuma,AZ,arizona,spring mix; spinach,1200,8.6,Colorado River via district,,,Yuma County Water Users' Association \u2014 present-perfected/first-priority rights,MYA-2016,2015,Nov\u2013Mar,\nLF-GR-205,Toltec Farms LLC,Eloy,Pinal,AZ,arizona,iceberg; romaine,2100,10.9,groundwater (district CAP deliveries ended 2023),,,Central Arizona Irrigation & Drainage District \u2014 CAP agricultural pool (non-Indian agriculture priority),PA-2021,2019,Nov\u2013Mar,allocation status: see water & permits summary\nLF-GR-206,Casa Grande Vegetable Partners,Casa Grande,Pinal,AZ,arizona,broccoli; cabbage,1400,7.2,groundwater (district CAP deliveries ended 2023),,,Maricopa-Stanton Irrigation & Drainage District \u2014 CAP agricultural pool (non-Indian agriculture priority),PA-2021,2021,Nov\u2013Mar,allocation status: see water & permits summary\nLF-GR-207,Picacho Basin Farms,Picacho,Pinal,AZ,arizona,romaine,900,4.9,groundwater (district CAP deliveries ended 2023),,,Central Arizona Irrigation & Drainage District \u2014 CAP agricultural pool (non-Indian agriculture priority),PA-2021,2022,Nov\u2013Mar,\nLF-GR-208,Santa Cruz Flats Growers,Red Rock,Pinal,AZ,arizona,leaf lettuce,800,4.1,groundwater (district CAP deliveries ended 2023),,,Maricopa-Stanton Irrigation & Drainage District \u2014 CAP agricultural pool (non-Indian agriculture priority),PA-2021,2023,Nov\u2013Mar,\nLF-GR-301,Sauk Prairie Vegetable Farms,Prairie du Sac,Sauk,WI,midwest,sweet corn; green beans,1800,4.6,rainfed + supplemental irrigation,,,,MYA-2022,2021,Jun\u2013Oct,\nLF-GR-302,Otter Creek Ag,Reedsburg,Sauk,WI,midwest,carrots,950,2.8,rainfed + supplemental irrigation,,,,MYA-2016,2013,Jul\u2013Nov,\nLF-GR-303,Wisconsin River Growers Cooperative,Portage,Columbia,WI,midwest,sweet corn; peas,2400,6.1,rainfed + supplemental irrigation,,,,MYA-2016,2010,Jun\u2013Oct,\nLF-GR-304,Leeds Center Farms,Arlington,Columbia,WI,midwest,peas; green beans,1300,3.4,rainfed,,,,MYA-2022,2022,Jun\u2013Sep,\nLF-GR-305,Windmill Ridge Farming,Waunakee,Dane,WI,midwest,sweet corn,1100,2.9,rainfed,,,,MYA-2022,2020,Jul\u2013Oct,\nLF-GR-306,Beaver Dam Valley Produce,Beaver Dam,Dodge,WI,midwest,carrots; onions,900,2.6,rainfed + supplemental irrigation,,,,MYA-2016,2016,Jul\u2013Nov,\nLF-GR-307,Horicon Flats Ag,Horicon,Dodge,WI,midwest,green beans,800,2.1,rainfed,,,,MYA-2022,2023,Jul\u2013Sep,\nLF-GR-308,Kettle Moraine Growers,Fond du Lac,Fond du Lac,WI,midwest,peas,1000,2.7,rainfed,,,,MYA-2022,2021,Jun\u2013Aug,\nLF-GR-309,Lodi Valley Farms,Lodi,Columbia,WI,midwest,sweet corn,700,1.9,rainfed,,,,MYA-2016,2014,Jul\u2013Oct,organic certified\nLF-GR-310,Cannon River Vegetable Co,Northfield,Rice,MN,midwest,sweet corn; peas,1200,3.2,rainfed,,,,MYA-2022,2022,Jun\u2013Sep,\nLF-GR-311,Minnesota Valley Growers,Montgomery,Le Sueur,MN,midwest,peas; sweet corn,1500,3.8,rainfed,,,,MYA-2016,2012,Jun\u2013Sep,\nLF-GR-312,Maple River Farms,Casselton,Cass,ND,midwest,yellow peas,5200,6.8,rainfed,,,,MYA-2022,2020,Aug\u2013Sep,\nLF-GR-313,Valley Pulse Growers LLC,Hillsboro,Traill,ND,midwest,yellow peas,4800,6.2,rainfed,,,,MYA-2022,2019,Aug\u2013Sep,\nLF-GR-314,Sheyenne Grasslands Farming,Lisbon,Ransom,ND,midwest,yellow peas,3900,5.0,rainfed,,,,PA-2021,2021,Aug\u2013Sep,\nLF-GR-315,Buffalo Coulee Ag,Grand Forks,Grand Forks,ND,midwest,yellow peas,4100,5.3,rainfed,,,,PA-2021,2022,Aug\u2013Sep,\nLF-GR-401,Rimrock Berry Farms,Wapato,Yakima,WA,pnw,blueberries,620,6.4,district surface (Yakima project) \u2014 junior (proratable) rights,,,,MYA-2016,2018,Jun\u2013Sep,\nLF-GR-402,Ahtanum Ridge Berry Co,Yakima,Yakima,WA,pnw,blueberries,480,4.9,district surface (Yakima project) \u2014 senior (non-proratable) rights,,,,MYA-2022,2021,Jun\u2013Sep,\nLF-GR-403,Naches Heights Berry Co,Naches,Yakima,WA,pnw,raspberries,390,4.2,district surface (Yakima project) \u2014 junior (proratable) rights,,,,MYA-2016,2017,Jun\u2013Aug,\nLF-GR-404,Toppenish Creek Growers,Toppenish,Yakima,WA,pnw,blueberries,550,5.6,district surface (Yakima project) \u2014 junior (proratable) rights,,,,MYA-2022,2020,Jun\u2013Sep,\nLF-GR-405,Cowiche Canyon Farms,Cowiche,Yakima,WA,pnw,blueberries,410,4.1,wells + district surface,,,,MYA-2022,2022,Jun\u2013Sep,\nLF-GR-406,Parker Bottom Berry Farms,Parker,Yakima,WA,pnw,strawberries; raspberries,280,2.9,district surface (Yakima project) \u2014 junior (proratable) rights,,,,MYA-2016,2019,May\u2013Aug,\nLF-GR-407,Willamette Bend Farms,Salem,Marion,OR,pnw,blackberries,460,4.6,onsite wells,,,,MYA-2016,2016,Jul\u2013Sep,\nLF-GR-408,Pudding River Berry Co,Woodburn,Marion,OR,pnw,blackberries; marionberries,380,3.8,onsite wells,,,,MYA-2022,2021,Jul\u2013Sep,\nLF-GR-409,Santiam Valley Growers,Stayton,Marion,OR,pnw,raspberries,340,3.4,onsite wells,,,,MYA-2022,2023,Jun\u2013Aug,\nLF-GR-410,Luckiamute Farms,Monmouth,Polk,OR,pnw,blueberries,520,5.2,onsite wells,,,,MYA-2016,2015,Jun\u2013Sep,organic certified\nLF-GR-411,Calapooia Berry Growers,Albany,Linn,OR,pnw,blueberries,440,4.4,onsite wells,,,,MYA-2022,2020,Jun\u2013Sep,\nLF-GR-412,Molalla Prairie Farms,Molalla,Clackamas,OR,pnw,blackberries,310,3.1,onsite wells,,,,PA-2021,2022,Jul\u2013Sep,\n", "clients/larkspur-foods/energy-rider-excerpt.md": "# Electric Service Rider Excerpt \u2014 San Antonio Bottling Plant\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nService agreement between Larkspur Foods, Inc. (San Antonio plant) and the municipally owned\nelectric and gas utility serving the plant (named in the underlying tariff; this excerpt uses\n\"the Utility\"). **Large Power Service \u2014 Interruptible Service Rider, effective March 2020, amended September 2022.** Excerpt of rider terms plus plant records.\n\n---\n\n## Rider terms\n\n- Enrolled curtailable load: **4,200 kW** of a plant peak load of 6,100 kW.\n- Interruptible credit: $2.85 per kW-month on enrolled load (approximately\n  $143,000 per year at current enrollment).\n- Curtailment obligation: Curtail enrolled load within 30 minutes of dispatch notice during ERCOT Energy Emergency Alert conditions or utility system emergencies; up to 120 hours per calendar year.\n- Buy-through: Buy-through available at the ERCOT real-time settlement point price plus a $6.50/MWh administrative adder, subject to system conditions; buy-through unavailable during firm-load-shed events.\n- Non-performance: Failure to curtail without approved buy-through: $2,750 per MWh of non-curtailed load per event hour, plus removal from the rider after the second event in any 12 months.\n\n## Plant records \u2014 curtailment history\n\n| Year | Curtailed hours | Events | Notes |\n|---|---|---|---|\n| 2021 | 61 | 3 | February emergency (extended firm load shed; buy-through unavailable) |\n| 2022 | 6 | 2 | summer peak events |\n| 2023 | 19 | 7 | summer emergency-alert conditions |\n| 2024 | 3 | 1 |  |\n| 2025 | 22 | 9 | heat-driven summer events |\n\n## Plant records \u2014 load profile\n\nSummer average monthly peak 5,900 kW versus annual average load 4,100 kW; summer\npeak is driven by chilling and cold-storage refrigeration. Plant engineering estimates\nproduction loss from a full curtailment at 0.6 production-days per 8 curtailed hours\n(2025 engineering study).\n", "clients/larkspur-foods/grower-contract-excerpt-az.md": "# Grower Agreement Excerpt \u2014 Toltec Farms LLC \u2014 form PA-2021 (Arizona rider)\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Annual Purchase Agreement (form PA-2021, Arizona rider)** between Larkspur Foods, Inc.\n(\"Larkspur\") and **Toltec Farms LLC**, Eloy, Pinal County, Arizona (\"Grower\") \u00b7 2026\u201327\nwinter season \u00b7 Excerpt: Sections 2 and 5.\n\n---\n\n## Section 2 \u2014 Committed acreage and crops\n\n2.1 Grower commits 2,100 acres of winter vegetables (iceberg; romaine) for the November\u2013March\nprogram; daily harvest and delivery schedules per the season plan; delivery to Larkspur's\nYuma consolidation facility.\n\n## Section 5 \u2014 Conditions\n\n5.2 **Water-availability contingency.** If the irrigation district serving the committed\nacreage reduces Grower's allocation for the contract season, Grower may reduce committed\nacreage pro rata to the allocation reduction, with written notice to Larkspur no later than\nSeptember 1 preceding the winter season. Acreage reductions under this section are not a\ndefault and carry no payment obligation for either party.\n\n5.3 Grower irrigation is from groundwater within Active Management Area rules; Grower\nprovides well-capacity and pumping-plan documentation with the season plan (Schedule W).\n\n5.4 Larkspur may source replacement volume without penalty where Section 5.2 notice is\ngiven; Grower retains right of first offer on restored acreage the following season.\n", "clients/larkspur-foods/grower-contract-excerpt-cv-2016.md": "# Grower Agreement Excerpt \u2014 Arroyo Verde Farms \u2014 form MYA-2016\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Multi-Year Grower Agreement (form MYA-2016)** between Larkspur Foods, Inc. (\"Larkspur\") and\n**Arroyo Verde Farms**, Sanger, Fresno County, California (\"Grower\") \u00b7 Original term 2011,\nrenewed through the 2027 crop year \u00b7 Excerpt: Sections 2, 7, and 9.\n\n---\n\n## Section 2 \u2014 Committed acreage and crops\n\n2.1 Grower commits 3,200 acres for the production of processing tomatoes and peaches per the\nannual crop plan; delivery to Larkspur's Fresno and Merced facilities per Schedule B windows\n(May\u2013Oct).\n\n2.2 Pricing per the annual price schedule (Schedule C); quality grades and rejection\nstandards per Schedule D.\n\n## Section 7 \u2014 Risk allocation\n\n7.3 **Grower Protection \u2014 Allocated Weather Risk.** Where a declared drought emergency or a\nfederally declared weather disaster prevents delivery of committed acreage production,\nLarkspur shall pay Grower seventy percent (70%) of the contracted value of the undelivered\ncommitted volume, offset by any crop-insurance indemnity received by Grower for the same\nacreage.\n\n7.4 **Insurance.** Grower shall maintain federal multi-peril crop insurance (or equivalent\nprivate coverage) on all committed acreage; indemnity proceeds attributable to committed\nacreage are credited against payments under Section 7.3. Certificates delivered annually\nbefore planting.\n\n## Section 9 \u2014 Compliance and records (noted)\n\n9.1 Annual GAP audit by a Larkspur-approved auditor; pesticide application records retained\nfive years and available on request; water-source records per Schedule F.\n\n9.4 Grower participates in Larkspur's annual food-safety training for harvest supervisors.\n", "clients/larkspur-foods/grower-contract-excerpt-cv-2022.md": "# Grower Agreement Excerpt \u2014 Bear Creek Growers LLC \u2014 form MYA-2022\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Multi-Year Grower Agreement (form MYA-2022)** between Larkspur Foods, Inc. (\"Larkspur\") and\n**Bear Creek Growers LLC**, Merced, Merced County, California (\"Grower\") \u00b7 Executed 2022, term\nthrough the 2027 crop year \u00b7 Excerpt: Sections 2, 4, and 7.\n\n---\n\n## Section 2 \u2014 Committed acreage and crops\n\n2.1 Grower commits 2,100 acres of processing tomatoes per the annual crop plan; delivery to\nLarkspur's Fresno facility per Schedule B windows (Jul\u2013Oct).\n\n## Section 4 \u2014 Representations\n\n4.6 **Water supply.** Grower represents that its water supplies (surface entitlements and\npermitted groundwater) are adequate for the committed acreage under current allocation\nframeworks, and shall notify Larkspur within 30 days of any material reduction in its\nallocation by the applicable groundwater sustainability agency or water district.\n\n## Section 7 \u2014 Failure to supply\n\n7.1 If Grower fails to deliver committed volume for any reason other than Larkspur's\ndefault, Larkspur may procure replacement product and recover cover damages (replacement\ncost above contract price) from Grower, by offset or invoice.\n\n7.2 **Insurance.** Grower shall maintain federal multi-peril crop insurance on committed\nacreage at not less than a 65% coverage level; certificate delivered annually.\n\n7.3 Weather events beyond Grower's reasonable control excuse timely delivery for the\nduration of the event but do not create any payment obligation of Larkspur for undelivered\nvolume.\n", "clients/larkspur-foods/grower-contract-excerpt-pnw-berry.md": "# Grower Agreement Excerpt \u2014 Rimrock Berry Farms \u2014 form MYA-2016\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Multi-Year Grower Agreement (form MYA-2016)** between Larkspur Foods, Inc. (\"Larkspur\") and\n**Rimrock Berry Farms**, Wapato, Yakima County, Washington (\"Grower\") \u00b7 Executed 2018 on the\nMYA-2016 form, renewed through the 2027 crop year \u00b7 Excerpt: Sections 2, 7, and 8.\n\n---\n\n## Section 2 \u2014 Committed acreage and crops\n\n2.1 Grower commits 620 acres of blueberries per the annual crop plan. Delivery as\nIQF-ready fresh fruit to Larkspur's leased Yakima cold storage per Schedule B windows\n(Jun\u2013Sep).\n\n## Section 7 \u2014 Risk allocation\n\n7.3 **Grower Protection \u2014 Allocated Weather Risk.** Where a declared drought emergency or a\nfederally declared weather disaster prevents delivery of committed acreage production,\nLarkspur shall pay Grower seventy percent (70%) of the contracted value of the undelivered\ncommitted volume, offset by any crop-insurance indemnity received by Grower for the same\nacreage.\n\n7.4 **Insurance.** Grower shall maintain federal multi-peril crop insurance (or equivalent\nprivate coverage) on all committed acreage; indemnity proceeds attributable to committed\nacreage are credited against payments under Section 7.3.\n\n## Section 8 \u2014 Quality (noted)\n\n8.2 Field heat removal within four hours of harvest; IQF specification per Schedule E;\nbrix and defect standards per crop schedule. Water-source records per Schedule F (Grower's\ndistrict surface deliveries are proratable in low-supply years; Grower provides the\ndistrict's total-water-supply-available notice each April).\n", "clients/larkspur-foods/insurance-program-summary.md": "# Property & Business Interruption Insurance Program \u2014 Summary of Placement\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nPolicy period October 1, 2025 \u2013 October 1, 2026. All-risk property and business interruption, layered; lead carrier plus three following markets (carriers unnamed in client docs). Broker placement summary prepared for\nmanagement; refer to policy wordings for controlling terms.\n\n## Values and limits\n\n- Total insured values: $823.0M per statement of values (SOV) dated October 2025\n- Program loss limit: $500.0M per occurrence\n- Business interruption: gross earnings form, 45-day waiting period for service\n  interruption extensions; 12-month indemnity period\n\n## Deductibles\n\n- All perils except as below: $2.5M per occurrence\n- Named storm: 2% of affected-location TIV, minimum $5.0M, per occurrence\n- Flood: included; $50.0M annual aggregate. Locations wholly or partly within a FEMA Special Flood Hazard Area (Zones A/V): $10.0M per-occurrence sublimit and $5.0M flood deductible \u2014 none currently scheduled per the October 2025 SOV\n- Earthquake: California earthquake sublimit $50.0M annual aggregate\n\n## Contingent business interruption\n\nContingent business interruption \u2014 unnamed direct suppliers and contract manufacturers: $10.0M per occurrence, 30-day waiting period; contingent extra expense included within the sublimit.\n\n## Other terms\n\n- Cyber excluded (standalone placement)\n- Boiler & machinery included via joint-loss agreement\n- Stock throughput extension covers ocean and inland transit up to $15.0M per conveyance\n- Service-interruption (utilities) 72-hour waiting period, $25.0M sublimit\n", "clients/larkspur-foods/logistics-note.md": "# Logistics & Inventory Note \u2014 Larkspur Foods\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nInternal supply-chain planning note (COO staff), updated May 2026.\n\n## Network\n\nRomeoville, IL national DC (leased, 400,000 sqft); Reno, NV DC closed 2024 \u2014 western volume ships direct from plants.\n\n## Rail \u2014 Fargo\n\nFargo plant is served by a single rail spur connecting to a Class I main line; approximately 85% of outbound protein volume moves in bulk rail hoppers (FY2025: approximately 62,000 tons shipped, average rail freight $71 per ton). Truck conversion is quoted at 3.1x rail freight cost per ton and is capacity-limited to roughly 40% of weekly output during harvest trucking season.\n\n## Finished-goods buffers\n\nIngredients 38 days \u00b7 Beverage 27 days \u00b7 Produce 3 days. The pea protein isolate\nfinished-goods buffer averages 21 days. Finished goods produced at Gonzales stage on-site an average of 14 days before transfer to Romeoville or direct retail consolidation.\n\n## Seasonality\n\nIngredients raw and packaging inventory builds August\u2013November (harvest); revolver usage peaks mid-October (see credit agreement).\n\n## Cold chain\n\nContracted reefer capacity for Produce (two national carriers, one regional); Yakima leased cold storage takes seasonal IQF berry intake June\u2013September for the functional line and foodservice.\n\n## FY2027 planning items\n\nFY2027 procurement plan raises contracted berry volume approximately 40% over FY2025 to support the March 2027 functional-line national introduction.\n\n## Programs\n\n- Fuel surcharge program indexed to DOE diesel\n- Pallet pooling converted 2023 (rental pool)\n- Ocean imports (citrus concentrate, seasonal) through Gulf ports, ~140 FEU annually\n", "clients/larkspur-foods/org-chart.md": "# Organization Chart \u2014 Larkspur Foods, Inc.\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n## Board of Directors\n\n- Margaret Voss (outside chair)\n- Nine directors: chair, CEO, two family, two investor-designated, three independent. Audit committee chairs the annual enterprise-risk review.\n\n## Executive leadership\n\n- **Chief Executive Officer** \u2014 Alan Larkspur-Reed (third-generation family)\n  - **Chief Financial Officer** \u2014 Priya Natarajan\n    - **Treasurer** \u2014 David Chen\n  - **COO & Chief Supply Chain Officer** \u2014 Marcus Webb\n    - **VP Procurement** \u2014 Elena Ruiz\n  - **President, Ingredients** \u2014 Tom Lindqvist\n  - **President, Produce** \u2014 Carol Anders\n    - Director of Quality Assurance, Produce \u2014 Renata Solis (appointed April 2026)\n  - **President, Beverage** \u2014 Dana Okafor\n  - **General Counsel & Corporate Secretary** \u2014 Sarah Whitfield-Gray\n    - **Director of Sustainability** \u2014 Jonah Park\n\n## Signature authority (documents in this folder)\n\nGrower and supply agreements execute under the VP Procurement with General Counsel review;\ncredit and treasury documents under the Treasurer; insurance placements under the General\nCounsel with the Treasurer; retailer agreements under the division president.\n", "clients/larkspur-foods/reference.md": "# Client Reference \u2014 Larkspur Foods\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nClient-supplied financial and operating detail supplementing the division P&L file.\n\n## Ingredients \u2014 line detail (FY2025)\n\n| Line | Revenue | Contribution margin | Production site(s) |\n|---|---|---|---|\n| Fruit & vegetable concentrates and purees | $560.0M | 24% | Fresno, CA |\n| Dehydrated vegetables and custom blends | $320.0M | 27% | Merced, CA (150.0) and Baraboo, WI (170.0) |\n| Natural colors | $180.0M | 38% | Merced, CA |\n| Pea protein isolates and concentrates | $240.0M | 21% | Fargo, ND |\n\nProduction-by-site revenue attribution: Fresno $560.0M \u00b7 Merced $330.0M \u00b7\nBaraboo $170.0M \u00b7 Fargo $240.0M. Pea protein: approximately 8% of Fargo\noutput transfers internally to the protein-fortified beverage lines (filled at the Gonzales,\nLA co-manufacturer); the balance sells to external food and beverage manufacturers.\n\n## Produce \u2014 line detail (FY2025)\n\n| Line | Revenue | Contribution margin |\n|---|---|---|\n| Retail value-added (salads, cut vegetables) | $430.0M | 12% |\n| Foodservice | $250.0M | 10% |\n\nThe Arizona winter program (November\u2013March) supplies approximately 40% of annual Produce\nrevenue ($272.0M). Field labor: contracted harvest-crew spend was $92.0M in FY2025,\npredominantly piece-rate through farm-labor contractors (Salinas, Yuma). FY2025: 14 crew-days lost to heat-related work stoppages (Salinas, July\u2013August), up from 6 in FY2024 (a crew-day is one contracted harvest crew, approximately 35 workers, for one scheduled shift).\nOutdoor heat-illness prevention standards apply to contracted crews in both states.\n\n## Beverage \u2014 line detail (FY2025)\n\n| Line | Production site | Cases | Revenue | Contribution margin |\n|---|---|---|---|---|\n| Chilled juices | San Antonio, TX | 7,800k | $138.0M | 30% |\n| Sparkling juices | San Antonio, TX | 3,000k | $55.0M | 28% |\n| Shelf-stable multi-serve juices | Gonzales, LA | 8,300k | $142.0M | 26% |\n| Kids' portion packs | Gonzales, LA | 5,200k | $92.0M | 29% |\n| Functional drinks (protein-fortified, botanicals) | Gonzales, LA | 2,100k | $51.0M | 38% |\n| Retailer private label, shelf-stable | Gonzales, LA | 2,400k | $27.0M | 14% |\n| Functional shots | Holland, MI | 1,200k | $15.0M | 35% |\n\n## Customer concentration (FY2025)\n\n| Customer | Share of consolidated revenue | Revenue | Division mix |\n|---|---|---|---|\n| Lakemont Markets, Inc. (national grocery) | 14% | $350.0M | Produce 190.0; Beverage 160.0 |\n| Fairmount Stores, Inc. (mass retail) | 9% | $225.0M | Produce 120.0; Beverage 105.0 |\n| Callahan Foodservice Distribution | 6% | $150.0M | Produce 130.0; Beverage 20.0 |\n| Largest Ingredients customer (global beverage manufacturer, unnamed) | 7% | $175.0M | Ingredients |\n\n## Inventory and working capital\n\nFinished-goods days on hand by division: Ingredients 38 / Beverage 27 / Produce 3\n(near-zero buffer by design \u2014 value-added fresh ships within days of pack). Pea protein\nfinished goods average 21 days. Ingredients raw and packaging inventory builds through\nharvest (August\u2013November); seasonal revolver usage peaks mid-October (see credit agreement\nexcerpt). FY2025 retail service credits accrued under customer service-level terms: $1.9M,\npredominantly Produce short-ships in transition weeks.\n\n## Insurance boundary note\n\nPlant inventories, including Fargo protein finished goods, are insured under the corporate\nproperty program (flood per program terms \u2014 see insurance program summary). Crop losses\nbefore delivery sit with growers under federal crop insurance; Larkspur's exposure to grower\nnon-delivery is governed by the applicable contract form (see grower agreement excerpts \u2014\nforms differ on this point).\n", "clients/larkspur-foods/retailer-sla-excerpt.md": "# Supply Agreement Excerpt \u2014 Service Level Provisions (Retail)\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\n**Master Supply Agreement** between Larkspur Foods, Inc. (\"Supplier\") and **Lakemont Markets, Inc.**\n(\"Retailer\") \u00b7 Excerpt: Section 6 (Service Levels) and Schedule 6-A \u00b7 Covers Produce (value-added fresh) and Beverage (Prairie Clover and private label) categories.\n\n*Procurement file note: Fairmount Stores, Inc. (mass retail) and Callahan Foodservice Distribution operate on substantially similar service-level terms; Lakemont excerpt shipped as representative.*\n\n---\n\n## Section 6 \u2014 Service levels\n\n6.1 **Fill rate.** Supplier shall maintain a case fill rate of not less than 98.5% per\ncategory, measured monthly by PO line and by category.\n\n6.2 **Service credits.** 3% of affected-PO invoice value where monthly category case fill falls below 98.5%; 5% below 97.0%. Credits apply as invoice offsets in the following\nbilling cycle.\n\n6.3 **Category review.** Category review (up to and including delisting) where monthly case fill is below 96.0% for three consecutive months.\n\n6.4 **New items.** New-item introductions: 97.0% case fill for the first 13 weeks after slotting; placement allowances subject to clawback on failure. For the current program year the placement\nallowance subject to clawback is $350,000 per introduction event.\n\n## Schedule 6-A \u2014 Operational requirements (noted)\n\n- OTIF measured but non-binding through 2026 (reporting only)\n- EDI 850/856/810 mandatory; non-compliance chargeback $250 per document\n- Mislabeled-pallet chargeback $85 per pallet\n- Annual joint business plan review each February\n", "clients/larkspur-foods/water-permits-summary.md": "# Water Supply & Permits Summary \u2014 Larkspur Foods\n\n*Simulated client data \u2014 Larkspur Foods build v1, generated 2026-09-02. All entities and people are fictional; any resemblance to real companies or persons is coincidental. Real public agencies, water districts, laws, and historical events are referenced for realism only \u2014 nothing in this file is issued by or attributable to any real agency or company.*\n\nPrepared by the sustainability office (J. Park) for the FY2025 enterprise-risk review;\nupdated June 2026. Figures are company records or grower-reported.\n\n## San Antonio bottling plant (Edwards Aquifer)\n\nWithdrawal authority: Edwards Aquifer Authority groundwater withdrawal permit (initial regular permit) \u2014 620 acre-feet per year base, plus 180 acre-feet leased annually from an unaffiliated irrigation permit holder (lease renewed annually since 2019). FY2025 metered withdrawal: 705 acre-feet.\n\nCritical-period management: EAA critical-period reductions for the San Antonio pool: Stage 1 \u2014 20%, Stage 2 \u2014 30%, Stage 3 \u2014 35%, Stage 4 \u2014 40%, Stage 5 \u2014 44% of permitted withdrawal; stages trigger on 10-day average J-17 index well level / Comal and San Marcos springflow.\nRecent declarations: Stage 4 and Stage 5 declared for the San Antonio pool during 2025; Stage 2 in effect as of June 2026.\n\nMakeup supply: Municipal potable interconnect available as makeup supply; blended production cost of well water $210 per acre-foot (variable) versus municipal makeup at approximately $1,480 per acre-foot including capacity charges.\n\n## California plants\n\nFresno: city supply plus two onsite production wells (Kings subbasin); Merced: city supply; Salinas: city supply. Well metering and extraction reporting per applicable GSA requirements.\n\n## California sourcing regions (San Joaquin Valley)\n\nGrower-reported 2025 pumping allocations across the San Joaquin Valley grower base average 2.1 acre-feet per acre against self-reported historical pumping of 2.8\u20133.2 acre-feet per acre; GSAs serving these subbasins have adopted allocation frameworks that decline stepwise toward sustainable-yield targets by 2040. Individual allocations are grower-reported and vary by GSA. Subbasin designations per grower are recorded in the grower network file.\n\n## Arizona sourcing regions\n\nYuma-area districts hold present-perfected and other senior-priority Colorado River entitlements and have received full deliveries through 2026 shortage tiers to date; renegotiation of post-2026 operating guidelines is pending. Pinal County districts' CAP agricultural-pool deliveries were reduced approximately 65% for 2022 and to zero from 2023; contracted Pinal growers irrigate from groundwater within Active Management Area rules. District assignments per grower are recorded in the grower network file.\n\n## Upper Midwest plants\n\nBaraboo: municipal supply plus one WDNR-permitted high-capacity well; WPDES industrial wastewater discharge permit (pretreatment). Fargo: municipal supply; industrial discharge permit.\n\n## Other permits and programs\n\n- Multi-sector general stormwater permits at all owned plants\n- Salinas coolhouse ammonia refrigeration \u2014 RMP threshold quantity, program level 3\n- Boiler MACT compliance current at Fresno, Merced, Baraboo\n", "pull-library/README.md": "# Pull Library\n\nTested, working examples for pulling public hazard and climate data with Claude Code \u2014 here to\nsave you time, not to fence you in. Each script's header records the source, endpoint, query,\nand when it was tested; adapt freely.\n\n**This library is not a boundary.** Anything Claude Code can reach is fair game for your\nanalysis. These are simply the sources we've tested against this environment's geography, with\nthe field selections and scoping already worked out \u2014 starting from a script that runs beats\nstarting from API docs.\n\nA `staged/` folder will hold pre-pulled extracts for each source (each with the recipe script that\nproduced it), plus a few sources that only exist as extracts (large rasters, gated archives). If a\nlive endpoint is down or slow, a staged extract keeps you moving \u2014 it is the same data.\n\nOne piece of craft worth stealing: pull with a saved script rather than a one-off fetch. You\ncan rerun it, and on Friday you can answer \"where did that number come from?\" all the way down.\n\n**Status: the library is empty today.** Tested scripts and staged extracts are added during the\nprogram, ahead of the week you need them. Until then, write your own pull scripts.\nPlanned sources: FEMA National Risk Index \u00b7 US Drought Monitor \u00b7 NOAA Storm Events \u00b7 NOAA CDO\nclimate normals \u00b7 USDA NASS QuickStats \u00b7 FEMA NFHL flood zones \u00b7 CA DWR/SGMA basin data \u00b7\nUSBR Colorado River accounting \u00b7 EAA stage rules \u00b7 ERCOT load/outage summaries \u00b7 wildfire risk\nrasters clipped to the footprint (staged only).\n"};
+const BASE = 'clients/larkspur-foods/';
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = (n, d=1) => n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+
+function parseCSV(text){
+  const lines = text.split('\n').filter(l => l.trim() && !l.startsWith('#'));
+  const rows = lines.map(line => {
+    const out=[]; let cur='', q=false;
+    for (const ch of line){
+      if (ch==='"') q=!q; else if (ch===',' && !q){ out.push(cur); cur=''; } else cur+=ch;
+    }
+    out.push(cur); return out;
+  });
+  const head = rows.shift();
+  return rows.map(r => Object.fromEntries(head.map((h,i)=>[h, r[i] ?? ''])));
+}
+const csv = name => parseCSV(FILES[BASE+'data/'+name]);
+const GROWERS = csv('grower-network.csv');
+const FAC = csv('facilities-register.csv');
+const BEV = csv('beverage-volume-by-line.csv');
+const PNL = csv('division-pnl.csv');
+
+/* ---------- document catalogue ---------- */
+const DOCS = {
+  'company-overview.md':        {t:'Company overview', th:'company', d:'Who Larkspur is: divisions, history 1968–2021, sites, customers, ownership.'},
+  'org-chart.md':               {t:'Org chart', th:'company', d:'Board, executive team, and who signs which kind of document.'},
+  'board-minutes-excerpt.md':   {t:'Board minutes (Apr 2026)', th:'company', d:'FY2025 results, insurance renewal asks, lender ESG questionnaire, deferred San Antonio expansion, March 2027 launch.'},
+  'reference.md':               {t:'Reference: line & customer detail', th:'money', d:'Revenue and margin by product line, customer concentration, inventory days, Arizona winter share, heat stoppages.'},
+  'data/division-pnl.csv':      {t:'Division P&L (CSV)', th:'money', d:'Revenue, EBITDA and capex by division, FY2024–25.'},
+  'credit-agreement-excerpt.md':{t:'Credit agreement', th:'money', d:'Term loan and revolver, covenants, FY2025 compliance certificate.'},
+  'data/facilities-register.csv':{t:'Facilities register (CSV)', th:'sites', d:'12 sites with coordinates, ownership, function, headcount, insured value, FEMA flood zone.'},
+  'logistics-note.md':          {t:'Logistics note', th:'sites', d:'Distribution network, Fargo rail dependence, inventory buffers, seasonality, FY2027 berry ramp.'},
+  'energy-rider-excerpt.md':    {t:'Energy rider (San Antonio)', th:'sites', d:'Interruptible power terms, penalties and curtailment history at the bottling plant.'},
+  'water-permits-summary.md':   {t:'Water & permits summary', th:'sites', d:'Plant water rights (Edwards Aquifer), grower water regimes in CA, AZ; other permits.'},
+  'data/grower-network.csv':    {t:'Grower network (CSV)', th:'supply', d:'60 contracted growers: crops, acres, contract value, water source, basin status, contract form.'},
+  'grower-contract-excerpt-cv-2016.md':{t:'Grower contract: MYA-2016 (CA)', th:'supply', d:'Arroyo Verde Farms, Fresno County. Includes the "Allocated Weather Risk" clause.'},
+  'grower-contract-excerpt-cv-2022.md':{t:'Grower contract: MYA-2022 (CA)', th:'supply', d:'Bear Creek Growers, Merced County. Water representation and cover damages.'},
+  'grower-contract-excerpt-az.md':{t:'Grower contract: PA-2021 (AZ)', th:'supply', d:'Toltec Farms, Pinal County. Water-availability contingency.'},
+  'grower-contract-excerpt-pnw-berry.md':{t:'Grower contract: MYA-2016 (WA berry)', th:'supply', d:'Rimrock Berry Farms, Yakima. Same weather-risk clause as the CA 2016 form.'},
+  'data/beverage-volume-by-line.csv':{t:'Beverage volume by line (CSV)', th:'bev', d:'Seven beverage lines: format, site, cases, revenue.'},
+  'copacker-agreement-excerpt.md':{t:'Co-packer agreement (Gonzales, LA)', th:'bev', d:'Capacity, minimum volumes, force majeure, 6–9 month requalification.'},
+  'retailer-sla-excerpt.md':    {t:'Retailer service levels (Lakemont)', th:'bev', d:'Fill-rate targets, service credits, delisting trigger, new-item clawback.'},
+  'insurance-program-summary.md':{t:'Insurance program summary', th:'ins', d:'Property and business-interruption program: values, limits, deductibles, flood and contingent BI terms.'},
+  'README.md':                  {t:'Workspace README', th:'pack', d:'What the Windward workspace is.', full:'README.md'},
+  'pull-library/README.md':     {t:'Pull library README', th:'pack', d:'Planned public data sources; library empty today.', full:'pull-library/README.md'},
+};
+const fullPath = k => DOCS[k]?.full || (BASE + k);
+const docTitle = k => DOCS[k]?.t || k;
+
+/* ---------- themes ---------- */
+const sumBy = (rows, key, f) => rows.reduce((a,r)=>a+(+r[key]||0)*(f?+f(r):1),0);
+const THEMES = [
+ {id:'company', name:'Company & people', blurb:'Who Larkspur is, how it is governed, and what the board discussed in April 2026.',
+  files:['company-overview.md','org-chart.md','board-minutes-excerpt.md'],
+  facts:[
+   'Founded 1968 in Baraboo, Wisconsin. Headquarters in Minneapolis since 1989. About 2,450 employees plus seasonal harvest labor.',
+   'About 40% family-owned. The rest is held by two institutional minority shareholders and management. Nine-member board with an outside chair (Margaret Voss). CEO Alan Larkspur-Reed is third-generation family.',
+   'Three divisions: <b>Ingredients</b> (concentrates, dehydrated vegetables, natural colors, pea protein; sold to manufacturers), <b>Produce</b> (fresh-cut salads and vegetables), <b>Beverage</b> (Prairie Clover brand and private label).',
+   'The April 2026 board meeting raised: the October 2026 property insurance renewal (underwriters want <b>updated flood-zone determinations</b> and <b>business-interruption worksheets by location</b>); the term-loan agent\'s <b>ESG questionnaire with a physical-climate-risk section</b>, due Q3; the <b>$42M San Antonio Line 3 expansion deferred</b> pending utility rates and the water-permit outlook; and a <b>March 2027 national launch</b> of the functional drinks line ($18.5M).',
+   'Who signs: grower and supply contracts go through the VP Procurement (Elena Ruiz) with General Counsel review. Credit goes through the Treasurer (David Chen). Insurance goes through the General Counsel (Sarah Whitfield-Gray) with the Treasurer. The Director of Sustainability (Jonah Park) reports to the General Counsel.'],
+  qs:['Which of the board\'s agenda items have a deadline that a climate-risk engagement could help with?',
+      'Who at Larkspur would be your day-to-day counterpart, and who would sign off?',
+      'The expansion was deferred partly over water. Which file tells you why?']},
+ {id:'money', name:'Money & financing', blurb:'Where revenue and profit come from, and the debt terms that set how much financial room the company has.',
+  files:['data/division-pnl.csv','reference.md','credit-agreement-excerpt.md'],
+  facts:[
+   'FY2025 revenue <b>$2,500M</b> (+4.6%) and adjusted EBITDA <b>$297.7M</b>. Ingredients is 52% of revenue and 64% of divisional EBITDA.',
+   'Highest-margin product lines: natural colors (38% contribution), functional drinks (38%), functional shots (35%). Lowest: foodservice produce (10%) and private-label juice (14%).',
+   'Customer concentration: Lakemont Markets 14% of revenue, Fairmount Stores 9%, Callahan Foodservice 6%, and the largest Ingredients customer 7%.',
+   'The Arizona winter program (Nov–Mar) supplies about <b>40% of Produce revenue ($272M)</b>.',
+   'Debt: $900M Term Loan B (matures June 2028) and a $250M revolver (matures Dec 2027). Net leverage is <b>2.8x</b>. A <b>3.50x covenant</b> applies only when revolver use passes 35%. Revolver use peaks in mid-October during the harvest inventory build (FY2025 peak $138M).',
+   'Capital spending is capped at $85M a year plus carryforward. FY2025 capex was $73M across the divisions.'],
+  qs:['Which product lines would hurt most per dollar lost, given their margins?',
+      'At what point in the year is the company most financially stretched, and what climate hazards peak then?',
+      'How close would a bad year have to push EBITDA before the leverage covenant matters? (Hint: it only applies above 35% revolver use.)']},
+ {id:'sites', name:'Sites, energy & water', blurb:'The plants and warehouses, how goods move between them, and the power and water each depends on.',
+  files:['data/facilities-register.csv','logistics-note.md','energy-rider-excerpt.md','water-permits-summary.md'],
+  facts:[
+   '12 sites: 6 owned plants (Fresno, Merced, Baraboo, Fargo, Salinas, San Antonio), 4 leased sites (HQ, Yuma, Yakima, Romeoville DC) and 2 third-party co-packers (Gonzales LA, Holland MI). Company-insured value in the register totals <b>$823M</b>. <b>All 12 are listed as FEMA flood zone X.</b>',
+   'Fargo pea-protein plant ($168M, the highest insured value): about 85% of outbound volume moves by rail on a <b>single spur</b>. Trucking costs 3.1x as much and can carry only about 40% of weekly output in harvest season.',
+   'Finished-goods buffers: Ingredients 38 days, Beverage 27 days, Produce 3 days. Gonzales output sits on site about 14 days before shipping.',
+   'San Antonio has an <b>interruptible power rider</b>. It must shed 4,200 kW within 30 minutes in ERCOT emergencies, up to 120 hours a year. It earns about $143k a year in credits but pays $2,750/MWh if it fails to curtail. Curtailed hours: 61 (2021), 6, 19, 3, 22 (2025).',
+   'San Antonio water: Edwards Aquifer permit of 620 af plus 180 af leased, against 705 af used in FY2025. Drought stages cut permitted withdrawal by 20–44%. Stage 4 and Stage 5 were declared in 2025, and Stage 2 is in effect as of June 2026. Municipal makeup water costs about 7x well water ($1,480 vs $210 per af).',
+   'Fresno plant has two wells in the Kings subbasin. Merced and Salinas use city supply.'],
+  qs:['Every site is flood zone X. What would you check before trusting that for the insurance renewal?',
+      'Which single piece of infrastructure, if it failed, would stop the most revenue?',
+      'At a Stage 5 cut of 44%, how many acre-feet could San Antonio pump, and what would the shortfall cost at municipal rates?']},
+ {id:'supply', name:'Growers & raw supply', blurb:'About 60 contracted growers in four regions, their water situation, and four contract forms that split drought and weather risk differently.',
+  files:['data/grower-network.csv','grower-contract-excerpt-cv-2016.md','grower-contract-excerpt-cv-2022.md','grower-contract-excerpt-az.md','grower-contract-excerpt-pnw-berry.md','water-permits-summary.md'],
+  facts:[
+   'Four regions: Central Valley CA (processing tomatoes, stone fruit, grapes, peppers, onions/garlic, citrus), Arizona (winter lettuce and leafy greens), Upper Midwest (sweet corn, peas, carrots; yellow peas in ND for Fargo), Pacific NW (blueberries and other berries).',
+   'California: almost every grower is in a groundwater basin rated <b>critically overdrafted</b> under SGMA. Growers report pumping allocations averaging 2.1 af/acre against 2.8–3.2 historically, and these step down toward 2040.',
+   'Arizona: Yuma growers draw Colorado River water, with senior (present-perfected) or third-priority rights. Pinal County growers\' canal (CAP) deliveries <b>ended in 2023</b>, so they rely on groundwater.',
+   'Pacific NW: most Yakima berry growers have <b>junior (proratable) rights</b>, which are cut in low-water years. The FY2027 plan raises berry volume about 40% for the March 2027 launch.',
+   'Contracts come in three forms (MYA-2016, MYA-2022, PA-2021), and the four excerpts treat drought very differently. See the comparison below.'],
+  qs:['Filter the grower table by contract form. How much contract value sits on the form where Larkspur pays growers for drought losses?',
+      'Which region\'s water rights are most senior, and which the most junior?',
+      'The berry ramp for the 2027 launch depends on which growers? What rights do they hold?']},
+ {id:'bev', name:'Beverage & customer commitments', blurb:'Where each drink is made, the co-packer contract behind most of it, and the service levels promised to retailers.',
+  files:['data/beverage-volume-by-line.csv','copacker-agreement-excerpt.md','retailer-sla-excerpt.md'],
+  facts:[
+   'Seven beverage lines. <b>Four are filled at one co-packer in Gonzales, Louisiana</b> (River Parish Aseptic Packaging): 18.0M cases and $312M of revenue. San Antonio makes chilled and sparkling juice; Holland, MI makes functional shots.',
+   'The co-packer agreement dedicates Lines 2–3, rated at 19.0M cases, with a 15.0M-case minimum. Force majeure explicitly lists hurricanes, flood, storm surge and utility failure, and <b>the co-packer has no duty to supply from elsewhere</b>. Either side can cancel orders after 150 days.',
+   'Moving low-acid aseptic production to another plant is a regulated process change. The last line addition took <b>6–9 months</b>.',
+   'Retailer terms (Lakemont, and similar at Fairmount and Callahan): 98.5% case fill required; 3% credit below that, 5% below 97%; category review up to delisting after 3 months below 96%. New items need 97% for 13 weeks or the $350k placement allowance is clawed back.',
+   'FY2025 service credits were $1.9M, mostly Produce short-ships.'],
+  qs:['If Gonzales went down in hurricane season, how many weeks of stock are there (on site and in the network) before fill rates drop?',
+      'What does the March 2027 launch add to that exposure?',
+      'Which insurance line, if any, covers a co-packer outage? (Look at the insurance theme.)']},
+ {id:'ins', name:'Insurance', blurb:'The property and business-interruption program that renews 1 October 2026, and where its coverage stops.',
+  files:['insurance-program-summary.md'],
+  facts:[
+   'Policy year Oct 2025 – Oct 2026. Total insured values <b>$823M</b>. Program limit $500M per occurrence. Standard deductible $2.5M.',
+   'Named-storm deductible: 2% of the affected site\'s value, minimum $5M.',
+   'Flood: $50M annual aggregate. Sites in a FEMA high-risk zone (A or V) have a $10M sublimit and a $5M deductible, and <b>none are currently scheduled that way</b>.',
+   'Contingent business interruption (losses from suppliers and co-packers going down): <b>$10M per occurrence</b>, 30-day waiting period.',
+   'Utility service interruption: 72-hour waiting period, $25M sublimit. California earthquake: $50M aggregate.',
+   'Crop losses before delivery sit with growers\' federal crop insurance. Larkspur\'s own exposure to grower non-delivery depends on the contract form (see <code>reference.md</code>).'],
+  qs:['If a site moved from zone X to zone A in the new flood determination, what would change in its terms?',
+      'Compare the $10M contingent-BI limit with the revenue running through Gonzales.',
+      'The San Antonio curtailment events were short. Would the 72-hour utility waiting period ever be met?']},
+];
+const THEME_BY_ID = Object.fromEntries(THEMES.map(t=>[t.id,t]));
+THEMES.push({id:'pack', name:'About the pack', hidden:true, files:['README.md','pull-library/README.md']});
+
+/* ---------- chart: horizontal bars with tooltip ---------- */
+const tip = $('#tip');
+function showTip(e, html){ tip.innerHTML = html; tip.style.opacity = 1; moveTip(e); }
+function moveTip(e){ const x = Math.min(e.clientX+14, innerWidth-tip.offsetWidth-8); tip.style.left = x+'px'; tip.style.top = (e.clientY+14)+'px'; }
+function hideTip(){ tip.style.opacity = 0; }
+document.addEventListener('mousemove', e => { if (tip.style.opacity==='1') moveTip(e); });
+
+function hbars(el, rows, {color='var(--s1)', unit='', tipFn}={}){
+  const max = Math.max(...rows.map(r=>r.v));
+  el.innerHTML = '<div class="hbar">' + rows.map((r,i) => {
+    const w = max ? r.v/max*78 : 0;
+    return `<div class="lab" title="${esc(r.label)}">${esc(r.label)}</div>
+      <div class="track"><div class="fill" style="width:${w}%;background:${r.color||color}"></div>
+      <span class="val" style="left:${w}%">${unit}${fmt(r.v, r.d ?? 1)}${r.suffix||''}</span>
+      <div class="hit" data-i="${i}"></div></div>`;
+  }).join('') + '</div>';
+  el.querySelectorAll('.hit').forEach(h => {
+    const r = rows[+h.dataset.i];
+    h.addEventListener('mouseenter', e => showTip(e, tipFn ? tipFn(r) : `<b>${esc(r.label)}</b><br>${unit}${fmt(r.v, r.d ?? 1)}${r.suffix||''}`));
+    h.addEventListener('mouseleave', hideTip);
+  });
+}
+
+/* ---------- overview ---------- */
+function renderOverview(){
+  const acres = sumBy(GROWERS,'contracted_acres'), gval = sumBy(GROWERS,'est_annual_contract_value_usd_m');
+  const tiv = sumBy(FAC,'tiv_usd_m');
+  const tiles = [
+    ['$2.50B','FY2025 revenue','+4.6% on FY2024'],
+    ['$297.7M','Adjusted EBITDA','11.9% margin'],
+    ['2.8x','Net leverage','covenant 3.50x when tested'],
+    [FAC.length,'Sites','incl. 2 third-party co-packers'],
+    [GROWERS.length,'Contracted growers',`${fmt(acres/1000,0)}k acres · $${fmt(gval,0)}M/yr`],
+    ['$'+fmt(tiv,0)+'M','Insured values','renews 1 Oct 2026'],
+  ];
+  $('#tiles').innerHTML = tiles.map(t=>`<div class="card tile"><div class="v">${t[0]}</div><div class="k">${t[1]}</div><div class="s">${t[2]}</div></div>`).join('');
+  const divs = PNL.filter(r=>['Ingredients','Produce','Beverage'].includes(r.division));
+  const col = {Ingredients:'var(--s1)', Produce:'var(--s2)', Beverage:'var(--s3)'};
+  hbars($('#ch-rev'), divs.map(r=>({label:r.division, v:+r.fy2025_revenue_usd_m, color:col[r.division], d:0, prev:+r.fy2024_revenue_usd_m})),
+    {unit:'$', tipFn:r=>`<b>${r.label}</b><br>FY2025 $${fmt(r.v,0)}M<br>FY2024 $${fmt(r.prev,0)}M`});
+  hbars($('#ch-ebitda'), divs.map(r=>({label:r.division, v:+r.fy2025_ebitda_usd_m, color:col[r.division], m:r.fy2025_ebitda_margin_pct, cx:r.fy2025_capex_usd_m})),
+    {unit:'$', tipFn:r=>`<b>${r.label}</b><br>EBITDA $${fmt(r.v)}M · ${r.m}% margin<br>Capex $${r.cx}M`});
+  $('#themeCards').innerHTML = THEMES.filter(t=>!t.hidden).map((t,i)=>`
+    <div class="card theme-card" data-th="${t.id}">
+      <h3>${i+1}. ${t.name}</h3><p>${t.blurb}</p>
+      <div class="chips">${t.files.map(f=>`<span class="chip ${f.endsWith('.csv')?'csv':'md'}">${esc(docTitle(f))}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+/* ---------- themes view ---------- */
+const CONTRACT_CMP = `
+<h2>The four grower contract forms, side by side</h2>
+<p class="lede">These are the clauses on weather, drought and water supply, quoted closely from each excerpt. The form column in the grower table tells you which growers sit on which form.</p>
+<div class="tbl-wrap" style="max-height:none"><table class="contract-cmp">
+<thead><tr><th>Form (example grower)</th><th>If drought or a declared weather disaster stops delivery…</th><th>Water clause</th><th>Crop insurance</th></tr></thead>
+<tbody>
+<tr><td><a data-doc="grower-contract-excerpt-cv-2016.md">MYA-2016</a><br><span class="src-note">Arroyo Verde, CA</span></td><td><b>Larkspur pays the grower 70%</b> of contracted value of undelivered volume, less the grower's crop-insurance payout (s.7.3)</td><td>Records per Schedule F</td><td>Required on committed acreage; payouts offset Larkspur's 70% payment</td></tr>
+<tr><td><a data-doc="grower-contract-excerpt-pnw-berry.md">MYA-2016</a><br><span class="src-note">Rimrock Berry, WA</span></td><td>Same 70% clause as above (s.7.3)</td><td>Grower's district deliveries are proratable in low-supply years; grower supplies the April supply notice</td><td>Same as above</td></tr>
+<tr><td><a data-doc="grower-contract-excerpt-cv-2022.md">MYA-2022</a><br><span class="src-note">Bear Creek, CA</span></td><td>Weather excuses <i>timely</i> delivery but <b>Larkspur owes nothing</b> for undelivered volume (s.7.3). Otherwise, non-delivery lets Larkspur recover replacement cost from the grower (s.7.1)</td><td>Grower represents water is adequate; must tell Larkspur within 30 days of an allocation cut (s.4.6)</td><td>Required at ≥65% coverage</td></tr>
+<tr><td><a data-doc="grower-contract-excerpt-az.md">PA-2021</a><br><span class="src-note">Toltec Farms, AZ</span></td><td>If the district cuts the grower's water, the grower may <b>shrink acreage pro rata with no penalty</b>, if notice is given by 1 Sept (s.5.2). Larkspur may buy replacement freely (s.5.4)</td><td>Groundwater under Arizona AMA rules; well and pumping plan supplied (s.5.3)</td><td>Not in excerpt</td></tr>
+</tbody></table></div>`;
+
+let curTheme = 'company';
+function renderThemes(){
+  $('#themeSeg').innerHTML = THEMES.filter(t=>!t.hidden).map((t,i)=>`<button data-th="${t.id}" class="${t.id===curTheme?'on':''}">${i+1}. ${t.name}</button>`).join('');
+  const t = THEME_BY_ID[curTheme];
+  let extra = '', chart = '';
+  if (t.id==='supply') { chart = `<div class="card" style="margin-top:14px"><p class="chart-title">Grower contract value by region</p><p class="chart-sub">$ millions a year · source: grower-network.csv · more views in the <a data-dataset="growers">data tab</a></p><div id="ch-theme"></div></div>`; extra = CONTRACT_CMP; }
+  if (t.id==='sites') chart = `<div class="card" style="margin-top:14px"><p class="chart-title">Insured value by site</p><p class="chart-sub">$ millions · co-packers carry their own insurance (shown as 0) · source: facilities-register.csv</p><div id="ch-theme"></div></div>`;
+  if (t.id==='bev') chart = `<div class="card" style="margin-top:14px"><p class="chart-title">Beverage revenue by line</p><p class="chart-sub">$ millions, FY2025 · colored by where it is made · source: beverage-volume-by-line.csv</p><div id="ch-theme"></div><div class="legend"><span><i style="background:var(--s3)"></i>Gonzales, LA (co-packer)</span><span><i style="background:var(--s1)"></i>San Antonio, TX (owned)</span><span><i style="background:var(--s2)"></i>Holland, MI (co-packer)</span></div></div>`;
+  if (t.id==='money') chart = `<div class="card" style="margin-top:14px"><p class="chart-title">Contribution margin by product line</p><p class="chart-sub">% · FY2025 · source: reference.md</p><div id="ch-theme"></div></div>`;
+  $('#themeBody').innerHTML = `
+    <h1>${t.name}</h1><p class="lede">${t.blurb}</p>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0">What the files say</h3><ul class="facts">${t.facts.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+      <div>
+        <div class="qs"><h3>Questions to work through yourself</h3><ul>${t.qs.map(q=>`<li>${q}</li>`).join('')}</ul></div>
+        <div class="card" style="margin-top:14px"><h3 style="margin-top:0">Source files</h3>
+          ${t.files.map(f=>`<div style="margin:6px 0"><a data-doc="${f}">${esc(docTitle(f))}</a><div class="src-note">${esc(DOCS[f].d)}</div></div>`).join('')}
+        </div>
+        ${chart}
+      </div>
+    </div>${extra}`;
+  const el = $('#ch-theme');
+  if (t.id==='supply'){
+    const names = {central_valley:'Central Valley CA', arizona:'Arizona', midwest:'Upper Midwest', pnw:'Pacific NW'};
+    const g = groupRows(GROWERS,'region');
+    hbars(el, g.map(x=>({label:names[x.key]||x.key, v:x.val, n:x.n, a:x.acres})), {color:'var(--s2)', unit:'$', tipFn:r=>`<b>${r.label}</b><br>$${fmt(r.v)}M/yr · ${r.n} growers · ${fmt(r.a,0)} acres`});
+  }
+  if (t.id==='sites') hbars(el, FAC.map(r=>({label:r.city+' — '+r.function.split(/[;,]/)[0], v:+r.tiv_usd_m, color:r.ownership==='third-party'?'var(--s3)':'var(--s1)', r})).sort((a,b)=>b.v-a.v), {unit:'$', tipFn:x=>`<b>${esc(x.r.facility)}</b><br>${x.r.ownership} · ${x.r.division}<br>TIV $${x.r.tiv_usd_m}M · ${x.r.employees_fte} FTE · flood zone ${x.r.fema_flood_zone}`});
+  if (t.id==='bev'){
+    const c = s => s.startsWith('Gonzales')?'var(--s3)':s.startsWith('San Antonio')?'var(--s1)':'var(--s2)';
+    hbars(el, BEV.map(r=>({label:r.product_line, v:+r.fy2025_revenue_usd_m, color:c(r.production_site), r})), {unit:'$', tipFn:x=>`<b>${esc(x.r.product_line)}</b><br>${esc(x.r.production_site)} · ${esc(x.r.format)}<br>$${x.r.fy2025_revenue_usd_m}M · ${fmt(+x.r.annual_cases_k,0)}k cases`});
+  }
+  if (t.id==='money'){
+    const lines = [['Natural colors',38],['Functional drinks',38],['Functional shots',35],['Chilled juices',30],['Kids\' portion packs',29],['Sparkling juices',28],['Dehydrated veg & blends',27],['Shelf-stable juices',26],['Concentrates & purees',24],['Pea protein',21],['Private label juice',14],['Retail value-added produce',12],['Foodservice produce',10]];
+    hbars(el, lines.map(([l,v])=>({label:l, v, d:0, suffix:'%'})));
+  }
+}
+
+/* ---------- map ---------- */
+const TOWN = {
+ 'Sanger':[36.708,-119.556],'Merced':[37.302,-120.483],'Madera':[36.961,-120.061],'Hanford':[36.327,-119.646],'Selma':[36.571,-119.612],
+ 'Chowchilla':[37.123,-120.260],'Stevinson':[37.325,-120.851],'Firebaugh':[36.859,-120.456],'Reedley':[36.596,-119.450],'Turlock':[37.495,-120.847],
+ 'Modesto':[37.639,-120.997],'Los Banos':[37.058,-120.850],'Kingsburg':[36.514,-119.554],'Mendota':[36.754,-120.382],'Five Points':[36.429,-120.103],
+ 'Clovis':[36.825,-119.703],'Lindsay':[36.203,-119.088],'Yettem':[36.487,-119.254],'Orange Cove':[36.624,-119.314],'Patterson':[37.472,-121.130],
+ 'Dinuba':[36.543,-119.387],'Fresno':[36.738,-119.787],
+ 'Somerton':[32.596,-114.710],'Yuma':[32.693,-114.628],'San Luis':[32.487,-114.782],'Eloy':[32.756,-111.555],'Casa Grande':[32.880,-111.757],
+ 'Picacho':[32.716,-111.498],'Red Rock':[32.575,-111.325],
+ 'Prairie du Sac':[43.287,-89.724],'Reedsburg':[43.532,-90.003],'Portage':[43.539,-89.462],'Arlington':[43.337,-89.380],'Waunakee':[43.192,-89.456],
+ 'Beaver Dam':[43.458,-88.837],'Horicon':[43.451,-88.631],'Fond du Lac':[43.775,-88.439],'Lodi':[43.314,-89.526],
+ 'Northfield':[44.458,-93.162],'Montgomery':[44.439,-93.581],'Casselton':[46.901,-97.211],'Hillsboro':[47.404,-97.062],'Lisbon':[46.442,-97.681],'Grand Forks':[47.925,-97.033],
+ 'Wapato':[46.447,-120.420],'Yakima':[46.602,-120.506],'Naches':[46.731,-120.699],'Toppenish':[46.377,-120.309],'Cowiche':[46.667,-120.717],'Parker':[46.505,-120.465],
+ 'Salem':[44.943,-123.035],'Woodburn':[45.144,-122.855],'Stayton':[44.801,-122.794],'Monmouth':[44.849,-123.234],'Albany':[44.636,-123.106],'Molalla':[45.147,-122.577],
+};
+const REGION_BOUNDS = {
+  all:[[25,-126],[49,-84]], central_valley:[[36.0,-121.4],[37.9,-118.9]], arizona:[[32.3,-115.1],[33.1,-111.1]],
+  midwest:[[42.9,-98.2],[48.1,-88.2]], pnw:[[44.4,-123.6],[47.0,-120.0]], gulf:[[29.0,-99.2],[31.0,-89.8]],
+};
+let map, mapReady=false;
+function renderMap(){
+  if (mapReady || typeof L==='undefined'){ if(map) setTimeout(()=>map.invalidateSize(),50); return; }
+  mapReady = true;
+  map = L.map('map', {scrollWheelZoom:false}).fitBounds(REGION_BOUNDS.all);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {attribution:'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors', maxZoom:12}).addTo(map);
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const seen = {};
+  GROWERS.forEach(g => {
+    const p = TOWN[g.city]; if(!p) return;
+    const k = g.city; const n = seen[k] = (seen[k]||0)+1;
+    const ang = n*2.4, r = n>1 ? 0.035*Math.sqrt(n) : 0;
+    const ll = [p[0]+r*Math.sin(ang), p[1]+r*Math.cos(ang)];
+    L.circleMarker(ll, {radius:4+Math.sqrt(+g.est_annual_contract_value_usd_m)*1.6, color:css('--surface'), weight:2, fillColor:css('--s2'), fillOpacity:.85})
+      .bindPopup(`<b>${esc(g.grower_name)}</b> <span style="color:#888">${g.grower_id}</span><br>${esc(g.city)}, ${g.county} Co., ${g.state}<br>${esc(g.crops)}<br>${fmt(+g.contracted_acres,0)} acres · $${g.est_annual_contract_value_usd_m}M/yr<br>Water: ${esc(g.water_source)}${g.sgma_subbasin?`<br>SGMA: ${g.sgma_subbasin} (${g.basin_status})`:''}${g.district_or_priority?`<br>${esc(g.district_or_priority)}`:''}<br>Contract: ${g.contract_form} · since ${g.supplier_since} · harvest ${g.harvest_window}${g.notes?`<br><i>${esc(g.notes)}</i>`:''}`).addTo(map);
+  });
+  FAC.forEach(f => {
+    const tp = f.ownership==='third-party';
+    L.marker([+f.lat,+f.lon], {icon:L.divIcon({className:'', iconSize:[16,16], iconAnchor:[8,8],
+      html:`<div style="width:16px;height:16px;border-radius:3px;background:${tp?css('--s3'):css('--s1')};border:2px solid ${css('--surface')};box-shadow:0 0 0 1px rgba(0,0,0,.25)"></div>`}), zIndexOffset:1000})
+      .bindPopup(`<b>${esc(f.facility)}</b><br>${esc(f.city)}, ${f.state} · ${f.ownership}<br>${esc(f.division)}: ${esc(f.function)}<br>${f.sqft>0?fmt(+f.sqft,0)+' sq ft · ':''}${f.employees_fte>0?f.employees_fte+' FTE · ':''}TIV $${f.tiv_usd_m}M · flood zone ${f.fema_flood_zone}${f.notes?`<br><i>${esc(f.notes)}</i>`:''}`).addTo(map);
+  });
+}
+
+/* ---------- data tables ---------- */
+function groupRows(rows, key){
+  const m = {};
+  rows.forEach(r => { const k = r[key] || '(blank)'; (m[k] ||= {key:k, n:0, acres:0, val:0}); m[k].n++; m[k].acres += +r.contracted_acres||0; m[k].val += +r.est_annual_contract_value_usd_m||0; });
+  return Object.values(m).sort((a,b)=>b.val-a.val);
+}
+const DATASETS = {
+  growers:{rows:GROWERS, file:'data/grower-network.csv',
+    cols:[['grower_id','ID'],['grower_name','Grower'],['city','Town'],['state','St'],['region','Region'],['crops','Crops'],['contracted_acres','Acres','n0'],['est_annual_contract_value_usd_m','$M/yr','n1'],['water_source','Water source'],['sgma_subbasin','SGMA subbasin'],['basin_status','Basin status'],['district_or_priority','District / priority'],['contract_form','Form'],['supplier_since','Since'],['harvest_window','Harvest'],['notes','Notes']],
+    filters:['region','state','contract_form','basin_status'], group:['region','contract_form','state','basin_status','water_source']},
+  facilities:{rows:FAC, file:'data/facilities-register.csv',
+    cols:[['facility_id','ID'],['facility','Facility'],['city','City'],['state','St'],['ownership','Ownership'],['division','Division'],['function','Function'],['since','Since'],['sqft','Sq ft','n0'],['employees_fte','FTE','n0'],['tiv_usd_m','TIV $M','n1'],['fema_flood_zone','Flood zone'],['notes','Notes']],
+    filters:['ownership','division','state']},
+  bev:{rows:BEV, file:'data/beverage-volume-by-line.csv',
+    cols:[['line_id','ID'],['product_line','Line'],['brand','Brand'],['format','Format'],['production_site','Site'],['site_type','Site type'],['annual_cases_k','Cases (k)','n0'],['fy2025_revenue_usd_m','Rev $M','n1']],
+    filters:['production_site','brand']},
+  pnl:{rows:PNL, file:'data/division-pnl.csv', nototal:true,
+    cols:[['division','Division'],['fy2024_revenue_usd_m','Rev FY24 $M','n1'],['fy2025_revenue_usd_m','Rev FY25 $M','n1'],['fy2024_ebitda_usd_m','EBITDA FY24 $M','n1'],['fy2025_ebitda_usd_m','EBITDA FY25 $M','n1'],['fy2025_ebitda_margin_pct','Margin %','n1'],['fy2025_capex_usd_m','Capex FY25 $M','n1']],
+    filters:[]},
+};
+let ds = 'growers', sortCol=null, sortDir=1, fvals={}, ftext='', groupKey='region';
+function renderData(){
+  document.querySelectorAll('#dataSeg button').forEach(b=>b.classList.toggle('on', b.dataset.d===ds));
+  const D = DATASETS[ds];
+  $('#filters').innerHTML = `<input id="ftext" type="search" placeholder="Filter rows by any text…" value="${esc(ftext)}">` +
+    D.filters.map(f => { const opts=[...new Set(D.rows.map(r=>r[f]).filter(Boolean))].sort();
+      return `<select data-f="${f}"><option value="">All ${f.replace(/_/g,' ')}</option>${opts.map(o=>`<option ${fvals[f]===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`; }).join('') +
+    `<span class="count" id="rowcount"></span>`;
+  $('#ftext').addEventListener('input', e=>{ ftext=e.target.value; drawTable(); });
+  document.querySelectorAll('#filters select').forEach(s=>s.addEventListener('change', e=>{ fvals[s.dataset.f]=s.value; drawTable(); }));
+  $('#tblSrc').innerHTML = `Source: <a data-doc="${D.file}">${D.file}</a> · ${esc(DOCS[D.file].d)}`;
+  drawTable();
+}
+function filtered(){
+  const D = DATASETS[ds];
+  let rows = D.rows.filter(r => Object.entries(fvals).every(([k,v]) => !v || r[k]===v));
+  if (ftext){ const q=ftext.toLowerCase(); rows = rows.filter(r=>Object.values(r).join(' ').toLowerCase().includes(q)); }
+  if (sortCol){ const num = D.cols.find(c=>c[0]===sortCol)?.[2]; rows = [...rows].sort((a,b)=> num ? (a[sortCol]-b[sortCol])*sortDir : String(a[sortCol]).localeCompare(b[sortCol])*sortDir); }
+  return rows;
+}
+function drawTable(){
+  const D = DATASETS[ds], rows = filtered();
+  const cell = (r,c) => c[2] ? `<td class="num">${r[c[0]]==='' ? '' : fmt(+r[c[0]], c[2]==='n0'?0:1)}</td>` : `<td>${esc(r[c[0]])}</td>`;
+  const tot = c => c[2] && !['supplier_since','since','fy2025_ebitda_margin_pct'].includes(c[0]) ? fmt(rows.reduce((a,r)=>a+(+r[c[0]]||0),0), c[2]==='n0'?0:1) : '';
+  $('#tbl').innerHTML = `<thead><tr>${D.cols.map(c=>`<th class="sort ${c[2]?'num':''}" data-c="${c[0]}">${c[1]}${sortCol===c[0]?(sortDir>0?' ▲':' ▼'):''}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r=>`<tr>${D.cols.map(c=>cell(r,c)).join('')}</tr>`).join('')}</tbody>
+    ${D.nototal?'':`<tfoot><tr>${D.cols.map((c,i)=>`<td class="${c[2]?'num':''}">${i===0?'Total':tot(c)}</td>`).join('')}</tr></tfoot>`}`;
+  document.querySelectorAll('#tbl th.sort').forEach(th=>th.addEventListener('click',()=>{ const c=th.dataset.c; sortDir = sortCol===c ? -sortDir : (DATASETS[ds].cols.find(x=>x[0]===c)[2]?-1:1); sortCol=c; drawTable(); }));
+  $('#rowcount').textContent = `${rows.length} of ${D.rows.length} rows`;
+  const gb = $('#groupBox');
+  if (D.group){
+    gb.style.display='';
+    gb.innerHTML = `<div class="controls" style="margin-bottom:6px"><span class="chart-title" style="margin:0">Contract value of the filtered growers, grouped by</span>
+      <select id="gsel">${D.group.map(g=>`<option ${g===groupKey?'selected':''} value="${g}">${g.replace(/_/g,' ')}</option>`).join('')}</select></div>
+      <p class="chart-sub">$ millions a year · hover a bar for grower count and acres</p><div id="ch-group"></div>`;
+    $('#gsel').addEventListener('change', e=>{ groupKey=e.target.value; drawTable(); });
+    hbars($('#ch-group'), groupRows(rows, groupKey).map(x=>({label:x.key, v:x.val, n:x.n, a:x.acres})), {color:'var(--s2)', unit:'$', tipFn:r=>`<b>${esc(r.label)}</b><br>$${fmt(r.v)}M/yr<br>${r.n} growers · ${fmt(r.a,0)} acres`});
+  } else gb.style.display='none';
+}
+
+/* ---------- markdown ---------- */
+function inline(s){
+  return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`(.+?)`/g,'<code>$1</code>');
+}
+function md(src){
+  const L = src.split('\n'); let out='', i=0, para=[];
+  const flush = () => { if (para.length){ out += `<p>${inline(para.join(' '))}</p>`; para=[]; } };
+  while (i < L.length){
+    const l = L[i];
+    if (/^\s*$/.test(l)){ flush(); i++; continue; }
+    let m;
+    if ((m = l.match(/^(#{1,4})\s+(.*)/))){ flush(); out += `<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`; i++; continue; }
+    if (/^---+\s*$/.test(l)){ flush(); out += '<hr>'; i++; continue; }
+    if (l.startsWith('|')){ flush(); const rows=[]; while (i<L.length && L[i].startsWith('|')) rows.push(L[i++]);
+      const cells = r => r.replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
+      const head = cells(rows[0]), body = rows.slice(2).map(cells);
+      out += `<div class="tbl-wrap" style="max-height:none"><table><thead><tr>${head.map(h=>`<th>${inline(h)}</th>`).join('')}</tr></thead><tbody>${body.map(r=>`<tr>${r.map(c=>`<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; continue; }
+    if (/^\s*[-*]\s+/.test(l)){ flush(); out += '<ul>'; while (i<L.length && /^\s*[-*]\s+|^\s{2,}\S/.test(L[i])){ let item=L[i++].replace(/^\s*[-*]\s+/,''); while(i<L.length && /^\s{2,}\S/.test(L[i]) && !/^\s*[-*]\s+/.test(L[i])) item += ' '+L[i++].trim(); out += `<li>${inline(item)}</li>`; } out += '</ul>'; continue; }
+    para.push(l.trim()); i++;
+  }
+  flush(); return out;
+}
+function csvTable(key){
+  const rows = parseCSV(FILES[fullPath(key)]); const head = Object.keys(rows[0]);
+  const note = FILES[fullPath(key)].split('\n')[0].replace(/^#\s*/,'');
+  return `<p><em>${esc(note)}</em></p><div class="tbl-wrap"><table><thead><tr>${head.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${head.map(h=>`<td>${esc(r[h])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ---------- documents view ---------- */
+let curDoc = 'company-overview.md', hl='';
+function renderDocs(){
+  const groups = THEMES.map(t=>({name:t.name, files:t.files.filter(f=>DOCS[f].th===t.id)})).filter(g=>g.files.length);
+  $('#doclist').innerHTML = groups.map(g=>`<h4>${g.name}</h4>${g.files.map(f=>`<a data-doc="${f}" class="${f===curDoc?'on':''}">${esc(docTitle(f))}</a>`).join('')}`).join('');
+  const D = DOCS[curDoc], th = THEMES.find(t=>t.id===D.th);
+  const also = THEMES.filter(t=>t.id!==D.th && t.files.includes(curDoc));
+  $('#docmeta').innerHTML = `<div class="path">windward-risk-advisors/${esc(fullPath(curDoc))}</div>
+    <div style="margin:6px 0 4px;color:var(--text-2)">${esc(D.d)}</div>
+    <div class="chips">${th && !th.hidden ? `<a class="chip" data-th="${th.id}">Theme: ${th.name}</a>`:''}${also.map(t=>`<a class="chip" data-th="${t.id}">Also in: ${t.name}</a>`).join('')}
+    ${curDoc.endsWith('.csv')?`<a class="chip" data-dataset="${{'data/grower-network.csv':'growers','data/facilities-register.csv':'facilities','data/beverage-volume-by-line.csv':'bev','data/division-pnl.csv':'pnl'}[curDoc]}">Open as interactive table</a>`:''}</div>`;
+  let html = curDoc.endsWith('.csv') ? csvTable(curDoc) : md(FILES[fullPath(curDoc)]);
+  if (hl) html = highlight(html, hl);
+  $('#docbody').innerHTML = html;
+  const first = $('#docbody mark'); if (first) first.scrollIntoView({block:'center'}); else window.scrollTo(0,0);
+}
+function highlight(html, q){
+  const re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return html.replace(/>([^<]+)</g, (m,t)=>'>'+t.replace(re,'<mark>$1</mark>')+'<');
+}
+
+/* ---------- glossary ---------- */
+const GLOSS = [
+ ['Adjusted EBITDA','Money','Earnings before interest, tax, depreciation and amortization, with one-off items stripped out. A rough stand-in for operating cash profit, and the base for leverage ratios.'],
+ ['Contribution margin','Money','Revenue minus the costs that rise with volume (ingredients, packaging, direct labor), as a % of revenue. It shows how much each extra dollar of sales adds before fixed costs.'],
+ ['Term Loan B','Money','A long-dated loan from institutional investors, mostly repaid at maturity (a "bullet"), with a small annual amortization.'],
+ ['Revolver (revolving credit facility)','Money','A credit line the company draws and repays as needed. Larkspur uses it most in mid-October to fund harvest inventory.'],
+ ['Net leverage','Money','Net debt (debt minus cash) divided by EBITDA. Larkspur is at 2.8x. A higher number means less room for a bad year.'],
+ ['Springing covenant','Money','A financial test that only applies ("springs") when a condition is met. Here the 3.50x leverage test applies only when revolver use is above 35%.'],
+ ['Letter of credit (LC)','Money','A bank guarantee issued on the company\'s behalf. It uses up revolver capacity even though no cash is drawn.'],
+ ['TIV / SOV','Insurance','Total insured value: the declared replacement value of buildings, equipment and stock. The statement of values (SOV) lists TIV by location.'],
+ ['Per-occurrence limit / sublimit / aggregate','Insurance','The most the policy pays for one event (limit), a smaller cap for a specific peril or location inside it (sublimit), and the most it pays for that peril across the whole policy year (aggregate).'],
+ ['Deductible','Insurance','The part of each loss the company pays itself before insurance pays. Named-storm deductibles are often a % of the site\'s value.'],
+ ['Business interruption (BI) & waiting period','Insurance','Covers profit lost while a damaged site is down. The waiting period is how long the outage must last before cover starts.'],
+ ['Contingent business interruption (CBI)','Insurance','Covers profit lost when a supplier or contract manufacturer, not your own site, suffers damage and cannot deliver.'],
+ ['FEMA flood zones (A, V, X)','Insurance','Zones A and V are the Special Flood Hazard Area: at least a 1% chance of flooding each year (V adds wave action). Zone X is outside it, covering moderate (0.2%) to minimal risk. Zones come from FEMA maps, which can be out of date.'],
+ ['Force majeure','Contracts','A clause excusing a party from performing when named events beyond its control happen (storms, floods, utility failure). It matters who bears the cost when it applies.'],
+ ['Co-packer / co-manufacturer','Beverage','A third-party plant that makes and packs product for a brand owner, for a per-unit "tolling" fee.'],
+ ['Aseptic, low-acid, process authority','Beverage','Aseptic filling sterilizes product and package separately so drinks are shelf-stable without refrigeration. Low-acid products carry botulism risk, so each process must be validated by a qualified process authority and filed with regulators. This is why moving production takes months.'],
+ ['Fill rate','Customers','The share of cases ordered that were actually delivered. Retailers set a minimum (98.5% here) and charge service credits below it.'],
+ ['Slotting / placement allowance','Customers','Fees a supplier pays a retailer to get a new product on shelf. The allowance can be "clawed back" if the supplier then fails to keep it in stock.'],
+ ['OTIF / EDI','Customers','On-time-in-full delivery measure. EDI is electronic data interchange: standard electronic orders (850), shipping notices (856) and invoices (810).'],
+ ['Acre-foot (af)','Water','The volume that covers one acre one foot deep: about 326,000 US gallons or 1,233 m³. Roughly what two to three households use in a year.'],
+ ['SGMA','Water','California\'s 2014 Sustainable Groundwater Management Act. Local agencies must bring overdrawn groundwater basins into balance, generally by around 2040 to 2042. In practice that means pumping limits.'],
+ ['GSA','Water','Groundwater sustainability agency: the local body that writes and enforces a basin\'s SGMA plan, including pumping allocations.'],
+ ['Critically overdrafted / high priority','Water','State ratings. Critically overdrafted basins are being pumped beyond sustainable levels with serious effects, and had the earliest deadlines. High priority means important to manage, but not in critical overdraft.'],
+ ['Edwards Aquifer Authority critical-period stages','Water','The regional agency governing the Edwards Aquifer in Texas. When the index well level or spring flow falls, it declares Stages 1–5, and each cuts permitted pumping by a set % (20–44% for the San Antonio pool).'],
+ ['J-17 index well','Water','The benchmark monitoring well in San Antonio whose water level triggers Edwards Aquifer stages.'],
+ ['Present-perfected rights / priority','Water','Colorado River rights established before 1929. They are the most senior and are cut last in shortages. Lower priorities (like Yuma Mesa third priority) and the CAP agricultural pool are cut sooner.'],
+ ['CAP agricultural pool','Water','Central Arizona Project canal water set aside for Pinal and central Arizona farms. It was cut sharply in 2022 and to zero from 2023 under Colorado River shortage tiers.'],
+ ['AMA','Water','Arizona Active Management Area: a region where groundwater pumping is regulated under the state\'s 1980 Groundwater Management Act.'],
+ ['Proratable (junior) rights, Yakima','Water','In the Yakima Project, junior "proratable" water users share shortages proportionally in dry years. Senior non-proratable users get full supply first.'],
+ ['ERCOT & Energy Emergency Alert (EEA)','Energy','ERCOT runs most of the Texas power grid. It declares EEA levels when supply is tight, and at the worst level it orders rotating outages ("firm load shed").'],
+ ['Interruptible rider / buy-through','Energy','A tariff where a plant gets a discount in return for cutting load on request. Buy-through lets it keep running by paying the market price instead, except during firm load shed.'],
+ ['IQF','Supply','Individually quick frozen. Berries are frozen piece by piece so they don\'t clump.'],
+ ['Federal crop insurance (MPCI)','Supply','Multi-peril crop insurance, subsidized by USDA, that pays growers for yield or revenue losses from weather and similar causes. Coverage level is the share of expected yield insured (e.g. 65%).'],
+ ['MYA-2016 / MYA-2022 / PA-2021','Supply','Larkspur\'s grower contract templates: multi-year agreements (2016 and 2022 versions) and an annual purchase agreement (2021). They treat drought risk differently. See the supply theme.'],
+ ['Crew-day','Supply','One contracted harvest crew (about 35 workers) for one shift. The unit used to count heat-related stoppages.'],
+ ['Finished-goods days on hand','Operations','How many days of sales the stock of finished product would cover. It is a buffer against production outages.'],
+ ['RMP / Boiler MACT / WPDES','Permits','RMP is the EPA Risk Management Program for sites holding large amounts of hazardous chemicals such as ammonia. Boiler MACT is the EPA air-emission standard for boilers. WPDES is Wisconsin\'s wastewater discharge permit.'],
+ ['SQF','Operations','Safe Quality Food: a food-safety certification standard recognized by major retailers.'],
+];
+function renderGloss(){
+  const q = ($('#gq').value||'').toLowerCase();
+  const groups = {};
+  GLOSS.filter(g=>!q || (g[0]+g[2]).toLowerCase().includes(q)).forEach(g=>(groups[g[1]] ||= []).push(g));
+  $('#glossBody').innerHTML = Object.entries(groups).map(([k,items])=>`<div class="card"><h3 style="margin-top:0">${k}</h3><dl class="gloss">${items.map(g=>`<dt>${esc(g[0])}</dt><dd>${esc(g[2])}</dd>`).join('')}</dl></div>`).join('') || '<p class="count">No matching terms.</p>';
+}
+$('#gq').addEventListener('input', renderGloss);
+
+/* ---------- search ---------- */
+const INDEX = Object.keys(DOCS).map(k=>({k, text:FILES[fullPath(k)]}));
+$('#q').addEventListener('input', e => {
+  const q = e.target.value.trim(), box = $('#results');
+  if (q.length < 2){ box.style.display='none'; return; }
+  const ql = q.toLowerCase(), hits = [];
+  INDEX.forEach(d => { const t=d.text.toLowerCase(); let i=t.indexOf(ql), n=0, first=i; while(i>=0){ n++; i=t.indexOf(ql,i+1); } if(n) hits.push({k:d.k, n, snip:d.text.slice(Math.max(0,first-60), first+q.length+80).replace(/\s+/g,' ')}); });
+  GLOSS.forEach(g => { if ((g[0]+' '+g[2]).toLowerCase().includes(ql)) hits.push({gloss:g[0], n:0, snip:g[2]}); });
+  hits.sort((a,b)=>b.n-a.n);
+  box.innerHTML = hits.length ? hits.map(h => h.gloss
+      ? `<a data-view="gloss" data-gq="${esc(h.gloss)}"><div class="rt">Glossary: ${esc(h.gloss)}</div><div class="rs">${esc(h.snip.slice(0,140))}…</div></a>`
+      : `<a data-doc="${h.k}" data-hl="${esc(q)}"><div class="rt">${esc(docTitle(h.k))} <span class="count">· ${h.n} match${h.n>1?'es':''}</span></div><div class="rs">…${highlight('>'+esc(h.snip)+'<', q).slice(1,-1)}…</div></a>`).join('')
+    : '<a><div class="rs">No matches.</div></a>';
+  box.style.display='block';
+});
+document.addEventListener('click', e => { if (!e.target.closest('.search')) $('#results').style.display='none'; });
+
+/* ---------- routing ---------- */
+const RENDER = {overview:()=>{}, themes:renderThemes, map:renderMap, data:renderData, docs:renderDocs, gloss:renderGloss};
+function show(v){
+  document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on', b.dataset.v===v));
+  RENDER[v](); if (v!=='docs') window.scrollTo(0,0);
+  try { history.replaceState(null,'','#'+v); } catch(e){}
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-v],[data-view],[data-doc],[data-th],[data-dataset],[data-f],[data-d]');
+  if (!a) return;
+  if (a.dataset.v) return show(a.dataset.v);
+  if (a.closest('#mapSeg')){ document.querySelectorAll('#mapSeg button').forEach(b=>b.classList.toggle('on', b===a)); if(map) map.fitBounds(REGION_BOUNDS[a.dataset.f]); return; }
+  if (a.dataset.d){ ds=a.dataset.d; sortCol=null; fvals={}; ftext=''; groupKey='region'; return renderData(); }
+  if (a.dataset.view){ if (a.dataset.gq){ $('#gq').value=a.dataset.gq; } $('#results').style.display='none'; return show(a.dataset.view); }
+  if (a.dataset.doc){ curDoc=a.dataset.doc; hl=a.dataset.hl||''; $('#results').style.display='none'; return show('docs'); }
+  if (a.dataset.th){ curTheme=a.dataset.th; return show('themes'); }
+  if (a.dataset.dataset){ ds=a.dataset.dataset; sortCol=null; fvals={}; ftext=''; return show('data'); }
+});
+
+/* ---------- theme toggle ---------- */
+$('#themeBtn').addEventListener('click', () => {
+  const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('lk-theme', r.dataset.theme); } catch(e){}
+});
+try { const t = localStorage.getItem('lk-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e){}
+
+renderOverview();
+const start = location.hash.slice(1); if (RENDER[start]) show(start);
+</script>
+</body>
+</html>

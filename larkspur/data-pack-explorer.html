@@ -151,7 +151,7 @@ mark{background:var(--mark);color:inherit;border-radius:2px}
 <body>
 <header>
   <div class="bar">
-    <div class="brand"><a href="../" style="font-size:12px;font-weight:500;display:block">← Residency home</a>Larkspur Foods data pack<small>Windward Risk Advisors · received 20 Sep 2026</small></div>
+    <div class="brand"><span style="font-size:12px;font-weight:500;display:block"><a href="../">← Residency home</a> · <a href="vulnerability-assessment.html">Vulnerability assessment →</a></span>Larkspur Foods data pack<small>Windward Risk Advisors · received 20 Sep 2026</small></div>
     <nav id="nav">
       <button data-v="overview" class="on">1 · Overview</button>
       <button data-v="themes">2 · Themes</button>
@@ -752,7 +752,13 @@ $('#themeBtn').addEventListener('click', () => {
 try { const t = localStorage.getItem('lk-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e){}
 
 renderOverview();
-const start = location.hash.slice(1); if (RENDER[start]) show(start);
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1)); const i = h.indexOf(':');
+  const v = i < 0 ? h : h.slice(0, i), arg = i < 0 ? '' : h.slice(i + 1);
+  if (v === 'docs' && arg && DOCS[arg]) { curDoc = arg; hl = ''; }
+  if (RENDER[v]) show(v);
+}
+route(); addEventListener('hashchange', route);
 </script>
 </body>
 </html>

@@ -1,0 +1,1108 @@
+{
+ "_about": "Week 4 step 3: response A2 tested against the central projection and both flood paths. All results MODEL; inputs labelled. Built by scenarios/build_a2_second_site.py.",
+ "run": {
+  "run_id": "P-20261009-03",
+  "run_at_utc": "2026-10-09T14:12:09+00:00",
+  "baselines": [
+   "P-20261009-01",
+   "P-20261009-02"
+  ],
+  "script": "scenarios/build_a2_second_site.py",
+  "script_sha256": "a08d78dee67b151c9095b8969e56f9dffcceb73322fa449e914cb80c9162687e",
+  "inputs": {
+   "central-projection.json": "5f9822fb923a88025e53863f788cadffd66fa1ba697da6c1272d724970f836e2",
+   "flood-delisting.json": "3d4309e9271e051dbce75e9b7f9c8cbcc872e8e6451b933ab4af7f7c4c35d538",
+   "run_scenarios.py": "53bf121ac1b452fd7f20d7ac342bec51d5745d565b376de72b5eb7a9f48de947"
+  }
+ },
+ "statements": {
+  "central": "With no climate event, choosing A2 costs $5.4M of EBITDA over FY2027-28 ($3.5M capex on top), because Larkspur pays to qualify a site and a 4% premium on the 4.0M cases it moves; in return Gonzales gets about 21% spare capacity, which the central case does not have.",
+  "expected": "Under the flood with the shelf coming back, choosing A2 (qualified by mid-August) roughly breaks even on FY2027-28 EBITDA (-0.2M) but starts the 2028 hurricane season with 27 days of stock instead of 0, because the second site keeps filling about a fifth of the lines while Gonzales is down and the freed capacity rebuilds the buffer after restart. If an Ida-sized stop then hit in late August 2028, that buffer is the difference between $6.9M of contribution lost with empty shelves from day one, and $0.0M. A2 does not stop the category review: fill stays under 96% for 4 months.",
+  "unexpected": "Under the flood with Lakemont delisting, choosing A2 improves FY2027-28 EBITDA by $1.6M, because the shorter shortage in FY2027 roughly pays for the site; it does nothing for the delisting itself, which A2 does not prevent, or for the shortfall against the Gonzales minimum, which is the same with or without it.",
+  "timing": "Timing decides the money: qualified by May, A2 improves FY2027-28 EBITDA by $3.5M in the expected path; if the decision slips to February and the site is ready in mid-November, it costs a net $4.4M of FY2027-28 EBITDA.",
+  "coverage": "To keep category fill at 96% with Gonzales down, the second site would need about 93% of the Gonzales lines' volume, close to full dual sourcing. Sized to the minimum-commitment headroom, A2 cannot prevent a category review; it limits the damage and rebuilds the buffer."
+ },
+ "results": {
+  "central": {
+   "without A2": {
+    "fy2027": 0.0,
+    "fy2028": 0.0,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q2": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q3": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q4": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2028 Q1": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2028 Q2": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2028 Q3": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2028 Q4": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.49,
+      "headroom": 88.25
+     },
+     "Oct 2028": {
+      "leverage": 1.86,
+      "headroom": 160.07
+     }
+    },
+    "buffer_days_1_jun_2028": 27,
+    "days_lost": null,
+    "months_under_96": 0,
+    "review_triggered": false,
+    "fills": [],
+    "net_debt_end_fy2028": 0.0
+   },
+   "6 months (qualified 15 May 2027)": {
+    "fy2027": -3.82,
+    "fy2028": -2.15,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.52,
+      "a2_cost": -1.52,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.61
+     },
+     "FY2027 Q3": {
+      "ebitda": -0.53,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.08
+     },
+     "FY2027 Q4": {
+      "ebitda": -0.53,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.56
+     },
+     "FY2028 Q1": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.05
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.54
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 8.04
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 8.55
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.54,
+      "headroom": 83.21
+     },
+     "Oct 2028": {
+      "leverage": 1.9,
+      "headroom": 155.64
+     }
+    },
+    "buffer_days_1_jun_2028": 27,
+    "days_lost": null,
+    "months_under_96": 0,
+    "review_triggered": false,
+    "fills": [],
+    "net_debt_end_fy2028": 8.55
+   },
+   "9 months (qualified 15 Aug 2027)": {
+    "fy2027": -3.3,
+    "fy2028": -2.15,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": -0.27,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 5.68
+     },
+     "FY2027 Q4": {
+      "ebitda": -0.53,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.15
+     },
+     "FY2028 Q1": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.64
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.13
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.62
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 8.12
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.53,
+      "headroom": 83.86
+     },
+     "Oct 2028": {
+      "leverage": 1.9,
+      "headroom": 155.76
+     }
+    },
+    "buffer_days_1_jun_2028": 27,
+    "days_lost": null,
+    "months_under_96": 0,
+    "review_triggered": false,
+    "fills": [],
+    "net_debt_end_fy2028": 8.12
+   },
+   "decision slips to mid-February (qualified 15 Nov 2027)": {
+    "fy2027": -2.77,
+    "fy2028": -2.15,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": 0.0,
+      "a2_cost": -0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 5.48
+     },
+     "FY2027 Q4": {
+      "ebitda": -0.27,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 5.75
+     },
+     "FY2028 Q1": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.23
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 6.72
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.21
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 7.71
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.53,
+      "headroom": 84.18
+     },
+     "Oct 2028": {
+      "leverage": 1.89,
+      "headroom": 156.13
+     }
+    },
+    "buffer_days_1_jun_2028": 27,
+    "days_lost": null,
+    "months_under_96": 0,
+    "review_triggered": false,
+    "fills": [],
+    "net_debt_end_fy2028": 7.71
+   }
+  },
+  "expected": {
+   "without A2": {
+    "fy2027": -37.33,
+    "fy2028": 10.0,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q2": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q3": {
+      "ebitda": -21.21,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 6.4
+     },
+     "FY2027 Q4": {
+      "ebitda": -16.12,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 18.57
+     },
+     "FY2028 Q1": {
+      "ebitda": 10.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 11.32
+     },
+     "FY2028 Q2": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 11.46
+     },
+     "FY2028 Q3": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 11.61
+     },
+     "FY2028 Q4": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 11.77
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.7,
+      "headroom": 65.21
+     },
+     "Oct 2028": {
+      "leverage": 1.93,
+      "headroom": 150.64
+     }
+    },
+    "buffer_days_1_jun_2028": 0.0,
+    "days_lost": 92.0,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 86.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-10",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-11",
+      "fill": 51.3
+     }
+    ],
+    "net_debt_end_fy2028": 11.77
+   },
+   "6 months (qualified 15 May 2027)": {
+    "fy2027": -31.67,
+    "fy2028": 7.85,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.52,
+      "a2_cost": -1.52,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.61
+     },
+     "FY2027 Q3": {
+      "ebitda": -15.1,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 9.5
+     },
+     "FY2027 Q4": {
+      "ebitda": -13.8,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 19.98
+     },
+     "FY2028 Q1": {
+      "ebitda": 9.46,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 13.14
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 13.72
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 14.3
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 14.89
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.68,
+      "headroom": 67.67
+     },
+     "Oct 2028": {
+      "leverage": 1.93,
+      "headroom": 150.57
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 66.95,
+    "months_under_96": 3,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-09",
+      "fill": 52.3
+     },
+     {
+      "month": "2027-10",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-11",
+      "fill": 61.6
+     }
+    ],
+    "net_debt_end_fy2028": 14.89
+   },
+   "9 months (qualified 15 Aug 2027)": {
+    "fy2027": -35.36,
+    "fy2028": 7.85,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": -19.06,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 10.26
+     },
+     "FY2027 Q4": {
+      "ebitda": -13.8,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 20.75
+     },
+     "FY2028 Q1": {
+      "ebitda": 9.46,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 13.93
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 14.51
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 15.11
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 15.71
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.72,
+      "headroom": 63.76
+     },
+     "Oct 2028": {
+      "leverage": 1.94,
+      "headroom": 150.34
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 70.53,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 93.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-10",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-11",
+      "fill": 61.6
+     }
+    ],
+    "net_debt_end_fy2028": 15.71
+   },
+   "decision slips to mid-February (qualified 15 Nov 2027)": {
+    "fy2027": -39.58,
+    "fy2028": 7.85,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": -21.21,
+      "a2_cost": -0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 11.88
+     },
+     "FY2027 Q4": {
+      "ebitda": -15.87,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 23.94
+     },
+     "FY2028 Q1": {
+      "ebitda": 9.46,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 17.16
+     },
+     "FY2028 Q2": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 17.78
+     },
+     "FY2028 Q3": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 18.42
+     },
+     "FY2028 Q4": {
+      "ebitda": -0.54,
+      "a2_cost": -0.54,
+      "a2_capex": -0.0,
+      "cum_net_debt": 19.06
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.74,
+      "headroom": 61.14
+     },
+     "Oct 2028": {
+      "leverage": 1.96,
+      "headroom": 147.33
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 89.89,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 86.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-10",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-11",
+      "fill": 55.6
+     }
+    ],
+    "net_debt_end_fy2028": 19.06
+   }
+  },
+  "unexpected": {
+   "without A2": {
+    "fy2027": -37.33,
+    "fy2028": -16.18,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q2": {
+      "ebitda": 0.0,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 0.0
+     },
+     "FY2027 Q3": {
+      "ebitda": -21.21,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 6.4
+     },
+     "FY2027 Q4": {
+      "ebitda": -16.12,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 18.57
+     },
+     "FY2028 Q1": {
+      "ebitda": 7.33,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 13.32
+     },
+     "FY2028 Q2": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 19.37
+     },
+     "FY2028 Q3": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 25.5
+     },
+     "FY2028 Q4": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": 0.0,
+      "cum_net_debt": 31.71
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.7,
+      "headroom": 65.21
+     },
+     "Oct 2028": {
+      "leverage": 2.09,
+      "headroom": 128.33
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 92.0,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 86.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-10",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-11",
+      "fill": 51.3
+     }
+    ],
+    "net_debt_end_fy2028": 31.71
+   },
+   "6 months (qualified 15 May 2027)": {
+    "fy2027": -31.67,
+    "fy2028": -16.53,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.52,
+      "a2_cost": -1.52,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.61
+     },
+     "FY2027 Q3": {
+      "ebitda": -15.1,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 9.5
+     },
+     "FY2027 Q4": {
+      "ebitda": -13.8,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 19.98
+     },
+     "FY2028 Q1": {
+      "ebitda": 6.98,
+      "a2_cost": -0.35,
+      "a2_capex": -0.0,
+      "cum_net_debt": 15.01
+     },
+     "FY2028 Q2": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 21.08
+     },
+     "FY2028 Q3": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 27.24
+     },
+     "FY2028 Q4": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 33.47
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.68,
+      "headroom": 67.67
+     },
+     "Oct 2028": {
+      "leverage": 2.08,
+      "headroom": 129.79
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 66.95,
+    "months_under_96": 3,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-09",
+      "fill": 52.3
+     },
+     {
+      "month": "2027-10",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-11",
+      "fill": 61.6
+     }
+    ],
+    "net_debt_end_fy2028": 33.47
+   },
+   "9 months (qualified 15 Aug 2027)": {
+    "fy2027": -35.36,
+    "fy2028": -16.53,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": -19.06,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 10.26
+     },
+     "FY2027 Q4": {
+      "ebitda": -13.8,
+      "a2_cost": -0.53,
+      "a2_capex": -0.0,
+      "cum_net_debt": 20.75
+     },
+     "FY2028 Q1": {
+      "ebitda": 6.98,
+      "a2_cost": -0.35,
+      "a2_capex": -0.0,
+      "cum_net_debt": 15.79
+     },
+     "FY2028 Q2": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 21.88
+     },
+     "FY2028 Q3": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 28.04
+     },
+     "FY2028 Q4": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 34.29
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.72,
+      "headroom": 63.76
+     },
+     "Oct 2028": {
+      "leverage": 2.08,
+      "headroom": 129.56
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 70.53,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 93.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-10",
+      "fill": 52.0
+     },
+     {
+      "month": "2027-11",
+      "fill": 61.6
+     }
+    ],
+    "net_debt_end_fy2028": 34.29
+   },
+   "decision slips to mid-February (qualified 15 Nov 2027)": {
+    "fy2027": -39.58,
+    "fy2028": -16.53,
+    "quarters": {
+     "FY2027 Q1": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 2.69
+     },
+     "FY2027 Q2": {
+      "ebitda": -1.25,
+      "a2_cost": -1.25,
+      "a2_capex": -1.75,
+      "cum_net_debt": 5.41
+     },
+     "FY2027 Q3": {
+      "ebitda": -21.21,
+      "a2_cost": -0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 11.88
+     },
+     "FY2027 Q4": {
+      "ebitda": -15.87,
+      "a2_cost": -0.27,
+      "a2_capex": -0.0,
+      "cum_net_debt": 23.94
+     },
+     "FY2028 Q1": {
+      "ebitda": 6.98,
+      "a2_cost": -0.35,
+      "a2_capex": -0.0,
+      "cum_net_debt": 19.02
+     },
+     "FY2028 Q2": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 25.15
+     },
+     "FY2028 Q3": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 31.36
+     },
+     "FY2028 Q4": {
+      "ebitda": -7.84,
+      "a2_cost": 0.0,
+      "a2_capex": -0.0,
+      "cum_net_debt": 37.65
+     }
+    },
+    "october": {
+     "Oct 2027": {
+      "leverage": 2.74,
+      "headroom": 61.14
+     },
+     "Oct 2028": {
+      "leverage": 2.1,
+      "headroom": 126.55
+     }
+    },
+    "buffer_days_1_jun_2028": 27.0,
+    "days_lost": 89.89,
+    "months_under_96": 4,
+    "review_triggered": true,
+    "fills": [
+     {
+      "month": "2027-08",
+      "fill": 86.3
+     },
+     {
+      "month": "2027-09",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-10",
+      "fill": 39.2
+     },
+     {
+      "month": "2027-11",
+      "fill": 55.6
+     }
+    ],
+    "net_debt_end_fy2028": 37.65
+   }
+  }
+ },
+ "ida_2028_if_it_happens": {
+  "days_lost_without_a2": 25.0,
+  "days_lost_with_a2": 0.0,
+  "contribution_without_a2": 6.92,
+  "contribution_with_a2": 0.0,
+  "label": "MODEL, conditional on the stop happening"
+ },
+ "sensitivities": [
+  {
+   "change": "Surge: second site lifts output 50% while Gonzales is down",
+   "expected_fy2027": -32.7,
+   "expected_fy2028": 7.9,
+   "review_triggered": true,
+   "buffer_1_jun_2028": 27.0
+  },
+  {
+   "change": "Premium 8% on moved volume, not 4%",
+   "expected_fy2027": -36.2,
+   "expected_fy2028": 5.7,
+   "review_triggered": true,
+   "buffer_1_jun_2028": 27.0
+  },
+  {
+   "change": "One-time cost doubles ($5.0M opex, $7.0M capex)",
+   "expected_fy2027": -37.9,
+   "expected_fy2028": 7.9,
+   "review_triggered": true,
+   "buffer_1_jun_2028": 27.0
+  }
+ ],
+ "coverage_needed_for_96pct_fill": 0.93,
+ "assumptions": [
+  {
+   "value": "Decision 15 November 2026; saleable after 6 or 9 months (base 9), or 15 November 2027 if the decision slips three months",
+   "why": "Art. 14.2 records 6-9 months for the last line at the same facility; a new site could take longer",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Volume moved: what is above Gonzales's 15.0M-case minimum, at most 4.0M cases a year (about 21%)",
+   "why": "Keeps Gonzales at its minimum so no shortfall charge; the candidate site's capacity is not in the pack",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "One-time cost $2.5M expensed and $3.5M capex, in FY2027 H1",
+   "why": "Not in the pack (Week 3 gap: 'cost and candidate sites'); capex stays under the $85.0M covenant cap",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Running premium 4% of variable cost on moved volume",
+   "why": "Smaller runs and freight to Romeoville; not in the pack",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "No surge at the second site after a Gonzales stop (sensitivity at +50%)",
+   "why": "Its spare capacity is unknown",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Second-site stock is not lost in the flood; staged stock at Gonzales is lost in proportion to its share",
+   "why": "Different site, different flood exposure; the candidate site is unknown",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "After a delisting all remaining volume returns to Gonzales, so the premium stops; no second-site minimum",
+   "why": "Contract terms for a second site are not known",
+   "label": "ASSUMPTION"
+  }
+ ],
+ "records": {
+  "min_commit_k": 15000.0,
+  "rated_k": 19000.0,
+  "qualification_months": "6-9",
+  "capex_covenant": 85.0,
+  "label": "RECORD"
+ },
+ "check": [
+  {
+   "item": "Days lost with no second site: this model vs Week 3 simulate()",
+   "main": 92.0,
+   "check": 92.0,
+   "agree": true
+  },
+  {
+   "item": "expected FY2027 EBITDA without A2: this model vs P-20261009-02",
+   "main": -37.33,
+   "check": -37.33,
+   "agree": true
+  },
+  {
+   "item": "expected FY2028 EBITDA without A2: this model vs P-20261009-02",
+   "main": 10.0,
+   "check": 10.0,
+   "agree": true
+  },
+  {
+   "item": "unexpected FY2027 EBITDA without A2: this model vs P-20261009-02",
+   "main": -37.33,
+   "check": -37.33,
+   "agree": true
+  },
+  {
+   "item": "unexpected FY2028 EBITDA without A2: this model vs P-20261009-02",
+   "main": -16.18,
+   "check": -16.18,
+   "agree": true
+  }
+ ]
+}

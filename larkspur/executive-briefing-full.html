@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larkspur Executive Briefing</title>
+<meta name="description" content="Five-minute executive briefing for Larkspur Foods, Week 4: the central story, a flood at the Gonzales co-packer, expected and unexpected reactions, and the case for deciding on a second aseptic site by 15 November 2026.">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2a2e;--muted:#5c6b70;--accent:#1f6f5f;--accent2:#c8742a;--bad:#b4532a;--card:#fff;--line:#d9d4c8;--soft:#e9f1ee}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(13px,1.25vw,18px);line-height:1.45}
+a{color:var(--accent)}
+.deck{position:relative;height:100%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:5vh 7vw 9vh;flex-direction:column;overflow:auto}
+.slide.active{display:flex}
+.slide.title{justify-content:center}
+.slide h1{font-size:2.6em;margin:.3em 0;line-height:1.1;letter-spacing:-.01em}
+.slide h2{font-size:1.6em;margin:0 0 .6em;line-height:1.15;letter-spacing:-.01em}
+.slide h2 small{display:block;font-size:.5em;color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5em}
+.slide h3{margin:.3em 0 .3em;font-size:1.1em}
+p{margin:.4em 0;max-width:80ch}
+p.lead{font-size:1.12em}
+b{color:var(--accent)} th b,td b{color:inherit}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:.7em;padding:.15em .6em;border:1px solid var(--accent2);color:var(--accent2);border-radius:999px;letter-spacing:.05em;text-transform:uppercase;align-self:flex-start}
+.tag.soft{border-color:var(--accent);color:var(--accent)}
+.src{font-size:.72em;color:var(--muted);margin-top:auto;padding-top:.8em;max-width:none}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;margin:.4em 0 1em}
+.grid3>div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.8em 1em}
+.grid3 b{display:block;margin:.2em 0 .3em}
+.big{display:block;font-size:2em;font-weight:700;color:var(--accent2);line-height:1.1}
+.two{display:grid;grid-template-columns:1.15fr 1fr;gap:1.4em;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.8em 1em}
+.hit{border-left:3px solid var(--accent2);padding-left:.6em}
+ol.seq{margin:0;padding-left:1.2em} ol.seq li{margin:.35em 0}
+table{border-collapse:collapse;width:100%;font-size:.88em;margin:.2em 0 .6em}
+th,td{text-align:left;vertical-align:top;padding:.38em .55em;border-bottom:1px solid var(--line)}
+th{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+td:first-child{font-weight:600}
+td.neg{color:var(--bad);font-weight:700}
+table.tight{font-size:.8em}
+figure.chart{margin:0}
+figure.chart svg{width:100%;height:auto;display:block}
+figcaption{font-size:.72em;color:var(--muted);margin-top:.3em}
+svg .ax{font-size:11px;fill:var(--muted)} svg .val{font-size:12px;font-weight:700;fill:var(--ink)}
+svg .bad{fill:var(--bad)} svg .good{fill:var(--accent)} svg .flat{fill:var(--muted)}
+svg .inval{font-size:12px;font-weight:700;fill:#fff} svg .sla{stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4} svg .sla-t{font-size:11px;fill:var(--accent);font-weight:600}
+svg .zero{stroke:var(--line);stroke-width:1.5}
+.statement{margin:.8em 0 0;padding:.8em 1em;background:var(--soft);border-left:4px solid var(--accent);border-radius:6px;font-size:1.02em;max-width:none}
+.ask{background:var(--soft);border-radius:8px;padding:1em 1.1em;border-left:4px solid var(--accent2)}
+.ask>b{font-size:1.1em;color:var(--accent2)}
+ul{margin:.3em 0;padding-left:1.2em} li{margin:.25em 0}
+.notes{display:none;position:fixed;left:0;right:0;bottom:2.2em;margin:0 7vw;padding:.7em 1em;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:.85em;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:3}
+body.show-notes .slide.active .notes{display:block}
+.notes i{color:var(--accent2);font-style:normal;font-weight:600}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.5em 7vw calc(.5em + env(safe-area-inset-bottom, 0px));font-size:.7em;color:var(--muted);background:var(--bg)}
+.foot a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot button{font:inherit;color:var(--accent);background:none;border:1px solid var(--line);border-radius:999px;padding:.1em .7em;cursor:pointer}
+.bar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;transition:width .25s;z-index:2}
+@media (max-width:800px){
+  .slide{padding:6vh 16px 12vh}
+  .slide h1{font-size:2em}
+  .grid3,.two{grid-template-columns:1fr}
+  table{font-size:.78em}
+  .foot{padding:.5em 16px}
+  .foot .long{display:none}
+  .notes{margin:0 16px}
+}
+@page{size:11in 8.5in;margin:0}
+@media print{html,body{font-size:14px} .deck{height:auto;overflow:visible} .slide{display:flex;position:relative;page-break-after:always;height:100vh;overflow:hidden} .foot,.bar,.notes{display:none!important}}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="deck" id="deck">
+<section class="slide title">
+  <span class="tag">Executive briefing · Week 4 · 5 minutes</span>
+  <h1>A $5.4M option that protects 2028 earnings</h1>
+  <p class="lead">A flood at Larkspur's only beverage co-packer costs about <b>$37.3M</b> of FY2027 EBITDA but does not threaten the covenant. The exposure it leaves is the next year: <b>no stock on hand</b> going into the 2028 hurricane season. A second aseptic site, decided by <b>15 November 2026</b>, closes that gap at roughly no net cost if the flood comes, and about $5.4M over two years if it does not.</p>
+  <p class="muted">To Priya Natarajan, Chief Financial Officer · cc Marcus Webb, COO · From Windward Risk Advisors · 9 October 2026 · working draft</p>
+<aside class="notes"><i>~20 sec.</i> Open with the answer, in your language. One decision this quarter: start qualifying a second aseptic co-packer by mid-November. Think of it as an option: about five million of EBITDA over two years if nothing happens, roughly free if the flood comes, and it protects 2028. Five minutes on the story behind it.</aside></section>
+<section class="slide ">
+  <h2><small>1 · Your central story</small>Earnings grow and leverage falls, because Gonzales runs flat out</h2>
+  <div class="grid3">
+    <div><span class="big">100%</span><b>Gonzales lines full</b>From Q2 FY2027, once the March 2027 functional launch (+40%, $18.5M of launch spend) is on shelf. No spare capacity.</div>
+    <div><span class="big">2.49x → 1.86x</span><b>Leverage falls</b>At the October 2027 and 2028 covenant tests, against a 3.50x limit, as free cash pays down debt.</div>
+    <div><span class="big">0</span><b>Climate events assumed</b>River Parish fills every week. No stop, no lost listing, both credit facilities refinanced on current terms.</div>
+  </div>
+  <p class="lead">A sound plan. Its weak point is the first tile: a plant at 100% has no capacity left to win back lost sales or rebuild stock after a stop. Both credit facilities also mature inside the window (revolver December 2027, term loan June 2028).</p>
+  <p class="src">MODEL, run P-20261009-01, built on FY2025 records and our assumptions (no FY2027 plan is in the pack; price +2%, core volume flat).</p>
+<aside class="notes"><i>~40 sec.</i> This is your central story as we've rebuilt it from your records. The launch fills Lines 2 and 3 completely from the second quarter of FY2027. Leverage keeps falling. Climate is not in it, which is normal. Hold on to one number: 100% full. It is what makes the next story bite.</aside></section>
+<section class="slide ">
+  <h2><small>2 · The alternate story</small>August 2027: water in the plant at Gonzales</h2>
+  <div class="two">
+    <ol class="seq">
+      <li><b>12 Aug 2027 · Disruption.</b> The August 2016 flood, replayed at the co-packer. Lines 2 and 3 stop for 105 days; the 14 days of stock staged there are lost.</li>
+      <li><b>25 Aug · Shelves go short.</b> Retail fill drops to 86%, then 39%. Under the 96% service level for 4 months in a row.</li>
+      <li><b>After Oct · Retailers react.</b> The category review under the service agreement (§6.3) opens.</li>
+      <li><b>25 Nov · Recovery.</b> Lines restart, but they were already full. Stock is never rebuilt.</li>
+      <li><b>Q1 FY2028 · Insurance pays $10.0M</b>, after the October covenant test and after the revolver matures in December.</li>
+    </ol>
+    <figure class="chart"><svg viewBox="0 0 360 170" role="img" aria-label="Category fill by month against the 96 percent service level"><text x="28" y="148.0" class="ax" text-anchor="end">0%</text><text x="28" y="81.0" class="ax" text-anchor="end">50%</text><text x="28" y="14.0" class="ax" text-anchor="end">100%</text><rect x="48.8" y="28.4" width="52" height="115.6" rx="3" class="bad"/><text x="74.8" y="45.4" class="inval" text-anchor="middle">86%</text><text x="74.8" y="162" class="ax" text-anchor="middle">Aug 2027</text><rect x="130.2" y="91.5" width="52" height="52.5" rx="3" class="bad"/><text x="156.2" y="108.5" class="inval" text-anchor="middle">39%</text><text x="156.2" y="162" class="ax" text-anchor="middle">Sep 2027</text><rect x="211.8" y="91.5" width="52" height="52.5" rx="3" class="bad"/><text x="237.8" y="108.5" class="inval" text-anchor="middle">39%</text><text x="237.8" y="162" class="ax" text-anchor="middle">Oct 2027</text><rect x="293.2" y="75.3" width="52" height="68.7" rx="3" class="bad"/><text x="319.2" y="92.3" class="inval" text-anchor="middle">51%</text><text x="319.2" y="162" class="ax" text-anchor="middle">Nov 2027</text><line x1="34" x2="360" y1="15.4" y2="15.4" class="sla"/><text x="360" y="11.4" class="sla-t" text-anchor="end">96% service level</text></svg><figcaption>Category fill by month (MODEL)</figcaption></figure>
+  </div>
+  <p class="src">Rain and river record: RECORD (USGS, Aug 2016). Water entering the plant and the 105-day stop: ASSUMPTION (midpoint of 60 to 150 days). Fill, credits, cover: MODEL, run P-20261009-02.</p>
+<aside class="notes"><i>~50 sec.</i> Here's the alternate story, told as a sequence. We are coarse about the weather: it's the 2016 flood placed at the plant. We are detailed about who does what. The plant stops for about three and a half months. Shelves go short within two weeks. Four months under the service level opens a category review. The lines come back in late November, but there is no spare capacity to rebuild stock. Insurance pays, but a quarter late.</aside></section>
+<section class="slide ">
+  <h2><small>3 · Expected vs unexpected</small>The surprise is in the outcome we were hoping for</h2>
+  <div class="two">
+    <div class="card"><span class="tag soft">Expected reaction</span><h3>The shelf comes back</h3>
+      <p>Retailers wait, the review closes once fill recovers. FY2027 EBITDA −⁠$37.3M, FY2028 +⁠$10.0M as insurance lands.</p>
+      <p class="hit">But the lines restart full, so Larkspur enters the 2028 hurricane season with <b>0 days of stock</b>. The next stop, even a small one, empties shelves on day one.</p></div>
+    <div class="card"><span class="tag">Unexpected reaction</span><h3>Lakemont drops the line</h3>
+      <p>At its February 2028 business review, Lakemont delists the Gonzales lines from 1 March: 31% of their revenue. FY2028 EBITDA −⁠$16.2M.</p>
+      <p class="hit">Volume falls to 14.1M cases, under the 15.0M-case minimum in the co-packer contract. The shortfall charge is not in the records we have.</p></div>
+  </div>
+  <p class="lead">Neither path breaks the covenant: the October 2027 test reads <b>2.70x</b> against 3.50x, with $65.2M of headroom. We expected the money to be the problem. Played through, it is the <b>empty buffer</b>.</p>
+  <p class="src">MODEL, run P-20261009-02 against the central projection. Delisting date and length: ASSUMPTION; February review date: RECORD (SLA Schedule 6-A).</p>
+<aside class="notes"><i>~60 sec.</i> Two ways the story can end. Expected: the shelf comes back. Unexpected: Lakemont, your largest retailer, drops the line. The delisting costs more money. But here's what surprised us: the outcome everyone hopes for is the fragile one, because you restart with zero stock heading into the next hurricane season. And no path breaks the covenant. That is a finding in itself; it overturns what we told you in Week 3.</aside></section>
+<section class="slide ">
+  <h2><small>4 · What the statements record</small>The lines this story moves, against the central projection</h2>
+  <table>
+    <tr><th>Line</th><th>Shelf comes back</th><th>Lakemont delists</th></tr>
+    <tr><td>Revenue, FY2027</td><td>−⁠$87.5M</td><td>−⁠$87.5M</td></tr>
+    <tr><td>EBITDA, FY2027</td><td>−⁠$37.3M</td><td>−⁠$37.3M</td></tr>
+    <tr><td>EBITDA, FY2028 (insurance lands Q1)</td><td>+⁠$10.0M</td><td>−⁠$16.2M</td></tr>
+    <tr><td>Net debt added by end FY2028</td><td>+⁠$11.8M</td><td>+⁠$31.7M</td></tr>
+    <tr><td>October 2027 covenant test (central 2.49x)</td><td>2.70x</td><td>2.70x</td></tr>
+    <tr><td>October 2028 covenant test (central 1.86x)</td><td>1.93x</td><td>2.09x</td></tr>
+    <tr><td>Stock entering the 2028 season</td><td class="neg">0 days</td><td>27 days (volume freed)</td></tr>
+  </table>
+  <p><b>Cash timing.</b> Insurance covers $10.0M of the $37.3M lost in FY2027 and pays in Q1 FY2028: after the October test, and after the revolver matures in December 2027, one month after restart. Not priced: Larkspur-owned tooling, expediting, and the co-packer shortfall charge.</p>
+  <p class="src">MODEL, run P-20261009-02. Changes against the central projection, $M. Covenant figures measured at the October revolver peak (ASSUMPTION, Treasurer to confirm).</p>
+<aside class="notes"><i>~40 sec.</i> For the finance view, these are the only lines the story moves. A thirty-seven million dollar hit to FY2027 earnings, partly recovered by insurance a quarter later. Debt goes up by twelve to thirty-two million. Leverage rises but stays well inside 3.50x. The bottom row is the one I'd point to: zero days of stock.</aside></section>
+<section class="slide ">
+  <h2><small>5 · The decision</small>A second site: what it costs and what it buys, in each story</h2>
+  <div class="two">
+    <table class="tight">
+      <tr><th>Story</th><th>A2 effect, FY2027–28 EBITDA</th><th>What it changes</th></tr>
+      <tr><td>Central, no event</td><td>−⁠$5.4M <span class="muted">(plus $3.5M capex)</span></td><td>The premium: 21% spare capacity at Gonzales</td></tr>
+      <tr><td>Shelf comes back</td><td>−⁠$0.2M <span class="muted">(about even)</span></td><td>27 days of stock for 2028, not 0. An Ida-length stop then costs nothing instead of $6.9M</td></tr>
+      <tr><td>Lakemont delists</td><td>+⁠$1.6M</td><td>Shorter shortage in 2027; does not prevent the delisting</td></tr>
+    </table>
+    <figure class="chart"><svg viewBox="0 0 420 110" role="img" aria-label="Effect of A2 on FY2027-28 EBITDA by timing"><line x1="295.0" x2="295.0" y1="0" y2="110" class="zero"/><text x="0" y="22.0" class="ax">Qualified by May 2027</text><rect x="295.0" y="9.0" width="59.8" height="22" rx="3" class="good"/><text x="360.8" y="23.0" class="val" text-anchor="start">+⁠$3.5M</text><text x="0" y="56.0" class="ax">Qualified by Aug 2027</text><rect x="291.9" y="43.0" width="3.1" height="22" rx="3" class="flat"/><text x="285.9" y="57.0" class="val" text-anchor="end">−⁠$0.2M</text><text x="0" y="90.0" class="ax">Decision slips 3 months</text><rect x="220.0" y="77.0" width="75.0" height="22" rx="3" class="bad"/><text x="214.0" y="91.0" class="val" text-anchor="end">−⁠$4.4M</text></svg><figcaption>Shelf-comes-back story: A2's effect by when it is ready (MODEL)</figcaption></figure>
+  </div>
+  <div class="statement">Under the flood scenario, choosing to qualify a second aseptic site by 15 November 2026 turns <b>0 days of stock into 27</b> for the 2028 hurricane season at roughly no net cost to FY2027–28 earnings, because the second site keeps about a fifth of the volume moving while Gonzales is down and frees the capacity to rebuild stock after restart.</div>
+  <p class="src">MODEL, run P-20261009-03. Site cost ($2.5M opex, $3.5M capex), 4% running premium and 6 to 9 month qualification: ASSUMPTION (not in the pack; Art. 14.2 records 6 to 9 months for a line at the same facility).</p>
+<aside class="notes"><i>~60 sec.</i> The response we tested is A2: move the volume above the co-packer minimum, about a fifth, to a second qualified site. With no flood it's an insurance premium of about five million over two years. In the flood it roughly pays for itself and turns zero days of stock into twenty-seven. If a second storm then hits in 2028, that's the difference between seven million lost and nothing. Timing matters most: ready by May, it's worth three and a half million; slip the decision by three months and it costs four.</aside></section>
+<section class="slide ">
+  <h2><small>6 · Limits and the ask</small>What A2 cannot do, and what would change the answer</h2>
+  <div class="two">
+    <div>
+      <h3>What it cannot do</h3>
+      <ul>
+        <li>Stop the category review. To hold fill at 96% with Gonzales down, a second site would need about <b>93%</b> of the volume: full dual sourcing.</li>
+        <li>Prevent a delisting, or the co-packer shortfall charge that follows one.</li>
+      </ul>
+      <h3>Facts that could change the answer</h3>
+      <ul>
+        <li>A real quote and candidate site (our cost figures are assumptions).</li>
+        <li>The standby rate for volume under the 15.0M-case minimum (contract Schedule 4).</li>
+        <li>How the October covenant test measures net debt.</li>
+        <li>The launch volume plan that fills Gonzales to 100%.</li>
+      </ul>
+    </div>
+    <div class="ask">
+      <b>The ask</b>
+      <p>Ask the Treasurer and Procurement to bring back two second-site quotes, the shortfall rate and the covenant test mechanics within five weeks, so the go or no-go is taken by <b>15 November 2026</b>. Budget at stake if approved: about $6.0M of one-time cost (opex plus capex, our assumption) and a running premium on a fifth of Gonzales volume.</p>
+      <p class="muted">Every month of delay moves the ready date past the August 2027 peak and turns A2 from break-even into a cost.</p>
+    </div>
+  </div>
+  <p class="src">Coverage figure: MODEL, run P-20261009-03. Missing facts listed in the run records.</p>
+<aside class="notes"><i>~30 sec.</i> Two honest limits. A2 doesn't stop the category review; only near-full dual sourcing does that. And four facts could change the answer, the biggest being a real quote. So the ask is small: five weeks to get quotes and confirm those facts, and a go or no-go by mid-November. Waiting is the expensive option.</aside></section>
+<section class="slide ">
+  <h2><small>Appendix</small>Where every number comes from</h2>
+  <ul>
+    <li><b>RECORD</b> from the Larkspur data pack or a public dataset · <b>MODEL</b> computed by our scripts · <b>ASSUMPTION</b> our choice, open to challenge.</li>
+    <li>Central projection, run P-20261009-01: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/central-projection.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/central-projection.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_central_projection.py">script</a></li>
+    <li>Flood to delisting, run P-20261009-02: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/flood-delisting.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/flood-delisting.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_flood_delisting.py">script</a></li>
+    <li>Second site (A2), run P-20261009-03: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/a2-second-site.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/a2-second-site.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_a2_second_site.py">script</a></li>
+    <li>Full analysis with charts and tables: <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/decision-analysis.html#week4">decision analysis, Week 4</a></li>
+    <li>Each run recomputes its key figures a second way; all agree. All three are working drafts not yet reviewed by Larkspur.</li>
+  </ul>
+  <p class="src">Not covered here: chronic heat and Central Valley water (Week 5), and the other responses (more buffer, more insurance).</p>
+<aside class="notes">Backup only. Don't present.</aside></section>
+</div>
+<div class="foot"><span><a href="../">← Residency home</a> &nbsp;·&nbsp; <span class="long">Windward Risk Advisors · Larkspur Foods · executive briefing, Week 4 · simulated engagement · </span>arrow keys or tap · N notes · P print</span><span><button id="nbtn" type="button">Notes</button> &nbsp;<span id="count"></span> · 5:00</span></div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0,n=slides.length;
+  function show(k){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('active',j===i)});
+    document.getElementById('bar').style.width=((i+1)/n*100)+'%';
+    document.getElementById('count').textContent=(i+1)+' / '+n; slides[i].scrollTop=0;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+  function notes(){document.body.classList.toggle('show-notes')}
+  document.getElementById('nbtn').addEventListener('click',function(e){e.stopPropagation();notes()});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')show(i+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(n-1);
+    else if(e.key==='n'||e.key==='N')notes();
+    else if(e.key==='p'||e.key==='P')window.print();
+  });
+  document.getElementById('deck').addEventListener('click',function(e){ if(e.target.closest('a,.notes'))return; show(i+1); });
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)show(i+(dx<0?1:-1));x0=null},{passive:true});
+  var h=parseInt((location.hash||'').replace('#',''),10); show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>

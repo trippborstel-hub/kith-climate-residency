@@ -1,0 +1,3311 @@
+{
+ "_about": "Week 4 step 1: Larkspur CENTRAL projection, no climate event. Baseline that every Week 4 scenario departs from. Built by scenarios/build_central_projection.py; edit assumptions there and re-run. Labels: RECORD (pack), MODEL (calculated), ASSUMPTION (ours). Every number is a {v, l} pair.",
+ "run": {
+  "run_id": "P-20261009-01",
+  "run_at_utc": "2026-10-09T13:40:14+00:00",
+  "cda_step": "4 (baseline before scenarios)",
+  "script": "scenarios/build_central_projection.py",
+  "script_sha256": "6608e6127fd4967d51a327ce3caea3eb06775addac1bcba92274e82972b42b8c",
+  "command": "~/.venvs/kith-climate/bin/python scenarios/build_central_projection.py",
+  "inputs": {
+   "data/division-pnl.csv": "4d49bf26a0b520918c76a9982df361110299bda1d3acb3fc64eaab1a50647c73",
+   "data/beverage-volume-by-line.csv": "2a1a7c0f275c1cdec8797591e2a859c8e2b02f473755ccbe7b8c731bbaca0be2",
+   "reference.md": "f3c25f4bbe0735c18dac049635aba1dfdbd63aab1aa5ee1528890a554d2580d7",
+   "board-minutes-excerpt.md": "e68dc4c45c8b710459042c10d31f896c13d4d71d0d4ddfb4115542259b25913a",
+   "credit-agreement-excerpt.md": "27784d1d09dfb7f75e0ddefb3a5447abce4e698ab874707cdc06176c390d96af",
+   "copacker-agreement-excerpt.md": "06b8cfdbad64f0186b2aa825ef77dfea52af777670468fe919c985146bc53446",
+   "logistics-note.md": "0e914476f75c8923cc8be390577c40d75ed96cb3ffe7820b0d4b8ef2ba41dcc1"
+  },
+  "note": "Not appended to scenarios/runs/run-log.csv, to leave the Week 3 files untouched."
+ },
+ "what_it_assumes": [
+  "Lakemont, Fairmount, Callahan and every other customer keep ordering at FY2025 patterns, with Beverage prices up 2% a year and no listing lost.",
+  "River Parish Aseptic Packaging fills Lines 2 and 3 every week with no force-majeure stop, and San Antonio and Holland run without interruption.",
+  "The March 2027 Prairie Clover functional-line launch goes ahead on 1 March as the board approved, spending the $18.5M and lifting the functional line about 40%, in step with the berry plan.",
+  "Capacity meets demand, but only because core Gonzales volumes stay flat: with the launch the lines are 99% full in FY2027 and full in FY2028, so 27 days of finished goods is held and no sale is lost.",
+  "Customers pay on terms and working capital grows in line with sales, so free cash flow pays down net debt every quarter and both credit facilities are refinanced on current terms as they mature.",
+  "The October revolver peak repeats the FY2025 swing, so the covenant is tested each October against net debt about $93M above the quarter-end figure."
+ ],
+ "periods": [
+  "FY2025",
+  "FY2026",
+  "FY2027 Q1",
+  "FY2027 Q2",
+  "FY2027 Q3",
+  "FY2027 Q4",
+  "FY2028 Q1",
+  "FY2028 Q2",
+  "FY2028 Q3",
+  "FY2028 Q4",
+  "FY2027",
+  "FY2028"
+ ],
+ "period_note": "52-week fiscal year ending late December (FY2025 ended 27 December 2025). Q1 is roughly January to March. FY2025 is the pack; FY2026 is a bridge estimate; FY2027-28 are quarterly.",
+ "summary": {
+  "beverage_ebitda": {
+   "FY2025": 67.6,
+   "FY2026": 69.4,
+   "FY2027": 60.8,
+   "FY2028": 83.0
+  },
+  "gonzales_ebitda": {
+   "FY2025": 38.0,
+   "FY2026": 38.3,
+   "FY2027": 28.1,
+   "FY2028": 48.6
+  },
+  "larkspur_ebitda": {
+   "FY2025": 297.7,
+   "FY2026": 309.7,
+   "FY2027": 311.9,
+   "FY2028": 345.2
+  },
+  "net_debt_year_end": {
+   "FY2025": 834.0,
+   "FY2026": 740.3,
+   "FY2027": 641.3,
+   "FY2028": 509.8
+  },
+  "leverage_year_end": {
+   "FY2025": 2.8,
+   "FY2026": 2.39,
+   "FY2027": 2.06,
+   "FY2028": 1.48
+  },
+  "october_test": {
+   "Oct 2025": {
+    "leverage": 3.11,
+    "headroom": 32.8
+   },
+   "Oct 2027": {
+    "leverage": 2.49,
+    "headroom": 88.3
+   },
+   "Oct 2028": {
+    "leverage": 1.86,
+    "headroom": 160.1
+   }
+  },
+  "label": "MODEL (FY2025 figures RECORD)"
+ },
+ "reconciliation_fy2025": [
+  {
+   "item": "Beverage revenue, sum of seven lines",
+   "pack": 520.0,
+   "model": 520.0,
+   "ok": true,
+   "src": "division-pnl.csv Beverage fy2025_revenue_usd_m"
+  },
+  {
+   "item": "Gonzales lines revenue (BV-03 to BV-06)",
+   "pack": 312.0,
+   "model": 312.0,
+   "ok": true,
+   "src": "Week 3 run R-20261001-02 records.gonzales_rev"
+  },
+  {
+   "item": "Gonzales lines contribution",
+   "pack": 86.76,
+   "model": 86.76,
+   "ok": true,
+   "src": "Week 3 run R-20261001-02 records.gonzales_contrib"
+  },
+  {
+   "item": "Gonzales cases, thousand",
+   "pack": 18000.0,
+   "model": 18000.0,
+   "ok": true,
+   "src": "beverage-volume-by-line.csv; 95% of 19.0M rated"
+  },
+  {
+   "item": "Beverage EBITDA",
+   "pack": 67.6,
+   "model": 67.6,
+   "ok": true,
+   "src": "division-pnl.csv (holds by construction: fixed cost is the balancing figure)"
+  },
+  {
+   "item": "Larkspur revenue",
+   "pack": 2500.0,
+   "model": 2500.0,
+   "ok": true,
+   "src": "division-pnl.csv Total"
+  },
+  {
+   "item": "Larkspur adjusted EBITDA",
+   "pack": 297.7,
+   "model": 297.7,
+   "ok": true,
+   "src": "division-pnl.csv Total; compliance certificate"
+  },
+  {
+   "item": "Net debt: 900 + 45 + 18 - 129",
+   "pack": 834.0,
+   "model": 834.0,
+   "ok": true,
+   "src": "credit agreement certificate"
+  },
+  {
+   "item": "First-lien net leverage",
+   "pack": 2.8,
+   "model": 2.8,
+   "ok": true,
+   "src": "credit agreement certificate (2.8x)"
+  },
+  {
+   "item": "Headroom to 3.50x at year-end net debt",
+   "pack": 59.4,
+   "model": 59.41,
+   "ok": true,
+   "src": "Week 3 scenario-set.json dependency facts"
+  }
+ ],
+ "beverage": {
+  "gonzales": [
+   {
+    "key": "cases_k",
+    "name": "Cases sold",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 18000.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 18000.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 4590.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 4750.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 18840.0,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 19000.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "revenue",
+    "name": "Revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 312.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 318.24,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 83.43,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 87.47,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 87.47,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 87.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 89.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 89.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 89.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 89.22,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 345.83,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 356.87,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "variable_cost",
+    "name": "Variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 225.24,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 229.74,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 59.99,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 62.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 62.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 62.5,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 63.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 63.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 63.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 63.75,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 247.5,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 255.01,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "contribution",
+    "name": "Contribution",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 86.76,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 88.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 23.43,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 24.97,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 24.97,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 24.97,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 25.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 25.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 25.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 25.47,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 98.33,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 101.86,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fixed_cost",
+    "name": "Fixed cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 48.73,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 50.19,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 24.02,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 17.55,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 15.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 12.92,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 13.31,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 13.31,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 13.31,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 13.31,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 70.19,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 53.24,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "of_which_launch",
+    "name": "of which launch slotting and marketing",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 0.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 11.1,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 4.62,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 2.77,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 18.5,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 0.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ebitda",
+    "name": "EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 38.03,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 38.31,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": -0.59,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 7.42,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 9.27,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 12.04,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 12.15,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 12.15,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 12.15,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 12.15,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 28.14,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 48.62,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_cases_k",
+    "name": "Finished goods on hand (27 days)",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 1335.16,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 1335.16,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 1361.87,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 1409.34,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 1397.47,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 1409.34,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_usd",
+    "name": "Finished goods on hand at variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 16.71,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 17.04,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 17.8,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 18.54,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 18.54,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 18.54,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 18.92,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 18.92,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 18.92,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 18.92,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 18.36,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 18.92,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_staged_at_gonzales_cases_k",
+    "name": "of which staged at Gonzales (14 days)",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 692.31,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 692.31,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 706.15,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 730.77,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 724.62,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 730.77,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "capacity_k",
+    "name": "Rated capacity, Lines 2 and 3",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 19000.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 19000.0,
+      "l": "RECORD"
+     },
+     "FY2027 Q1": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2027 Q2": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2027 Q3": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2027 Q4": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2028 Q1": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2028 Q2": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2028 Q3": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2028 Q4": {
+      "v": 4750.0,
+      "l": "RECORD"
+     },
+     "FY2027": {
+      "v": 19000.0,
+      "l": "RECORD"
+     },
+     "FY2028": {
+      "v": 19000.0,
+      "l": "RECORD"
+     }
+    }
+   },
+   {
+    "key": "utilisation_pct",
+    "name": "Utilisation",
+    "unit": "%",
+    "values": {
+     "FY2025": {
+      "v": 94.74,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 94.74,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 96.63,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 100.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 99.16,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 100.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "spare_capacity_k",
+    "name": "Spare capacity",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 1000.0,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 1000.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 160.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 160.0,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 0.0,
+      "l": "MODEL"
+     }
+    }
+   }
+  ],
+  "other_lines": [
+   {
+    "key": "cases_k",
+    "name": "Cases sold",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 12000.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 12240.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 3121.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 3121.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 3121.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 3121.2,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 3183.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 3183.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 3183.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 3183.62,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 12484.8,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 12734.5,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "revenue",
+    "name": "Revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 208.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 216.4,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 56.29,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 56.29,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 56.29,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 56.29,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 58.56,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 58.56,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 58.56,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 58.56,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 225.15,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 234.24,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "variable_cost",
+    "name": "Variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 145.95,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 151.85,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 39.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 39.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 39.5,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 39.5,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 41.09,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 41.09,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 41.09,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 41.09,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 157.98,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 164.36,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "contribution",
+    "name": "Contribution",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 62.05,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 64.56,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 16.79,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 16.79,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 16.79,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 16.79,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 17.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 17.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 17.47,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 17.47,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 67.16,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 69.88,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fixed_cost",
+    "name": "Fixed cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 32.48,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 33.46,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 8.62,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 8.62,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 8.62,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 8.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 8.87,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 8.87,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 8.87,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 8.87,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 34.46,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 35.5,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "of_which_launch",
+    "name": "of which launch slotting and marketing",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 0.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 0.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ebitda",
+    "name": "EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 29.57,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 31.1,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 8.18,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 8.18,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 8.18,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 8.18,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 8.6,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 8.6,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 8.6,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 8.6,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 32.7,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 34.38,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_cases_k",
+    "name": "Finished goods on hand (27 days)",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 890.11,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 907.91,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 926.07,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 926.07,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 926.07,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 926.07,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 944.59,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 944.59,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 944.59,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 944.59,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 926.07,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 944.59,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_usd",
+    "name": "Finished goods on hand at variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 10.83,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 11.26,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 11.72,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 11.72,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 11.72,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 11.72,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 12.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 12.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 12.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 12.19,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 11.72,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 12.19,
+      "l": "MODEL"
+     }
+    }
+   }
+  ],
+  "total": [
+   {
+    "key": "cases_k",
+    "name": "Cases sold",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 30000.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 30240.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 7711.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 7871.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 7871.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 7871.2,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 7933.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 7933.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 7933.62,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 7933.62,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 31324.8,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 31734.5,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "revenue",
+    "name": "Revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 520.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 534.64,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 139.71,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 570.97,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 591.11,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "variable_cost",
+    "name": "Variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 371.19,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 381.59,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 99.49,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 102.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 102.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 102.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 104.84,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 104.84,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 104.84,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 104.84,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 405.48,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 419.37,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "contribution",
+    "name": "Contribution",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 148.81,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 153.05,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 40.22,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 41.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 41.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 41.76,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 42.94,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 42.94,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 42.94,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 42.94,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 165.5,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 171.74,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fixed_cost",
+    "name": "Fixed cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 81.21,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 83.65,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 32.64,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 26.16,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 24.31,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 21.54,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 22.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 22.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 22.19,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 22.19,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 104.66,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 88.74,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "of_which_launch",
+    "name": "of which launch slotting and marketing",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 0.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 11.1,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 4.62,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 2.77,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 0.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 18.5,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 0.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ebitda",
+    "name": "EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 67.6,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 69.41,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 7.58,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 15.59,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 17.44,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 20.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 60.84,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 83.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_cases_k",
+    "name": "Finished goods on hand (27 days)",
+    "unit": "thousand cases",
+    "values": {
+     "FY2025": {
+      "v": 2225.27,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 2243.08,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 2287.94,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 2335.41,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 2335.41,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 2335.41,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 2353.93,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 2353.93,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 2353.93,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 2353.93,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 2323.54,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 2353.93,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fg_inventory_usd",
+    "name": "Finished goods on hand at variable cost",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 27.53,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 28.3,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 29.52,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 30.26,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 30.26,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 30.26,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 31.11,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 31.11,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 31.11,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 31.11,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 30.08,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 31.11,
+      "l": "MODEL"
+     }
+    }
+   }
+  ]
+ },
+ "larkspur": {
+  "ebitda": [
+   {
+    "key": "ingredients_revenue",
+    "name": "Ingredients revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 1300.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 1357.43,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 354.35,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 354.35,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 354.35,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 354.35,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 370.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 370.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 370.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 370.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 1417.4,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 1480.01,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "produce_revenue",
+    "name": "Produce revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 680.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 705.95,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 183.22,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 183.22,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 183.22,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 183.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 190.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 190.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 190.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 190.22,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 732.9,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 760.87,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "beverage_revenue",
+    "name": "Beverage revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 520.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 534.64,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 139.71,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 143.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 147.78,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 570.97,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 591.11,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "revenue",
+    "name": "Larkspur revenue",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 2500.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 2598.03,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 677.29,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 681.33,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 681.33,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 681.33,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 708.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 708.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 708.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 708.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 2721.27,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 2832.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ingredients_ebitda",
+    "name": "Ingredients EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 208.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 217.19,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 56.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 56.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 56.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 56.7,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 59.2,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 59.2,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 59.2,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 59.2,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 226.78,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 236.8,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "produce_ebitda",
+    "name": "Produce EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 47.6,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 49.42,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 12.83,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 12.83,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 12.83,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 12.83,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 13.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 13.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 13.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 13.32,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 51.3,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 53.26,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "beverage_ebitda",
+    "name": "Beverage EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 67.6,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 69.41,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 7.58,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 15.59,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 17.44,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 20.22,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 20.75,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 60.84,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 83.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "corporate",
+    "name": "Corporate and unallocated",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": -25.5,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": -26.27,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": -6.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": -6.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": -6.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": -6.76,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": -6.97,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": -6.97,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": -6.97,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": -6.97,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": -27.05,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": -27.86,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ebitda",
+    "name": "Larkspur adjusted EBITDA",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 297.7,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 309.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 70.34,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 78.35,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 80.2,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 82.98,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 86.3,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 86.3,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 86.3,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 86.3,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 311.87,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 345.2,
+      "l": "MODEL"
+     }
+    }
+   }
+  ],
+  "debt": [
+   {
+    "key": "net_debt",
+    "name": "Net debt, period end",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 834.0,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 740.26,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 721.67,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 696.83,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 670.28,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 641.3,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 609.07,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 576.42,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 543.33,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 509.82,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 641.3,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 509.82,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "ltm_ebitda",
+    "name": "EBITDA, last twelve months",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 297.7,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 309.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 302.65,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 303.57,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 306.33,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 311.87,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 327.83,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 335.78,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 341.88,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 345.2,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 311.87,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 345.2,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "leverage",
+    "name": "First-lien net leverage",
+    "unit": "x",
+    "values": {
+     "FY2025": {
+      "v": 2.8,
+      "l": "RECORD"
+     },
+     "FY2026": {
+      "v": 2.39,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 2.38,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 2.3,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 2.19,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 2.06,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 1.86,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 1.72,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 1.59,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 1.48,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 2.06,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 1.48,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "headroom",
+    "name": "EBITDA headroom before 3.50x",
+    "unit": "$M",
+    "values": {
+     "FY2025": {
+      "v": 59.41,
+      "l": "MODEL"
+     },
+     "FY2026": {
+      "v": 98.24,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 96.46,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 104.47,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 114.82,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 128.64,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 153.81,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 171.09,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 186.64,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 199.54,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 128.64,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 199.54,
+      "l": "MODEL"
+     }
+    }
+   }
+  ],
+  "cash_flow": [
+   {
+    "key": "capex",
+    "name": "Capital expenditure",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 75.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 18.75,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 75.0,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 75.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "interest",
+    "name": "Cash interest",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 67.41,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 15.21,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 14.89,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 14.45,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 13.99,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 13.48,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 12.92,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 12.34,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 11.77,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 58.54,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 50.51,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "tax",
+    "name": "Cash tax",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 41.83,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 9.09,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 11.18,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 11.75,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 12.56,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 13.52,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 13.66,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 13.8,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 13.95,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 44.58,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 54.92,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "dividends",
+    "name": "Dividends",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 20.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 5.0,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 20.0,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 20.0,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "nwc_increase",
+    "name": "Working-capital build",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 11.76,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 3.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 3.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 3.7,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 3.7,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 3.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 3.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 3.32,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 3.32,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 14.79,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 13.29,
+      "l": "MODEL"
+     }
+    }
+   },
+   {
+    "key": "fcf",
+    "name": "Free cash flow to debt",
+    "unit": "$M",
+    "values": {
+     "FY2026": {
+      "v": 93.74,
+      "l": "MODEL"
+     },
+     "FY2027 Q1": {
+      "v": 18.59,
+      "l": "MODEL"
+     },
+     "FY2027 Q2": {
+      "v": 24.84,
+      "l": "MODEL"
+     },
+     "FY2027 Q3": {
+      "v": 26.55,
+      "l": "MODEL"
+     },
+     "FY2027 Q4": {
+      "v": 28.98,
+      "l": "MODEL"
+     },
+     "FY2028 Q1": {
+      "v": 32.23,
+      "l": "MODEL"
+     },
+     "FY2028 Q2": {
+      "v": 32.65,
+      "l": "MODEL"
+     },
+     "FY2028 Q3": {
+      "v": 33.08,
+      "l": "MODEL"
+     },
+     "FY2028 Q4": {
+      "v": 33.52,
+      "l": "MODEL"
+     },
+     "FY2027": {
+      "v": 98.96,
+      "l": "MODEL"
+     },
+     "FY2028": {
+      "v": 131.48,
+      "l": "MODEL"
+     }
+    }
+   }
+  ],
+  "october_test": {
+   "Oct 2025": {
+    "net_debt_before_build": {
+     "v": 834.0,
+     "l": "MODEL"
+    },
+    "harvest_build": {
+     "v": 93.0,
+     "l": "MODEL"
+    },
+    "net_debt_at_test": {
+     "v": 927.0,
+     "l": "MODEL"
+    },
+    "ltm_ebitda": {
+     "v": 297.7,
+     "l": "MODEL"
+    },
+    "leverage": {
+     "v": 3.11,
+     "l": "MODEL"
+    },
+    "headroom": {
+     "v": 32.84,
+     "l": "MODEL"
+    },
+    "ebitda_at_3_5x": {
+     "v": 264.86,
+     "l": "MODEL"
+    }
+   },
+   "Oct 2027": {
+    "net_debt_before_build": {
+     "v": 670.28,
+     "l": "MODEL"
+    },
+    "harvest_build": {
+     "v": 93.0,
+     "l": "MODEL"
+    },
+    "net_debt_at_test": {
+     "v": 763.28,
+     "l": "MODEL"
+    },
+    "ltm_ebitda": {
+     "v": 306.33,
+     "l": "MODEL"
+    },
+    "leverage": {
+     "v": 2.49,
+     "l": "MODEL"
+    },
+    "headroom": {
+     "v": 88.25,
+     "l": "MODEL"
+    },
+    "ebitda_at_3_5x": {
+     "v": 218.08,
+     "l": "MODEL"
+    }
+   },
+   "Oct 2028": {
+    "net_debt_before_build": {
+     "v": 543.33,
+     "l": "MODEL"
+    },
+    "harvest_build": {
+     "v": 93.0,
+     "l": "MODEL"
+    },
+    "net_debt_at_test": {
+     "v": 636.33,
+     "l": "MODEL"
+    },
+    "ltm_ebitda": {
+     "v": 341.88,
+     "l": "MODEL"
+    },
+    "leverage": {
+     "v": 1.86,
+     "l": "MODEL"
+    },
+    "headroom": {
+     "v": 160.07,
+     "l": "MODEL"
+    },
+    "ebitda_at_3_5x": {
+     "v": 181.81,
+     "l": "MODEL"
+    }
+   }
+  },
+  "october_test_note": "Net debt at the mid-October test = Q3-end net debt + $93.0M harvest build (ASSUMPTION from FY2025 RECORD); leverage against LTM EBITDA at Q3. Oct 2025 is illustrative: year-end net debt plus the swing."
+ },
+ "records_used": {
+  "rated_capacity_k": {
+   "v": 19000.0,
+   "l": "RECORD"
+  },
+  "min_commit_k": {
+   "v": 15000.0,
+   "l": "RECORD"
+  },
+  "fg_days": {
+   "v": 27,
+   "l": "RECORD"
+  },
+  "staged_days": {
+   "v": 14,
+   "l": "RECORD"
+  },
+  "launch_cost": {
+   "v": 18.5,
+   "l": "RECORD"
+  },
+  "tlb": {
+   "v": 900.0,
+   "l": "RECORD"
+  },
+  "revolver": {
+   "v": 45.0,
+   "l": "RECORD"
+  },
+  "leases": {
+   "v": 18.0,
+   "l": "RECORD"
+  },
+  "cash": {
+   "v": 129.0,
+   "l": "RECORD"
+  },
+  "net_debt": {
+   "v": 834.0,
+   "l": "RECORD"
+  },
+  "covenant": {
+   "v": 3.5,
+   "l": "RECORD"
+  },
+  "revolver_peak": {
+   "v": 138.0,
+   "l": "RECORD"
+  },
+  "revolver_commit": {
+   "v": 250.0,
+   "l": "RECORD"
+  },
+  "test_trigger": {
+   "v": 0.35,
+   "l": "RECORD"
+  },
+  "lcs": {
+   "v": 12.0,
+   "l": "RECORD"
+  },
+  "berry_uplift": {
+   "v": 0.4,
+   "l": "RECORD"
+  },
+  "contribution_margin_by_line": {
+   "BV-01": {
+    "v": 0.3,
+    "l": "RECORD"
+   },
+   "BV-02": {
+    "v": 0.28,
+    "l": "RECORD"
+   },
+   "BV-03": {
+    "v": 0.26,
+    "l": "RECORD"
+   },
+   "BV-04": {
+    "v": 0.29,
+    "l": "RECORD"
+   },
+   "BV-05": {
+    "v": 0.38,
+    "l": "RECORD"
+   },
+   "BV-06": {
+    "v": 0.14,
+    "l": "RECORD"
+   },
+   "BV-07": {
+    "v": 0.35,
+    "l": "RECORD"
+   }
+  }
+ },
+ "assumptions": [
+  {
+   "id": "price",
+   "value": "+2.0% a year price/mix on every Beverage line",
+   "range": "0% to +4%",
+   "why": "FY2025 Beverage revenue grew 6.1% (RECORD); the price/volume split is not in the pack",
+   "who": "President, Beverage"
+  },
+  {
+   "id": "vol_other",
+   "value": "+2.0% a year volume at San Antonio and Holland",
+   "range": "0% to +4%",
+   "why": "San Antonio capacity is not in the pack and the Line 3 expansion is deferred (board minutes item 4)",
+   "who": "COO"
+  },
+  {
+   "id": "vol_gonz_core",
+   "value": "Flat volume on BV-03, BV-04, BV-06 (15.9M cases)",
+   "range": "0% to +2%",
+   "why": "Lines 2 and 3 run at 95%; with the launch, any core growth exceeds rated capacity (see sensitivity 1)",
+   "who": "COO; President, Beverage"
+  },
+  {
+   "id": "launch",
+   "value": "Functional line (BV-05) launches 1 March 2027: 2,940k cases in FY2027 (+40% on FY2025), 3,100k in FY2028 (775k a quarter)",
+   "range": "+20% to +50%",
+   "why": "Sized on the +40% berry procurement for FY2027 (logistics note, RECORD); the volume plan itself is missing",
+   "who": "President, Beverage"
+  },
+  {
+   "id": "margins",
+   "value": "FY2025 contribution margin by line held constant",
+   "range": "\u00b12 points",
+   "why": "Price assumed to pass through cost inflation; carton and resin pass through at cost +2% (co-pack schedules)",
+   "who": "CFO"
+  },
+  {
+   "id": "fixed",
+   "value": "Beverage fixed cost $81.2M in FY2025 (balancing figure), +3% a year; 60% allocated to Gonzales lines by revenue",
+   "range": "+2% to +4%; allocation does not change Beverage or Larkspur EBITDA",
+   "why": "The pack has no fixed/variable split; contribution margins define variable cost",
+   "who": "CFO"
+  },
+  {
+   "id": "launch_cost",
+   "value": "$18.5M slotting and launch marketing (RECORD) is incremental to run-rate cost, all in FY2027, phased 60/25/15/0 by quarter, charged to Gonzales lines",
+   "range": "Phasing only",
+   "why": "Board approved it within the FY2027 plan; timing not stated",
+   "who": "President, Beverage"
+  },
+  {
+   "id": "seasonality",
+   "value": "Demand, costs and cash flow flat across quarters",
+   "range": "",
+   "why": "Same as the Week 3 model; quarterly phasing not in the pack",
+   "who": "CFO"
+  },
+  {
+   "id": "fg",
+   "value": "Beverage finished goods held at 27 days of sales, 14 staged at Gonzales, valued at variable cost",
+   "range": "",
+   "why": "Days are RECORD (logistics note); valuation basis is not in the pack",
+   "who": "Logistics; Controller"
+  },
+  {
+   "id": "other_divisions",
+   "value": "Ingredients +4.4% and Produce +3.8% revenue a year (FY2025 growth repeated), FY2025 margins held; corporate cost +3%",
+   "range": "",
+   "why": "No plan figures in the pack",
+   "who": "CFO"
+  },
+  {
+   "id": "fy2026",
+   "value": "FY2026 built with the same rules (functional line flat); no FY2026 actuals are in the pack",
+   "range": "",
+   "why": "Bridge year to FY2027",
+   "who": "CFO"
+  },
+  {
+   "id": "cash",
+   "value": "Capex $75M a year; D&A $75M; interest 7.0% on gross debt (net debt + $129M cash held); tax 25% of EBITDA less D&A and interest; dividends $20M; working capital 12% of revenue growth",
+   "range": "See sensitivity 4",
+   "why": "Capex is FY2025 division capex $73M (RECORD) rounded up for ERP phase 2; the rest is not in the pack",
+   "who": "Treasurer; CFO"
+  },
+  {
+   "id": "refinance",
+   "value": "Revolver (matures Dec 2027) and Term Loan B (bullet June 2028) refinanced on current terms, no fees",
+   "range": "",
+   "why": "Both maturities fall inside the projection; the pack has no refinancing plan",
+   "who": "Treasurer"
+  },
+  {
+   "id": "peak_build",
+   "value": "Net debt rises $93.0M from Q3-end to the mid-October test, as the FY2025 revolver swing ($45M to $138M peak) did",
+   "range": "$60M to $120M",
+   "why": "Peak usage is RECORD for FY2025 only",
+   "who": "Treasurer"
+  },
+  {
+   "id": "test_springs",
+   "value": "The covenant is treated as tested every October",
+   "range": "",
+   "why": "FY2025 peak draw of $138M was 55% of the $250M revolver, above the 35% trigger; if free cash repays the revolver first, the test may not spring",
+   "who": "Treasurer"
+  }
+ ],
+ "assumption_values": {
+  "price": 0.02,
+  "vol_other": 0.02,
+  "vol_gonz_core": 0.0,
+  "func_fy26_k": 2100.0,
+  "func_fy27_q": [
+   615.0,
+   775.0,
+   775.0,
+   775.0
+  ],
+  "func_fy28_q": [
+   775.0,
+   775.0,
+   775.0,
+   775.0
+  ],
+  "fixed_growth": 0.03,
+  "gonz_fixed_share": 0.6,
+  "launch_phasing": [
+   0.6,
+   0.25,
+   0.15,
+   0.0
+  ],
+  "ing_growth": 0.0442,
+  "pro_growth": 0.0382,
+  "corp_growth": 0.03,
+  "capex": 75.0,
+  "da": 75.0,
+  "rate": 0.07,
+  "tax": 0.25,
+  "dividends": 20.0,
+  "nwc_pct": 0.12,
+  "peak_build": 93.0
+ },
+ "missing_from_pack": [
+  "FY2026 year-to-date actuals and the FY2027 plan (revenue, EBITDA, volume by line)",
+  "Functional-line launch volume plan and slotting date (Week 3 gap, still open)",
+  "Fixed and variable cost split for Beverage; finished-goods valuation basis",
+  "San Antonio capacity and utilisation",
+  "Interest rate actually paid (SOFR and swaps), cash tax, dividend amount, D&A",
+  "Quarterly seasonality of revenue, EBITDA and working capital",
+  "Refinancing plan for the December 2027 revolver and June 2028 term loan",
+  "How the October covenant test measures net debt (point in time, quarter-end, or average)"
+ ],
+ "sensitivities": [
+  {
+   "change": "Gonzales core lines (BV-03, -04, -06) grow volume 2% a year instead of flat",
+   "effect": "FY2028 Gonzales demand 19.97M cases against 19.0M rated: 0.97M cases a year cannot be filled. 'Capacity meets demand' fails from FY2027.",
+   "label": "MODEL"
+  },
+  {
+   "change": "Launch reaches half the volume (+20% on FY2025, not +40%)",
+   "effect": "Functional line about 420k cases a year lower; Beverage EBITDA about $4.1M a year lower in FY2028; Gonzales keeps ~0.6M cases of spare capacity.",
+   "label": "MODEL"
+  },
+  {
+   "change": "Beverage price/mix +1% a year instead of +2%",
+   "effect": "FY2028 Beverage EBITDA about $5.0M lower (margin held).",
+   "label": "MODEL"
+  },
+  {
+   "change": "Dividends $40M a year instead of $20M, or interest at 8% instead of 7%",
+   "effect": "Each adds roughly $20M and $7M (before tax) a year respectively to net debt; FY2028 year-end leverage moves by about 0.1x and 0.04x.",
+   "label": "MODEL"
+  }
+ ],
+ "check": {
+  "method": "Five figures recomputed by closed-form annual arithmetic, independent of the period functions",
+  "results": [
+   {
+    "item": "FY2027 Gonzales revenue",
+    "main": 345.829,
+    "check": 345.829,
+    "agree": true
+   },
+   {
+    "item": "FY2027 other-lines revenue",
+    "main": 225.146,
+    "check": 225.146,
+    "agree": true
+   },
+   {
+    "item": "FY2027 Beverage EBITDA",
+    "main": 60.84,
+    "check": 60.84,
+    "agree": true
+   },
+   {
+    "item": "FY2027 Gonzales utilisation %",
+    "main": 99.158,
+    "check": 99.158,
+    "agree": true
+   },
+   {
+    "item": "FY2028 Gonzales utilisation %",
+    "main": 100.0,
+    "check": 100.0,
+    "agree": true
+   }
+  ]
+ },
+ "flags_for_tripp": [
+  "Capacity: the central case only holds 'capacity meets demand' because we held Gonzales core volume flat. With the launch at +40%, Lines 2 and 3 run at 99.2% in FY2027 and 100% from Q2 FY2027 on. Spare capacity, the thing that rebuilt the buffer in the Week 3 run (1.0M cases a year), is gone in the central case. Every Week 4 scenario will recover more slowly than Week 3 showed.",
+  "Covenant headroom at the October test is smaller than the $59.4M Week 3 used. Week 3 measured headroom at year-end net debt; the test falls at the revolver peak. Adding the FY2025 swing ($93M) gives 3.11x and $32.8M of headroom for October 2025 (illustrative). This changes how close a scenario comes to breach. Week 3 files not edited; needs Tripp's call and the Treasurer's confirmation of the test mechanics.",
+  "Both credit facilities mature inside the window (revolver Dec 2027, term loan June 2028). The central case assumes routine refinancing; a climate loss landing in 2027 lands during that refinancing.",
+  "The $18.5M launch spend takes FY2027 Beverage EBITDA down even in the central case. Q1 FY2027 is the weakest quarter before any event.",
+  "Several assumptions move annual EBITDA by more than $5M (price/mix, launch volume, fixed-cost growth). Per cda-workflow.md these need Tripp's review before results are quoted."
+ ]
+}

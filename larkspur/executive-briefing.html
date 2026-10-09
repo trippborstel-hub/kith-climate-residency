@@ -7,8 +7,8 @@
 <meta name="description" content="Five-minute executive briefing for Larkspur Foods, Week 4: the central story, a flood at the Gonzales co-packer, expected and unexpected reactions, and the case for deciding on a second aseptic site by 15 November 2026.">
 <style>
 :root{--bg:#f7f5f0;--ink:#1d2a2e;--muted:#5c6b70;--accent:#1f6f5f;--accent2:#c8742a;--bad:#b4532a;--card:#fff;--line:#d9d4c8;--soft:#e9f1ee}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27}}
-:root[data-theme="dark"]{--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a1c;--ink:#e8e6df;--muted:#9aa7ab;--accent:#5fc3a9;--accent2:#e8a15f;--bad:#e0805a;--card:#1d2528;--line:#2e3a3e;--soft:#1a2a27;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(13px,1.25vw,18px);line-height:1.45}
 a{color:var(--accent)}
@@ -55,7 +55,7 @@ ul{margin:.3em 0;padding-left:1.2em} li{margin:.25em 0}
 .notes{display:none;position:fixed;left:0;right:0;bottom:2.2em;margin:0 7vw;padding:.7em 1em;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:.85em;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:3}
 body.show-notes .slide.active .notes{display:block}
 .notes i{color:var(--accent2);font-style:normal;font-weight:600}
-.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.5em 7vw;font-size:.7em;color:var(--muted);background:var(--bg)}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.5em 7vw calc(.5em + env(safe-area-inset-bottom, 0px));font-size:.7em;color:var(--muted);background:var(--bg)}
 .foot a{color:var(--accent);text-decoration:none;font-weight:600}
 .foot button{font:inherit;color:var(--accent);background:none;border:1px solid var(--line);border-radius:999px;padding:.1em .7em;cursor:pointer}
 .bar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;transition:width .25s;z-index:2}
@@ -176,10 +176,10 @@ body.show-notes .slide.active .notes{display:block}
   <h2><small>Appendix</small>Where every number comes from</h2>
   <ul>
     <li><b>RECORD</b> from the Larkspur data pack or a public dataset · <b>MODEL</b> computed by our scripts · <b>ASSUMPTION</b> our choice, open to challenge.</li>
-    <li>Central projection, run P-20261009-01: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/central-projection.md">read</a> · <a href="week4/central-projection.json">data</a> · <a href="week4/build_central_projection.py">script</a></li>
-    <li>Flood to delisting, run P-20261009-02: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/flood-delisting.md">read</a> · <a href="week4/flood-delisting.json">data</a> · <a href="week4/build_flood_delisting.py">script</a></li>
-    <li>Second site (A2), run P-20261009-03: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/a2-second-site.md">read</a> · <a href="week4/a2-second-site.json">data</a> · <a href="week4/build_a2_second_site.py">script</a></li>
-    <li>Full analysis with charts and tables: <a href="decision-analysis.html#week4">decision analysis, Week 4</a></li>
+    <li>Central projection, run P-20261009-01: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/central-projection.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/central-projection.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_central_projection.py">script</a></li>
+    <li>Flood to delisting, run P-20261009-02: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/flood-delisting.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/flood-delisting.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_flood_delisting.py">script</a></li>
+    <li>Second site (A2), run P-20261009-03: <a href="https://github.com/trippborstel-hub/kith-climate-residency/blob/main/larkspur/week4/a2-second-site.md">read</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/a2-second-site.json">data</a> · <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/week4/build_a2_second_site.py">script</a></li>
+    <li>Full analysis with charts and tables: <a href="https://trippborstel-hub.github.io/kith-climate-residency/larkspur/decision-analysis.html#week4">decision analysis, Week 4</a></li>
     <li>Each run recomputes its key figures a second way; all agree. All three are working drafts not yet reviewed by Larkspur.</li>
   </ul>
   <p class="src">Not covered here: chronic heat and Central Valley water (Week 5), and the other responses (more buffer, more insurance).</p>

@@ -1,0 +1,758 @@
+{
+ "_about": "Week 4 step 2: flood-to-delisting story against the central projection. Deltas are scenario minus central, $M; negative = worse. Built by scenarios/build_flood_delisting.py.",
+ "run": {
+  "run_id": "P-20261009-02",
+  "run_at_utc": "2026-10-09T14:00:46+00:00",
+  "baseline_run": "P-20261009-01",
+  "script": "scenarios/build_flood_delisting.py",
+  "script_sha256": "bd2b342dfa5bcaf626858fa90c3d9a2f2bcff3dd1b207ab5c48651bf74dd5894",
+  "inputs": {
+   "scenarios/central-projection.json": "5f9822fb923a88025e53863f788cadffd66fa1ba697da6c1272d724970f836e2",
+   "scenarios/run_scenarios.py": "53bf121ac1b452fd7f20d7ac342bec51d5745d565b376de72b5eb7a9f48de947"
+  },
+  "note": "Week 3 model imported for simulate(); no Week 3 file edited; run-log.csv not appended."
+ },
+ "labels": "Flood physical premise: Week 3 S2 (RECORD event, ASSUMPTION that water enters the plant). Every figure below is MODEL unless named in assumptions.",
+ "operating": {
+  "days_down": 105,
+  "restart": "2027-11-25",
+  "shelves_short_from": "2027-08-25",
+  "days_of_demand_lost": 92.0,
+  "monthly_fill": [
+   {
+    "month": "2027-08",
+    "category_fill_pct": 86.3,
+    "credit_rate": 0.05,
+    "credit": 1.15
+   },
+   {
+    "month": "2027-09",
+    "category_fill_pct": 39.2,
+    "credit_rate": 0.05,
+    "credit": 0.51
+   },
+   {
+    "month": "2027-10",
+    "category_fill_pct": 39.2,
+    "credit_rate": 0.05,
+    "credit": 0.52
+   },
+   {
+    "month": "2027-11",
+    "category_fill_pct": 51.3,
+    "credit_rate": 0.05,
+    "credit": 0.66
+   }
+  ],
+  "months_under_96_in_a_row": 4,
+  "category_review_opens_after": "2027-10",
+  "contingent_cover": 10.0,
+  "contribution_lost_after_wait": 20.36
+ },
+ "paths": {
+  "expected": {
+   "retailers_delisting": [],
+   "share_of_gonzales_revenue": 0.0,
+   "quarters": {
+    "FY2027 Q1": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4590.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q2": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q3": {
+     "revenue": -35.18,
+     "variable_cost_saved": -25.14,
+     "lost_contribution": -10.04,
+     "service_credits": -1.66,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -21.21,
+     "net_debt_change": 6.4,
+     "cumulative_net_debt_change": 6.4,
+     "gonzales_cases_k": 2839.67,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2027 Q4": {
+     "revenue": -52.29,
+     "variable_cost_saved": -37.36,
+     "lost_contribution": -14.93,
+     "service_credits": -1.19,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -16.12,
+     "net_debt_change": 12.17,
+     "cumulative_net_debt_change": 18.57,
+     "gonzales_cases_k": 1910.33,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q1": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 10.0,
+     "ebitda": 10.0,
+     "net_debt_change": -7.26,
+     "cumulative_net_debt_change": 11.32,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q2": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.15,
+     "cumulative_net_debt_change": 11.46,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q3": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.15,
+     "cumulative_net_debt_change": 11.61,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q4": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.15,
+     "cumulative_net_debt_change": 11.77,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 0.0
+    }
+   },
+   "larkspur": {
+    "FY2027 Q1": {
+     "ebitda": 70.34,
+     "ltm_ebitda": 302.65,
+     "net_debt": 721.67,
+     "leverage": 2.38,
+     "headroom": 96.46
+    },
+    "FY2027 Q2": {
+     "ebitda": 78.35,
+     "ltm_ebitda": 303.57,
+     "net_debt": 696.83,
+     "leverage": 2.3,
+     "headroom": 104.48
+    },
+    "FY2027 Q3": {
+     "ebitda": 58.99,
+     "ltm_ebitda": 285.12,
+     "net_debt": 676.68,
+     "leverage": 2.37,
+     "headroom": 91.78
+    },
+    "FY2027 Q4": {
+     "ebitda": 66.86,
+     "ltm_ebitda": 274.54,
+     "net_debt": 659.87,
+     "leverage": 2.4,
+     "headroom": 86.0
+    },
+    "FY2028 Q1": {
+     "ebitda": 96.3,
+     "ltm_ebitda": 300.5,
+     "net_debt": 620.39,
+     "leverage": 2.06,
+     "headroom": 123.25
+    },
+    "FY2028 Q2": {
+     "ebitda": 86.3,
+     "ltm_ebitda": 308.45,
+     "net_debt": 587.88,
+     "leverage": 1.91,
+     "headroom": 140.48
+    },
+    "FY2028 Q3": {
+     "ebitda": 86.3,
+     "ltm_ebitda": 335.76,
+     "net_debt": 554.94,
+     "leverage": 1.65,
+     "headroom": 177.21
+    },
+    "FY2028 Q4": {
+     "ebitda": 86.3,
+     "ltm_ebitda": 355.2,
+     "net_debt": 521.59,
+     "leverage": 1.47,
+     "headroom": 206.18
+    }
+   },
+   "october_tests": {
+    "Oct 2027": {
+     "net_debt_at_test": 769.68,
+     "ltm_ebitda": 285.12,
+     "leverage": 2.7,
+     "headroom": 65.21,
+     "central_leverage": 2.49,
+     "central_headroom": 88.25
+    },
+    "Oct 2028": {
+     "net_debt_at_test": 647.94,
+     "ltm_ebitda": 335.76,
+     "leverage": 1.93,
+     "headroom": 150.64,
+     "central_leverage": 1.86,
+     "central_headroom": 160.07
+    }
+   },
+   "years": {
+    "FY2027": {
+     "revenue": -87.47,
+     "lost_contribution": -24.97,
+     "service_credits": -2.85,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -37.33,
+     "gonzales_cases_k": 14090.0
+    },
+    "FY2028": {
+     "revenue": 0.0,
+     "lost_contribution": 0.0,
+     "service_credits": 0.0,
+     "stock_written_off": 0.0,
+     "insurance": 10.0,
+     "ebitda": 10.0,
+     "gonzales_cases_k": 19000.0
+    }
+   },
+   "min_commit_shortfall_k": {
+    "FY2027": 910.0,
+    "FY2028": 0.0
+   }
+  },
+  "unexpected": {
+   "retailers_delisting": [
+    "Lakemont"
+   ],
+   "share_of_gonzales_revenue": 0.31,
+   "quarters": {
+    "FY2027 Q1": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4590.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q2": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q3": {
+     "revenue": -35.18,
+     "variable_cost_saved": -25.14,
+     "lost_contribution": -10.04,
+     "service_credits": -1.66,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -21.21,
+     "net_debt_change": 6.4,
+     "cumulative_net_debt_change": 6.4,
+     "gonzales_cases_k": 2839.67,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2027 Q4": {
+     "revenue": -52.29,
+     "variable_cost_saved": -37.36,
+     "lost_contribution": -14.93,
+     "service_credits": -1.19,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -16.12,
+     "net_debt_change": 12.17,
+     "cumulative_net_debt_change": 18.57,
+     "gonzales_cases_k": 1910.33,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q1": {
+     "revenue": -9.35,
+     "variable_cost_saved": -6.68,
+     "lost_contribution": -2.67,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 10.0,
+     "ebitda": 7.33,
+     "net_debt_change": -5.25,
+     "cumulative_net_debt_change": 13.32,
+     "gonzales_cases_k": 4252.11,
+     "fg_cover_days_end": 13.33
+    },
+    "FY2028 Q2": {
+     "revenue": -27.45,
+     "variable_cost_saved": -19.62,
+     "lost_contribution": -7.84,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -7.84,
+     "net_debt_change": 6.05,
+     "cumulative_net_debt_change": 19.37,
+     "gonzales_cases_k": 3288.46,
+     "fg_cover_days_end": 27
+    },
+    "FY2028 Q3": {
+     "revenue": -27.45,
+     "variable_cost_saved": -19.62,
+     "lost_contribution": -7.84,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -7.84,
+     "net_debt_change": 6.13,
+     "cumulative_net_debt_change": 25.5,
+     "gonzales_cases_k": 3288.46,
+     "fg_cover_days_end": 27
+    },
+    "FY2028 Q4": {
+     "revenue": -27.45,
+     "variable_cost_saved": -19.62,
+     "lost_contribution": -7.84,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -7.84,
+     "net_debt_change": 6.21,
+     "cumulative_net_debt_change": 31.71,
+     "gonzales_cases_k": 3288.46,
+     "fg_cover_days_end": 27
+    }
+   },
+   "larkspur": {
+    "FY2027 Q1": {
+     "ebitda": 70.34,
+     "ltm_ebitda": 302.65,
+     "net_debt": 721.67,
+     "leverage": 2.38,
+     "headroom": 96.46
+    },
+    "FY2027 Q2": {
+     "ebitda": 78.35,
+     "ltm_ebitda": 303.57,
+     "net_debt": 696.83,
+     "leverage": 2.3,
+     "headroom": 104.48
+    },
+    "FY2027 Q3": {
+     "ebitda": 58.99,
+     "ltm_ebitda": 285.12,
+     "net_debt": 676.68,
+     "leverage": 2.37,
+     "headroom": 91.78
+    },
+    "FY2027 Q4": {
+     "ebitda": 66.86,
+     "ltm_ebitda": 274.54,
+     "net_debt": 659.87,
+     "leverage": 2.4,
+     "headroom": 86.0
+    },
+    "FY2028 Q1": {
+     "ebitda": 93.63,
+     "ltm_ebitda": 297.83,
+     "net_debt": 622.39,
+     "leverage": 2.09,
+     "headroom": 120.0
+    },
+    "FY2028 Q2": {
+     "ebitda": 78.46,
+     "ltm_ebitda": 297.94,
+     "net_debt": 595.79,
+     "leverage": 2.0,
+     "headroom": 127.72
+    },
+    "FY2028 Q3": {
+     "ebitda": 78.46,
+     "ltm_ebitda": 317.42,
+     "net_debt": 568.83,
+     "leverage": 1.79,
+     "headroom": 154.9
+    },
+    "FY2028 Q4": {
+     "ebitda": 78.46,
+     "ltm_ebitda": 329.02,
+     "net_debt": 541.53,
+     "leverage": 1.65,
+     "headroom": 174.3
+    }
+   },
+   "october_tests": {
+    "Oct 2027": {
+     "net_debt_at_test": 769.68,
+     "ltm_ebitda": 285.12,
+     "leverage": 2.7,
+     "headroom": 65.21,
+     "central_leverage": 2.49,
+     "central_headroom": 88.25
+    },
+    "Oct 2028": {
+     "net_debt_at_test": 661.83,
+     "ltm_ebitda": 317.42,
+     "leverage": 2.09,
+     "headroom": 128.33,
+     "central_leverage": 1.86,
+     "central_headroom": 160.07
+    }
+   },
+   "years": {
+    "FY2027": {
+     "revenue": -87.47,
+     "lost_contribution": -24.97,
+     "service_credits": -2.85,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -37.33,
+     "gonzales_cases_k": 14090.0
+    },
+    "FY2028": {
+     "revenue": -91.71,
+     "lost_contribution": -26.18,
+     "service_credits": 0.0,
+     "stock_written_off": 0.0,
+     "insurance": 10.0,
+     "ebitda": -16.18,
+     "gonzales_cases_k": 14117.5
+    }
+   },
+   "min_commit_shortfall_k": {
+    "FY2027": 910.0,
+    "FY2028": 882.5
+   }
+  },
+  "variant_all_three": {
+   "retailers_delisting": [
+    "Lakemont",
+    "Fairmount",
+    "Callahan"
+   ],
+   "share_of_gonzales_revenue": 0.55,
+   "quarters": {
+    "FY2027 Q1": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4590.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q2": {
+     "revenue": -0.0,
+     "variable_cost_saved": 0.0,
+     "lost_contribution": -0.0,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": 0.0,
+     "net_debt_change": 0.0,
+     "cumulative_net_debt_change": 0.0,
+     "gonzales_cases_k": 4750.0,
+     "fg_cover_days_end": 27
+    },
+    "FY2027 Q3": {
+     "revenue": -35.18,
+     "variable_cost_saved": -25.14,
+     "lost_contribution": -10.04,
+     "service_credits": -1.66,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -21.21,
+     "net_debt_change": 6.4,
+     "cumulative_net_debt_change": 6.4,
+     "gonzales_cases_k": 2839.67,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2027 Q4": {
+     "revenue": -52.29,
+     "variable_cost_saved": -37.36,
+     "lost_contribution": -14.93,
+     "service_credits": -1.19,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -16.12,
+     "net_debt_change": 12.17,
+     "cumulative_net_debt_change": 18.57,
+     "gonzales_cases_k": 1910.33,
+     "fg_cover_days_end": 0.0
+    },
+    "FY2028 Q1": {
+     "revenue": -16.66,
+     "variable_cost_saved": -11.9,
+     "lost_contribution": -4.76,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 10.0,
+     "ebitda": 5.24,
+     "net_debt_change": -3.69,
+     "cumulative_net_debt_change": 14.88,
+     "gonzales_cases_k": 3863.14,
+     "fg_cover_days_end": 27
+    },
+    "FY2028 Q2": {
+     "revenue": -48.9,
+     "variable_cost_saved": -34.94,
+     "lost_contribution": -13.96,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -13.96,
+     "net_debt_change": 10.66,
+     "cumulative_net_debt_change": 25.55,
+     "gonzales_cases_k": 2146.63,
+     "fg_cover_days_end": 27
+    },
+    "FY2028 Q3": {
+     "revenue": -48.9,
+     "variable_cost_saved": -34.94,
+     "lost_contribution": -13.96,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -13.96,
+     "net_debt_change": 10.8,
+     "cumulative_net_debt_change": 36.35,
+     "gonzales_cases_k": 2146.63,
+     "fg_cover_days_end": 27
+    },
+    "FY2028 Q4": {
+     "revenue": -48.9,
+     "variable_cost_saved": -34.94,
+     "lost_contribution": -13.96,
+     "service_credits": -0.0,
+     "stock_written_off": -0.0,
+     "insurance": 0.0,
+     "ebitda": -13.96,
+     "net_debt_change": 10.95,
+     "cumulative_net_debt_change": 47.3,
+     "gonzales_cases_k": 2146.63,
+     "fg_cover_days_end": 27
+    }
+   },
+   "larkspur": {
+    "FY2027 Q1": {
+     "ebitda": 70.34,
+     "ltm_ebitda": 302.65,
+     "net_debt": 721.67,
+     "leverage": 2.38,
+     "headroom": 96.46
+    },
+    "FY2027 Q2": {
+     "ebitda": 78.35,
+     "ltm_ebitda": 303.57,
+     "net_debt": 696.83,
+     "leverage": 2.3,
+     "headroom": 104.48
+    },
+    "FY2027 Q3": {
+     "ebitda": 58.99,
+     "ltm_ebitda": 285.12,
+     "net_debt": 676.68,
+     "leverage": 2.37,
+     "headroom": 91.78
+    },
+    "FY2027 Q4": {
+     "ebitda": 66.86,
+     "ltm_ebitda": 274.54,
+     "net_debt": 659.87,
+     "leverage": 2.4,
+     "headroom": 86.0
+    },
+    "FY2028 Q1": {
+     "ebitda": 91.54,
+     "ltm_ebitda": 295.74,
+     "net_debt": 623.95,
+     "leverage": 2.11,
+     "headroom": 117.47
+    },
+    "FY2028 Q2": {
+     "ebitda": 72.34,
+     "ltm_ebitda": 289.73,
+     "net_debt": 601.97,
+     "leverage": 2.08,
+     "headroom": 117.74
+    },
+    "FY2028 Q3": {
+     "ebitda": 72.34,
+     "ltm_ebitda": 303.09,
+     "net_debt": 579.68,
+     "leverage": 1.91,
+     "headroom": 137.47
+    },
+    "FY2028 Q4": {
+     "ebitda": 72.34,
+     "ltm_ebitda": 308.57,
+     "net_debt": 557.12,
+     "leverage": 1.81,
+     "headroom": 149.39
+    }
+   },
+   "october_tests": {
+    "Oct 2027": {
+     "net_debt_at_test": 769.68,
+     "ltm_ebitda": 285.12,
+     "leverage": 2.7,
+     "headroom": 65.21,
+     "central_leverage": 2.49,
+     "central_headroom": 88.25
+    },
+    "Oct 2028": {
+     "net_debt_at_test": 672.68,
+     "ltm_ebitda": 303.09,
+     "leverage": 2.22,
+     "headroom": 110.89,
+     "central_leverage": 1.86,
+     "central_headroom": 160.07
+    }
+   },
+   "years": {
+    "FY2027": {
+     "revenue": -87.47,
+     "lost_contribution": -24.97,
+     "service_credits": -2.85,
+     "stock_written_off": -9.51,
+     "insurance": 0.0,
+     "ebitda": -37.33,
+     "gonzales_cases_k": 14090.0
+    },
+    "FY2028": {
+     "revenue": -163.36,
+     "lost_contribution": -46.63,
+     "service_credits": 0.0,
+     "stock_written_off": 0.0,
+     "insurance": 10.0,
+     "ebitda": -36.63,
+     "gonzales_cases_k": 10303.04
+    }
+   },
+   "min_commit_shortfall_k": {
+    "FY2027": 910.0,
+    "FY2028": 4696.96
+   }
+  }
+ },
+ "assumptions": [
+  {
+   "value": "Flood dated 12 August 2027, lines down 105 days (restart 25 November)",
+   "why": "Week 3 S2 date and the midpoint of its 60-150 day range; the co-packer would know",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "No spare capacity after restart: the buffer is not rebuilt in the expected path",
+   "why": "Central projection has Gonzales full from Q2 FY2027",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Staged stock (14 days) written off in full at variable cost; tooling damage not priced",
+   "why": "Week 3 high basis; whether stock at a co-packer is insured is not in the summary",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Service credits on all Beverage invoices to the three retailers, scaled to central-projection Beverage revenue",
+   "why": "Week 3 high basis; SLA 6.2 says affected-PO invoices",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Contingent BI pays its $10.0M limit, settled and paid in Q1 FY2028, recognised in adjusted EBITDA then",
+   "why": "Limit and wait are RECORD; timing and add-back are ours; Treasurer and coverage counsel to confirm",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Lakemont decides at the February 2028 joint business plan review; Gonzales lines off shelf from 1 March 2028 for 12 months",
+   "why": "February review is RECORD (SLA Schedule 6-A); the decision and its length are ours",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Each retailer's Beverage buying is 60% Gonzales lines; Lakemont is 30.8% of Gonzales revenue",
+   "why": "Week 3 assumption; no customer-by-line split in the pack",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Fixed cost does not fall with lost volume; lost sales are not recovered elsewhere",
+   "why": "Conservative; the President, Beverage could say if other retailers would take the volume",
+   "label": "ASSUMPTION"
+  },
+  {
+   "value": "Cash: lost contribution after 25% tax, interest at 7% on the extra debt; stock write-off is non-cash",
+   "why": "Consistent with the central projection's cash rules",
+   "label": "ASSUMPTION"
+  }
+ ],
+ "not_priced": [
+  "Damage to Larkspur-owned filler tooling (value not in the pack)",
+  "Expediting and alternative sourcing during the stop",
+  "Shortfall against the 15.0M case minimum, invoiced at the Schedule 4 standby rate (rate not in the pack)",
+  "Brand damage beyond the delisting retailer; the $18.5M launch investment at a retailer that drops the line",
+  "Refinancing terms: the revolver matures in December 2027, one month after restart"
+ ],
+ "check": [
+  {
+   "item": "Days of Gonzales demand lost",
+   "main": 92.0,
+   "check": 92.0,
+   "agree": true
+  },
+  {
+   "item": "Lakemont delisting, FY2028 contribution lost $M",
+   "main": 26.18,
+   "check": 26.18,
+   "agree": true
+  }
+ ]
+}
